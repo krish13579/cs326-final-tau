@@ -7,9 +7,9 @@ Tau
 Ride Buddy
 
 ## **Team Overview:**
-Kabir Israni- KabirIsraniUmass
-Maahi Goel  - maahigoel
-Krish Malhotra - Krish13579
+Kabir Israni- KabirIsraniUmass\
+Maahi Goel  - maahigoel\
+Krish Malhotra - Krish13579\
 
 https://github.com/krish13579/cs326-final-tau
 
