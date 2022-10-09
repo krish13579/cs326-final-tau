@@ -3,7 +3,7 @@
 (**Team name:**) 
 Tau
 
-(**Application name: **) 
+(**Application name:**) 
 Ride Buddy
 
 (**Team Overview:**) 
@@ -32,10 +32,10 @@ These locations could stretch from on-campus points of interest to near by citie
 Streamlined Messaging Platform:
 Allow users to speak with each other before agreeing to a rideshare to make sure they feel comfortable with each other. This helps protect your contact information from potentially suspicious users. It also provides a level of safety where users can ask questions and conduct due diligence. Also allows people to share additional information about the ride. 
 
-(**Event Setting : **) 
+(**Event Setting:**) 
 Drivers can set up various different kinds of events, From rides to boston during the day to even night time rides to certain events, allowing potential users to waive high charge uber and lyft costs and an easier ride back to campus. Once events are created and published they will show up on the rider end of the website and will be grouped into various categories such as time, location, and date allowing riders to look at potential matches and maybe even come up with new plans that match these rides. Providing a streamlined process for looking at events and making matches. 
 
-(** Requests : **) 
+(**Requests :**) 
 If a user doesn't find an event that suits them, there will be a form they can fill out to set up a request to be placed in a list that will be available to drivers to choose from. 
 
 
