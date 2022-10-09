@@ -29,7 +29,7 @@ On the rider side the event shows up and they have a filter to look for events t
 These locations could stretch from on-campus points of interest to near by cities like Boston.
 
 ## **Important Components:**
-Streamlined Messaging Platform:
+**Streamlined Messaging Platform:**
 Allow users to speak with each other before agreeing to a rideshare to make sure they feel comfortable with each other. This helps protect your contact information from potentially suspicious users. It also provides a level of safety where users can ask questions and conduct due diligence. Also allows people to share additional information about the ride. 
 
 **Event Setting:**
