@@ -1,0 +1,32 @@
+header {
+    background-color: #0a014f;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+footer {
+    background-color: #0a014f;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+nav {
+    float: left;
+    width: 10%;
+    background: #f90768;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
