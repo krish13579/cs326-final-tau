@@ -17,13 +17,12 @@ section{
 nav {
     float: left;
     width: 10%;
-    background: #0077b6;
     padding: 20px;
 }
 
 nav ul {
     text-align: left;
-    color: white; 
+    color: black; 
     font-family: 'Open Sans', sans-serif;
     font-size: 20px; 
     font-weight: 300; 
@@ -31,6 +30,32 @@ nav ul {
     margin: 0 0 72px; 
     list-style-type: none;
     padding: 0;
+}
+
+.coolText {
+    color: black; 
+    font-weight: bold; 
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px; 
+    font-weight: 300; 
+    line-height: 10px;
+    list-style-type: none;
+}
+
+.coolBox{
+	padding: 0px;
+    margin-top: 10px;
+    width: fit-content;
+	font-size: large;
+	color: white;
+	font-weight: bold;
+	border-style: solid;
+	border-color: #0077b6;
+	border-width: thin;
+}
+
+.coolBox:hover{
+    background-color: #0077b6;
 }
 
 
@@ -46,13 +71,11 @@ article {
     grid-auto-flow: row;
   }
   
-.viewRides { 
-    background-color: #caf0f8;
+.viewRides {
     grid-area: 1 / 1 / 2 / 3; 
 }
   
 .requestRides { 
-    background-color: #caf0f8;
     grid-area: 1 / 2 / 2 / 3; 
 }
   
@@ -62,4 +85,23 @@ footer {
     padding: 10px;
     text-align: center;
     color: white;
+}
+
+table {
+    border:1px dashed #009193;
+    border-collapse:collapse;
+    padding:7px;
+}
+table th {
+    border:1px dashed #009193;
+    padding:7px;
+    background: #009193;
+    color: #ffffff;
+}
+table td {
+    border:1px dashed #009193;
+    text-align:center;
+    padding:7px;
+    background: #ffffff;
+    color: #313030;
 }
