@@ -35,9 +35,27 @@ nav ul {
 
 
 article {
-    background-color: #caf0f8;
     overflow: hidden;
 }
+
+.container {  
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 1fr;
+    gap: 0px 15px; 
+    grid-auto-flow: row;
+  }
+  
+.viewRides { 
+    background-color: #caf0f8;
+    grid-area: 1 / 1 / 2 / 3; 
+}
+  
+.requestRides { 
+    background-color: #caf0f8;
+    grid-area: 1 / 2 / 2 / 3; 
+}
+  
 
 footer {
     background-color: #03045e;
