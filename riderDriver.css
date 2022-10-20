@@ -187,5 +187,27 @@ table td {
 	position:relative;
 	top:1px;
 }
-
+.prf-row {
+    display: flex;
+  }
+.prf-column {
+    float: left;
+    text-align: left;
+}
+.prf-column-left{
+    text-align: left;
+    align-items:flex-start;
+    float: left
+}
+.prf-fields{
+    text-align: left;
+}
   
+  .prf-left {
+    width: 25%;
+    text-align: left;
+  }
+  
+  .prf-right {
+    width: 75%;
+  }
