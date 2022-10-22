@@ -31,5 +31,5 @@
 <img width="905" alt="Screen Shot 2022-10-22 at 4 39 27 PM" src="https://user-images.githubusercontent.com/67108579/197361547-27f72072-ae8d-4e2e-9b43-c6b769565b6a.png">
 
 ### RIDERS DASHBOARD - DRIVERS DASHBOARD - PROFILE (NAVBAR FUNCTIONALITY)
-<img width="888" alt="Screen Shot 2022-10-22 at 4 41 20 PM" src="https://user-images.githubusercontent.com/67108579/197361589-0fb9c6cb-50b7-4306-9f3e-3128f43c6474.png">
+<img width="888" alt="Screen Shot 2022-10-22 at 4 41 20 PM" src="https://user-images.githubusercontent.com/67108579/197361589-0fb9c6cb-50b7-4306-9f3e-3128f43c6474.png"> 
 
