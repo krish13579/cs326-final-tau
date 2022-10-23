@@ -33,3 +33,39 @@
 ### RIDERS DASHBOARD - DRIVERS DASHBOARD - PROFILE (NAVBAR FUNCTIONALITY)
 <img width="888" alt="Screen Shot 2022-10-22 at 4 41 20 PM" src="https://user-images.githubusercontent.com/67108579/197361589-0fb9c6cb-50b7-4306-9f3e-3128f43c6474.png"> 
 
+# Breakdown of work
+
+### Kabir Israni:
+1)Find Riders Interface (HTML and CSS)
+    Look at the requested rides
+    Create and publish new rides
+2)Find Drivers Interface (HTML and CSS)
+    Look and select published rides
+    Request a ride
+
+### Krish Malhotra:
+1)Messages interface (HTML and CSS)
+    Contact selected rides drivers
+    Contact offered rides riders
+2)Your rides (HTML and CSS)
+    View your selected rides
+    View your offered drives
+
+### Maahi Goel:
+1)Profile Page (HTML and CSS)
+    Generic Profile Page View
+2)Wire Frame 
+    Design for each page
+    Wireframe prototype 
+    Markdown submission file 
+    
+    
+# Data Interactions 
+Streamlined Messaging Platform: Allow users to speak with each other before agreeing to a rideshare to make sure they feel comfortable with each other. This helps protect your contact information from potentially suspicious users. It also provides a level of safety where users can ask questions and conduct due diligence. Also allows people to share additional information about the ride.
+
+Event Setting: Drivers can set up various different kinds of events, From rides to boston during the day to even night time rides to certain events, allowing potential users to waive high charge uber and lyft costs and an easier ride back to campus. Once events are created and published they will show up on the rider end of the website and will be grouped into various categories such as time, location, and date allowing riders to look at potential matches and maybe even come up with new plans that match these rides. Providing a streamlined process for looking at events and making matches.
+
+Requests: If a user doesn't find an event that suits them, there will be a form they can fill out to set up a request to be placed in a list that will be available to drivers to choose from.
+
+Filtering: After selecting the event they prefer, users can filter drivers by location, gender, school year, seats available, and car type. For example, if a student has luggage to take to Boston airport, the user can filter drivers with SUVs to help streamline the search process. They can filter based on a certain gender and age to ensure a more secure aspect for some riders.
+
