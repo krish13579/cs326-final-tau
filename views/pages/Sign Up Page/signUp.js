@@ -25,9 +25,10 @@ if(email.indexOf("@") === -1){
     return;
 }
 
-let newUser = {"firstName" : first, "lastName": last, "birthday": birth, "email": email, "password": pass};
+let newUser = {"firstName" : first, "lastName": last, "birthday": birth, "email": email, "password": pass,"ridesList" : [], "drivesList": []};
 
 alert("SUCCESS");
+
 
 }
 
