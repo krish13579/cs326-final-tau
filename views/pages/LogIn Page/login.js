@@ -1,23 +1,27 @@
 
-document.getElementById("submit").addEventListener("click", isExistingUser);
+document.getElementById("submit").addEventListener("click", () => {
+    if(isExistingUser()){
+        window.location.href = "../Find Riders Page/findRiders.html";
+    }});
 
 function isExistingUser(){
     let username = document.getElementById("Username").value;
     let password = document.getElementById("Password").value;
 
-
     if(username.length === 0 || password.length === 0){
         alert("Please enter a username and password to login");
-        return;
+        return false;
     }
    
     const usersList = verify();
 
     if(usersList.hasOwnProperty(username) && usersList[username]==password){
-        alert("SUCCESS");
+        // alert("SUCCESS");
+        return true;
     }
     else{
         alert("Invalid username or password. Please try again or sign up!")
+        return true;
     }
     
     
