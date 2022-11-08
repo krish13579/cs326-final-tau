@@ -6,9 +6,6 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/login Page/login'))
-  .get('/', function(req, res) {
-    res.send("Hey there! Thanks for visting the site! Be sure to <a href='/views/pages/login Page/login'>login</a>!");
-    })
+  .get('/', (req, res) => res.render('pages/index'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
   
