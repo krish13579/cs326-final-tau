@@ -8,7 +8,7 @@ express()
   .set('view engine', 'ejs')
   // .get('/', (req, res) => {
   //   res.send('Hello World!')
-  // })
+  // }) 
   .get('/', (req, res) => res.render('views/pages/logIn Page/login')) 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
   
