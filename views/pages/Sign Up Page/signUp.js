@@ -1,4 +1,3 @@
-
 document.getElementById("submit").addEventListener("click", () => {
     if(validateInfo()){
         window.location.href = "../Login Page/login.html";
