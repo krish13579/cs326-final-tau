@@ -7,7 +7,7 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
-    res.render('views/pages/logIn Page/login')
+    res.render('/pages/index')
   }) 
   // .get('/', (req, res) => res.render('views/pages/logIn Page/login')) 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
