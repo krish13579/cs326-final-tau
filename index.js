@@ -8,7 +8,7 @@ var server = http.Server(app);
 app.use(express.static('client'));
 
 server.listen(PORT, function() {
-  console.log('Chat server running');
+  console.log('app server running');
 });
 
 var io = require('socket.io')(server);
