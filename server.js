@@ -10,6 +10,9 @@ const ridesFile = './rides.json';
 let users = [];
 let rides = [];
 
+app.get('/views/pages/login Page/login.html', (req, res) => {
+    res.render('login.html');
+});
 // MAKE SURE TO CALL THIS FUNCTION SOMEWHERE
 function reload(filename1, filename2) {
   /*
