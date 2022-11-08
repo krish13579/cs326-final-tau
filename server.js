@@ -35,8 +35,6 @@ function createUser(u, response) {
     let nUser = JSON.parse(u);
     /*
     users.push(nUser);
-   
-
     fs.writeFileSync(JSONfile, JSON.stringify(users), (err) => {
         console.log("Error in writing file")
 });
@@ -170,11 +168,7 @@ function getAllDrives(response){
             seatsOffered: Math.floor(Math.random() * 3)};
         rideData.push(JSON.stringify(temp));
     }
-
-
     response.write(JSON.stringify(rideData));
-    
-    
 }
 
 
@@ -220,9 +214,8 @@ server.on('request', async (request, response) => {
         response.write("no command found.");
         return;
     }
-        
-
     response.end();
 });
 server.listen(8080);
 reload(userFile,ridesFile);
+export {verifyUser}

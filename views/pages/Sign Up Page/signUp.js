@@ -37,7 +37,7 @@ alert("SUCCESS");
 function sendServer(nUser) {
 
     let Json = JSON.stringify(nUser);
-
+    
 
 
 

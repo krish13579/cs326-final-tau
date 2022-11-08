@@ -1,3 +1,4 @@
+import {verifyUser} from "../../../server.js";
 
 document.getElementById("submit").addEventListener("click", () => {
     if (isExistingUser()) {
@@ -17,7 +18,7 @@ function isExistingUser() {
         return false;
     }
 
-    const usersList = verify();
+    const usersList = verifyUser();
 
     if (usersList.hasOwnProperty(username) && usersList[username] == password) {
         // alert("SUCCESS");
@@ -38,7 +39,6 @@ function verify() {
     // }else{
     //     alert("error getting data from server")
     // }
-    let users = { "maahig": "password", "krishM": "password123", "kabirI": "password0" };
-    return users;
+    
 
 }
