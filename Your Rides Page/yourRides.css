@@ -53,3 +53,19 @@ grid-template-areas:
 }
 .content { grid-area: content; }
 .article { grid-area: article; }
+
+.driver{
+
+}
+
+.rider{
+
+}
+
+.driverHeading{
+
+}
+
+.riderHeading{
+
+}
