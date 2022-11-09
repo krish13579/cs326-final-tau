@@ -17,7 +17,9 @@ const app = express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/views/pages/Find%20Drivers%20Page/findDrivers', (req, res) => res.render('pages/Find Drivers Page/findDrivers'))
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
+  .use('/createUser',router)
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 
 
   router.post("/createUser", (req, res) => {
