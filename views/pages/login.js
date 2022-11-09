@@ -1,4 +1,4 @@
-import {verifyUser} from "../../../server.js";
+import {verifyUser} from "../../server.js";
 
 document.getElementById("submit").addEventListener("click", () => {
     if (isExistingUser()) {
