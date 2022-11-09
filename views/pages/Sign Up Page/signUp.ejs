@@ -46,9 +46,8 @@
     </div>
     <script>
         document.getElementById("submit").addEventListener("click", () => {
-            if (validateInfo()) {
-                 window.location.href = "/views/pages/logIn Page/login";
-            }
+                validateInfo();
+            
         });
         document.getElementById("toLogin").addEventListener("click", () => {
            window.location.href = "/views/pages/logIn Page/login";
@@ -76,15 +75,7 @@ function validateInfo() {
         alert("not a valid email address");
         return false;
     }
-   let response = sendServer({name: "hello"});
-
-   if(response === true){
-    alert("Success, you may now log in");
-    return true;
-   }else{
-    alert("registration failed, please try again");
-    return false;
-   }
+  sendServer({name: "hello"});
 
 }
 
@@ -99,10 +90,11 @@ async function sendServer(nUser) {
   });
 
     if(response.ok){
-        alert("ITS WORKING");
-        return true;
+        alert("Succes, you will now be redirected to the login page");
+        window.location.href = "/views/pages/logIn Page/login";
+        
     }else{
-        return false;
+        alert("Sign up failed");
     }
     
     
