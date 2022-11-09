@@ -46,7 +46,7 @@
     <script>
         const u = "user@gmail.com";
 
-        window.onload=setter(u)
+        window.onload = getUserInfo()
         document.getElementById("back").addEventListener("click", () => {
             window.location.href = "/views/pages/Your Rides Page/yourRides";
         });
@@ -54,13 +54,11 @@
             alert("Updated");
         });
         document.getElementById("intro").innerHTML = "Hello "
-        document.getElementById("intro").innerHTML =  document.getElementById("intro").innerHTML + document.getElementById("firstName").value + " " + document.getElementById("lastName").value
+        document.getElementById("intro").innerHTML = document.getElementById("intro").innerHTML + document.getElementById("firstName").value + " " + document.getElementById("lastName").value
         function setter(u) {
-            let userInfo = getUserInfo();
+            let userInfo = u;
             for (let user in userInfo) {
-
                 if (u === userInfo[user].email) {
-                    console.log("test")
                     document.getElementById("firstName").value = userInfo[user].firstName
                     document.getElementById("lastName").value = userInfo[user].lastName
                     document.getElementById("birthday").value = userInfo[user].birthday
@@ -68,21 +66,19 @@
                 }
             }
         }
-        function getUserInfo() {
-            // let response = await fetch(url);
-            // if(response.ok){
-            //     let response2 = await response.json();
-            //     return response2;
-            // }else{
-            //     alert("error getting data from server")
-            // }
-            const users = [{ "firstName": "test", "lastName": "user", "birthday": '2000-11-10', "email": "user@gmail.com" },
-            { "firstName": "X", "lastName": "Y", "birthday": '2000-01-11', "email": "x@gmail.com" },
-            { "firstName": "A", "lastName": "B", "birthday": '2000-01-11', "email": "a@gmail.com" }]
-            return users;
+        async function getUserInfo() {
 
+            let responseR = await fetch('/getUserInformation');
+            if (responseR.ok && responseD.ok) {
+                let response = await responseD.json();
+                let userData = response;
+                setter(userDate);
 
+            } else {
+                alert("error getting data from server")
+            }
         }
+
     </script>
 </body>
 
