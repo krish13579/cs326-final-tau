@@ -39,7 +39,7 @@ app.get('/messageData',(req,res) =>
 
 app.post("/createUser", (req, res) => {
     let u = createUser(req.body);
-    res.send(u.firstName);
+    res.send(u);
   });
 
 
