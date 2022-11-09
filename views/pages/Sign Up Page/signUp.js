@@ -27,10 +27,7 @@ function validateInfo() {
         return false;
     }
 
-let newUser = {"firstName" : first, "lastName": last, "birthday": birth, "email": email, "password": pass};
-
-alert("SUCCESS");
-
+    return true;
 
 }
 
@@ -43,5 +40,8 @@ function sendServer(nUser) {
 
 
 }
+
+
+
 
 
