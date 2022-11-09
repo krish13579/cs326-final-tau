@@ -82,7 +82,7 @@ function reserveSeat(r,response){
 function createUser(u) {
 
     if(u === null){
-        return JSON.stringify({"firstName":yes});
+        return JSON.stringify({firstName:"yes"});
     }
     
     let nUser = JSON.parse(u);
