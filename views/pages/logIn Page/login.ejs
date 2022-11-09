@@ -34,6 +34,8 @@
     <script>
         window.onload = init
         function init(){
+            let username = document.getElementById("Username").value;
+            let pass = document.getElementById("Password").value;
             verify();
         }
         document.getElementById("submit").addEventListener("click", () => {
@@ -45,8 +47,7 @@
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
         function isExistingUser(u) {
-            let username = document.getElementById("Username").value;
-            let pass = document.getElementById("Password").value;
+            
 
             if (username.length === 0 || pass.length === 0) {
                 alert("Please enter a username and password to login");
