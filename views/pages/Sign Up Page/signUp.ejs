@@ -89,11 +89,11 @@ function validateInfo() {
 }
 
 async function sendServer(nUser) {
-    let response = await fetch('https://ridebuddy1.herokuapp.com/createUser', {
+    let response = await fetch('/createUser', {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Accept': ' */*',
+            'Content-Type': 'charset=utf-8'
         },
         body: JSON.stringify(nUser)
     });
