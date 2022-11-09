@@ -53,7 +53,8 @@
         document.getElementById("submit").addEventListener("click", () => {
             alert("Updated");
         });
-        document.getElementById("intro").innerHTML = "Hello "+ document.getElementById("firstName").value + " " + document.getElementById("lastName").value
+        document.getElementById("intro").innerHTML = "Hello "
+        document.getElementById("intro").innerHTML =  document.getElementById("intro").innerHTML + document.getElementById("firstName").value + " " + document.getElementById("lastName").value
         function setter(u) {
             let userInfo = getUserInfo();
             for (let user in userInfo) {
@@ -75,7 +76,7 @@
             // }else{
             //     alert("error getting data from server")
             // }
-            const users = [{ "firstName": "Maahi", "lastName": "Goel", "birthday": '2000-11-10', "email": "maahig@gmail.com" },
+            const users = [{ "firstName": "user", "lastName": "tester", "birthday": '2000-11-10', "email": "user@gmail.com" },
             { "firstName": "X", "lastName": "Y", "birthday": '2000-01-11', "email": "x@gmail.com" },
             { "firstName": "A", "lastName": "B", "birthday": '2000-01-11', "email": "a@gmail.com" }]
             return users;
