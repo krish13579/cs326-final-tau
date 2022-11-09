@@ -20,7 +20,6 @@ const app = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
-  app.post("/createUser", (req, res) => {
-    console.log(req);
+    app.post('/createUser',function (req, res) {  
     res.send("user created ");
-  });
+ });  
