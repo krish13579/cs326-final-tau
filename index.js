@@ -105,7 +105,7 @@ function getUserInformation(response){
         };
         
 
-response.write(JSON.stringify(userObject));
+        return (JSON.stringify(userObject));
 }
 
 
