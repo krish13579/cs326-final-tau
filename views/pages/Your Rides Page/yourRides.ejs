@@ -99,8 +99,8 @@
 
 
     
-    let driveData = JSON.parse(getDriveData());
-    let rideData = JSON.parse(getRidesData());
+    let driveData = getDriveData();
+    let rideData = getRidesData();
 
     for(let i = 0; i<driveData.length; ++i){
         let temp = document.createElement("div");
@@ -130,6 +130,7 @@ async function getRidesData(){
     let response = await fetch('/getBookedRides');
     if(response.ok){
         let response2 = await response.json();
+        
         return response2;
     }else{
         alert("error getting data from server")
