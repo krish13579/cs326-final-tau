@@ -42,9 +42,7 @@ app.post("/createUser", (req, res) => {
     res.send(u);
 });
 app.post("/getUserInformation", (req, res) => {
-  let user = getConnectedUsers()
-  user = user[Math.floor(Math.random()*user.length)]
-  let u = getUserInformation(user, null);
+  let u = getUserInformation("tom@gmail.com", null);
   res.send(u);
 });
 
