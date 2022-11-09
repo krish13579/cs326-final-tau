@@ -37,12 +37,14 @@ app.get('/messageData',(req,res) =>
     res.send(r);
 });
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-  router.post("/createUser", (req, res) => {
+router.post("/createUser", (req, res) => {
     console.log(req);
     res.send("user created ");
   });
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
 
   function getConnectedUsers(u){
     let emails = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];

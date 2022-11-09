@@ -13,13 +13,13 @@
             <header><u>Messages</u></header>
             <div class="containerTwo">
                 <div class="First Name" id="first">
-                    <header>Full Name</header>
+                    <header>First Name</header>
                 </div>
                 <div class="Last Name" id="last">
-                    <header>Email Adress </header>
+                    <header>Last Name </header>
                 </div>
                 <div class="Email" id="email">
-                    <header>Last Contacted On</header>
+                    <header>Email</header>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
         async function getMessageData(){
          let response = await fetch('/messageData');
          if(response.ok){
-            let response2 = await response.json;
+            let response2 = await response.json();
             populate(response2);
          }else{
             alert("error loading data");
