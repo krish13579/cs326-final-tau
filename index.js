@@ -25,6 +25,11 @@ const app = express()
     res.send(r);
 });
 
+app.get('/getOfferedRides',(req,res) =>
+{
+    let r = getOfferedRides(null);
+    res.send(r);
+});
 
   router.post("/createUser", (req, res) => {
     console.log(req);
@@ -52,11 +57,39 @@ function getBookedRides(u){
             numOfSeats: Math.floor(Math.random() * 3),
             bookedUsers: ["bob@gmail.com"]
         };
-        rideData.push(JSON.stringify(temp));
+        rideData.push(temp);
     }
 
     
     return JSON.stringify(rideData);
     
+    
+}
+
+function getOfferedRides(u){
+    let cities = ["New York", "Boston", "Hartford", "Amherst"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let prices = ["$30","$40"];
+    let seats = ["1","2","3"];
+    let users = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+  
+    
+   let rideData = []
+    for(let i = 0; i< 10; ++i){
+        let temp = {
+            rideID: Math.floor(Math.random()*1000),
+            creator: users[Math.floor(Math.random()*users.length)], 
+            type: "offered",
+            origin:cities[Math.floor(Math.random()*cities.length)] , 
+            destination: cities[Math.floor(Math.random()*dates.length)], 
+            date : dates[Math.floor(Math.random()*cities.length)], 
+            price: prices[Math.floor(Math.random()*prices.length)], 
+            numOfSeats: Math.floor(Math.random() * 3),
+            bookedUsers: []
+        };
+        rideData.push(temp);
+    }
+    return JSON.stringify(rideData);
+
     
 }
