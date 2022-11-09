@@ -31,6 +31,12 @@ app.get('/getOfferedRides',(req,res) =>
     res.send(r);
 });
 
+app.get('/messageData',(req,res) =>
+{
+    let r = getConnectedUsers(null);
+    res.send(r);
+});
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
   router.post("/createUser", (req, res) => {
@@ -38,6 +44,37 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
     res.send("user created ");
   });
 
+  function getConnectedUsers(u){
+    let emails = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+    let fNames = ["tommy","timothy","steven","Bruce"];
+    let lNames = ["malhotra","israni","jiminez","patel"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let passwords = ["admin","123","000"];
+    let users = [];
+
+    for(let i = 0; i< 10; ++i){
+        let userObject = {
+            // Constant String
+                "firstName" :fNames[Math.floor(Math.random()*fNames.length)] , 
+                //Constant String
+                "lastName": lNames[Math.floor(Math.random()*lNames.length)], 
+                // Constant Date Object
+                "birthday": dates[Math.floor(Math.random()*cities.length)], 
+                // Constant String
+                "email": emails[Math.floor(Math.random()*emails.length)], 
+                // Constant String
+                "password": passwords[Math.floor(Math.random()*passwords.length)] ,
+            };
+            users.push(userObject);
+    }
+    
+
+return JSON.stringify(users);
+
+  }
+ 
+
+  
 function getBookedRides(u){
     let cities = ["New York", "Boston", "Hartford", "Amherst"];
     let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
