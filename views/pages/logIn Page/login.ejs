@@ -44,7 +44,7 @@
             let username = document.getElementById("Username").value;
             let pass = document.getElementById("Password").value;
 
-            if (username.length === 0 || password.length === 0) {
+            if (username.length === 0 || pass.length === 0) {
                 alert("Please enter a username and password to login");
                 return false;
             }
@@ -52,8 +52,7 @@
             const usersList = u;
             console.log("test")
             for(user in u){
-                if (user[email] == username && user[password] == password) {
-                    // alert("SUCCESS");
+                if (user[email] == username && user[password] == pass) {
                     return true;
                 }
                 else {
