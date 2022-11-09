@@ -8,13 +8,16 @@
 <div class="centered">
     <header>Ride Buddy.</header>
 </div>
-<div class="right">
+<div class="centered">
     <button class="myButton" id="loginButton">LOGIN</button>
-    <script>
-        document.getElementById("loginButton").addEventListener("click", () => {
-            window.location.href = "views/pages/logIn Page/login";
-        });
-    </script>
+    <% if (true) { %>
+        <script>
+            document.getElementById("loginButton").addEventListener("click", () => {
+                window.location.href = "views/pages/logIn Page/login";
+            });
+        </script>
+    <% } %>
+    
 </div>
 
 </html>
