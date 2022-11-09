@@ -68,6 +68,7 @@
             let responseR = await fetch('/getConnectedUsers');
             if (responseR.ok) {
                 let response1 = await responseR.json();
+                console.log(response1)
                 let userData = response1;
                 isExistingUser(userData);
             } else {
