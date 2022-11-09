@@ -63,11 +63,13 @@
 
         }
         async function getUserInfo() {
-            console.log("test")
-            let responseR = await fetch('/getUserInformation');
-            if (responseR.ok) {
-                let res = await responseR.json();
-                setter(res);
+            let res = await fetch('/getUserInformation');
+            if (res.ok) {
+                console.log("test")
+                let respose = await res.json();
+                let user = response
+                setter(user);
+
             } else {
                 alert("error getting data from server")
             }
