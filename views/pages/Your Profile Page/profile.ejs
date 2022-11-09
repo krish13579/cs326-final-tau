@@ -55,13 +55,9 @@
             getUserInfo();
         }
         async function getUserInfo() {
-            let res = await fetch('/getBookedRides');
+            let res = await fetch('/getUserInformation');
             if (res.ok) {
-                console.log("test");
-                let respose =  await res.json();
-                console.log(response)
-                // let user = response;
-                // setter(user);
+                setter(await res.json());
 
             } else {
                 alert("error getting data from server")
