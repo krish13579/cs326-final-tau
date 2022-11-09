@@ -53,8 +53,6 @@
         document.getElementById("toLogin").addEventListener("click", () => {
             window.location.href = "views/pages/logIn Page/login";
         });
-
-        
 function validateInfo() {
 
     let first = document.getElementById("firstName").value;
@@ -93,7 +91,11 @@ async function sendServer(nUser) {
         body: JSON.stringify(nUser)
     });
 
-    
+    if(response.ok){
+        console.log("its working");
+    }else{
+        console.log("its failing");
+    }
     
 
 
