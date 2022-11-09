@@ -84,8 +84,30 @@
 
 
         function init(){
+         getData();
 
-   let mainDiv = document.getElementById("yourRidesDiv");
+      }
+
+      async function getData(){
+
+let responseR = await fetch('/getBookedRides');
+let responseD = await fetch('/getOfferedRides');
+if(responseR.ok && responseD.ok){
+    let response1 = await responseD.json();
+    let response2 = await responseR.json();
+    let riderData = response2;
+    let driverData = response1;
+    populate(driverData,riderData);
+    
+}else{
+    alert("error getting data from server")
+}
+
+
+}
+
+function populate(dd,rd){
+    let mainDiv = document.getElementById("yourRidesDiv");
    let driver = document.createElement("div");
     driver.classList.add("driverHeading");
    let rider = document.createElement("div");
@@ -99,10 +121,9 @@
 
 
     
-    let driveData = getDriveData();
-    let rideData = getRidesData();
-    console.log(driveData);
-    console.log(rideData);
+    let driveData = dd;
+    let rideData = rr;
+    
 
     for(let i = 0; i<driveData.length; ++i){
         let temp = document.createElement("div");
@@ -123,37 +144,13 @@
 
 
 
+
+
 }
 
 
-async function getRidesData(){
 
-    
-    let response = await fetch('/getBookedRides');
-    if(response.ok){
-        let response2 = await response.json();
-        
-        return response2;
-    }else{
-        alert("error getting data from server")
-    }
 
-    
-    
-}
-
-async function getDriveData(){
-    let response = await fetch('/getOfferedRides');
-    if(response.ok){
-        let response2 = await response.json();
-        return response2;
-    }else{
-        alert("error getting data from server")
-    }
-
-    
-
-}
 
 
 
