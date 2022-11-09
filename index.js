@@ -24,6 +24,11 @@ app.get('/getBookedRides', (req, res) => {
   res.send(r);
 });
 
+app.get('/getUserInformation', (req, res) => {
+  let r = getUserInformation(null);
+  res.send(r);
+});
+
 app.get('/getOfferedRides', (req, res) => {
   let r = getOfferedRides(null);
   res.send(r);
@@ -39,10 +44,7 @@ app.post("/createUser", (req, res) => {
   res.send(u);
 });
 
-app.get("/getUserInformation", (req, res) => {
-  let r = getUserInformation(null);
-  res.send(r);
-});
+
 
 
 
@@ -99,7 +101,7 @@ function getUserInformation(u) {
     // Constant String
     "email": emails[Math.floor(Math.random() * emails.length)],
     // Constant String
-    "password": passwords[Math.floor(Math.random() * passwords.length)],
+    "password": passwords[Math.floor(Math.random() * passwords.length)]
   };
 
 
