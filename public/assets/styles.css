@@ -35,6 +35,7 @@ header {
     ;
 }
 .right {
+    text-align: right;
     margin-top: 1px;
     margin-right: 2px;
     position:absolute;
