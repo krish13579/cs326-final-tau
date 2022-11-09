@@ -31,7 +31,6 @@ function setter(u) {
             document.getElementById("email").value = userInfo[user].email
         }
     }
-
 }
 function getUserInfo() {
     // let response = await fetch(url);

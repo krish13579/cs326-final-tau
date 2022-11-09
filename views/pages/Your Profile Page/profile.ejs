@@ -1,53 +1,88 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Profile Page</title>
-        <link href="/public/assets/profile.css" rel="stylesheet" type="text/css" />
-        <script type="module" src="profile.js" defer></script> 
 
-    </head>
-    <body>
-        <br><br><br><br><br><br>
-        <div class="centered">
-            <header>Hello firstName lastName.</header>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder=" First Name" id="firstName"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Last Name" id="lastName"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Birthday" id="birthday" type="date"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Email Address" id="email" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Current Password" id="currentPassword" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="New Password" id="newPassword" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <button class="myButton" id="back">Return to Dashboard</button>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <button class="myButton" id="submit">Change Information</button>
-        </div>
-        <script>
-            document.getElementById("back").addEventListener("click", () => {
-                window.location.href = "/views/pages/Your Rides Page/yourRides";
-            });
-            document.getElementById("submit").addEventListener("click", () => {
-                alert("Updated"); 
-            });
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link href="/public/assets/profile.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="profile.js" defer></script>
+
+</head>
+
+<body>
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header id="intro">Hello firstName lastName.</header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder=" First Name" id="firstName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Last Name" id="lastName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Birthday" id="birthday" type="date" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Email Address" id="email" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Current Password" id="currentPassword" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="New Password" id="newPassword" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="back">Return to Dashboard</button>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <button class="myButton" id="submit">Change Information</button>
+    </div>
+    <script>
+        const u = "user@gmail.com";
+
+        window.onload=setter(u)
+        document.getElementById("back").addEventListener("click", () => {
+            window.location.href = "/views/pages/Your Rides Page/yourRides";
+        });
+        document.getElementById("submit").addEventListener("click", () => {
+            alert("Updated");
+        });
+        document.getElementById("intro").innerHTML("Hello "+ document.getElementById("firstName").value + " " + document.getElementById("lastName").value)
+        function setter(u) {
+            let userInfo = getUserInfo();
+            for (let user in userInfo) {
+
+                if (u === userInfo[user].email) {
+                    console.log("test")
+                    document.getElementById("firstName").value = userInfo[user].firstName
+                    document.getElementById("lastName").value = userInfo[user].lastName
+                    document.getElementById("birthday").value = userInfo[user].birthday
+                    document.getElementById("email").value = userInfo[user].email
+                }
+            }
+        }
+        function getUserInfo() {
+            // let response = await fetch(url);
+            // if(response.ok){
+            //     let response2 = await response.json();
+            //     return response2;
+            // }else{
+            //     alert("error getting data from server")
+            // }
+            const users = [{ "firstName": "Maahi", "lastName": "Goel", "birthday": '2000-11-10', "email": "maahig@gmail.com" },
+            { "firstName": "X", "lastName": "Y", "birthday": '2000-01-11', "email": "x@gmail.com" },
+            { "firstName": "A", "lastName": "B", "birthday": '2000-01-11', "email": "a@gmail.com" }]
+            return users;
+
+
+        }
+    </script>
+</body>
+
 </html>
