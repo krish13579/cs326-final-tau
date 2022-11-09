@@ -75,7 +75,20 @@ function validateInfo() {
         alert("not a valid email address");
         return;
     }
-  sendServer({name: "hello"});
+
+    let userObject = {
+            // Constant String
+                "firstName" :first , 
+                //Constant String
+                "lastName": last, 
+                // Constant Date Object
+                "birthday": birth, 
+                // Constant String
+                "email": email, 
+                // Constant String
+                "password": pass ,
+            };
+  sendServer(userObject);
 
 }
 
@@ -90,7 +103,8 @@ async function sendServer(nUser) {
   });
 
     if(response.ok){
-        alert("Succes, you will now be redirected to the login page");
+        let response2 = await response.json();
+        alert("Welcome " + response2.firstName + ", you will now be redirected to the login page");
         window.location.href = "/views/pages/logIn Page/login";
         
     }else{

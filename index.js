@@ -38,13 +38,25 @@ app.get('/messageData',(req,res) =>
 });
 
 app.post("/createUser", (req, res) => {
-    console.log(req);
-    res.send("user created ");
+    let u = createUser(req.body);
+    res.send(u.firstName);
   });
+
+
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
+function createUser(u) {
+    
+    let nUser = JSON.parse(u);
+    /*
+    users.push(nUser);
+    fs.writeFileSync(JSONfile, JSON.stringify(users), (err) => {
+        console.log("Error in writing file")
+});
+*/
+    return JSON.stringify(nUser);
+}
 
   function getConnectedUsers(u){
     let emails = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
