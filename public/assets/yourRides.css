@@ -55,11 +55,19 @@ grid-template-areas:
 .article { grid-area: article; }
 
 .driver{
-
+border: thin solid black;
+padding: 10px;
+margin: 10px;
+font-family: 'Trebuchet MS', sans-serif;
+font-size: 15px;
 }
 
 .rider{
-
+border: thin solid black;
+padding: 10px;
+margin: 10px;
+font-family: 'Trebuchet MS', sans-serif;
+font-size: 15px;
 }
 
 .yourRidesDiv {
