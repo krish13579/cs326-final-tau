@@ -9,6 +9,7 @@ header {
     background-color: #ffffff;
 }
 
+
 .centered {
     font-family: 'Trebuchet MS', sans-serif;
     display: flex;
@@ -34,6 +35,8 @@ header {
     ;
 }
 .right {
-    text-align: right;
+    margin-top: 1px;
+    margin-right: 2px;
+    position:absolute;
 
 }
