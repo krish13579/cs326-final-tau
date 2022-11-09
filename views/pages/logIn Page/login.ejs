@@ -37,7 +37,6 @@
         window.onload = init
       
         function init(){
-            
             verify();
         }
         document.getElementById("submit").addEventListener("click", () => {
@@ -61,6 +60,7 @@
             console.log(" u: ", u);
 
             for(user in u){
+                console.log("test", user)
                 if (user[email] == username && user[password] == pass) {
                     console.log("test")
                     return true;
@@ -78,6 +78,7 @@
                 let response1 = await responseR.json();
                 console.log(response1)
                 let userData = response1;
+                console.log("user data: ", userData)
                 isExistingUser(userData);
             } else {
                 alert("error getting data from server")
