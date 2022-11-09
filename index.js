@@ -42,9 +42,10 @@ app.post("/createUser", (req, res) => {
     res.send(u);
 });
 
-app.get("/getUserInformation", (req, res) => {
-  let u = getUserInformation(null);
-  res.send(u);
+app.get('/getUserInformation',(req,res) =>
+{
+    let r = getUserInformation(null);
+    res.send(r);
 });
 
 

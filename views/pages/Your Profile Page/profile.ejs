@@ -55,11 +55,11 @@
             getUserInfo();
         }
         async function getUserInfo() {
-            let res = await fetch('/getBookedRides');
+            let res = await fetch('/getUserInformation');
             if (res.ok) {
-                console.log("test")
+                console.log("test");
                 let respose = await res.json();
-                let user = response
+                let user = response;
                 setter(user);
 
             } else {
@@ -68,10 +68,10 @@
         }
         function setter(u) {
             let userInfo = u;
-            document.getElementById("firstName").value = userInfo[firstName]
-            document.getElementById("lastName").value = userInfo[lastName]
-            document.getElementById("birthday").value = userInfo[birthday]
-            document.getElementById("email").value = userInfo[email]
+            document.getElementById("firstName").value = userInfo[firstName];
+            document.getElementById("lastName").value = userInfo[lastName];
+            document.getElementById("birthday").value = userInfo[birthday];
+            document.getElementById("email").value = userInfo[email];
 
         }
         
