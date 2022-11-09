@@ -65,6 +65,7 @@
 
         }
         async function getUserInfo() {
+            console.log("test")
             let responseR = await fetch('/getUserInformation');
             if (responseR.ok) {
                 let res = await responseR.json();
