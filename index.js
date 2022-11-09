@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const router = express.Router();
+
 
 
 const app = express()
@@ -37,7 +37,7 @@ app.get('/messageData',(req,res) =>
     res.send(r);
 });
 
-router.post("/createUser", (req, res) => {
+app.post("/createUser", (req, res) => {
     console.log(req);
     res.send("user created ");
   });
