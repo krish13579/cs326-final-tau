@@ -32,6 +32,10 @@
         <p>Not already a user? <u id="signup">Sign Up</u></p>
     </div>
     <script>
+        window.onload = init
+        function init(){
+            verify();
+        }
         document.getElementById("submit").addEventListener("click", () => {
             if (isExistingUser()) {
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
