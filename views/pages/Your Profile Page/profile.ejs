@@ -55,7 +55,7 @@
             getUserInfo();
         }
         async function getUserInfo() {
-            let res = await fetch('/getUserInformation');
+            let res = await fetch('/getBookedRides');
             if (res.ok) {
                 console.log("test");
                 let respose = await res.json();
