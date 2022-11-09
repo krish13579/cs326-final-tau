@@ -39,12 +39,45 @@ app.get('/messageData',(req,res) =>
 
 app.post("/createUser", (req, res) => {
     let u = createUser(req.body);
-    res.send(u);
+    res.send(JSON.stringify({"firstName":yes}));
   });
 
 
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+function createRide(r){
+    let nRide = JSON.parse(r);
+    return JSON.stringify(nRide);
+
+
+}
+
+function verifyUser(u) {
+    let nUser = JSON.parse(u);
+    return JSON.stringify(nUser);
+
+}
+
+function updateUser(u,response){
+    response.write("user " + u.email + " has been updated");
+}
+
+function requestRide(r, response){
+
+ response.write("ride request" + r.rideID + " has been created");
+}
+
+
+
+function reserveSeat(r,response){
+
+    response.write("seat for ride " + r.rideID +" has been reserved");
+
+
+}
+
+
 
 function createUser(u) {
     
