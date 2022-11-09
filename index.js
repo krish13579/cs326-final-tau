@@ -18,3 +18,9 @@ const app = express()
   .get('/views/pages/Find%20Drivers%20Page/findDrivers', (req, res) => res.render('pages/Find Drivers Page/findDrivers'))
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+
+  app.post("/createUser", (req, res) => {
+    console.log(req);
+    res.send("user created ");
+  });
