@@ -19,6 +19,7 @@ function isExistingUser() {
     }
 
     const usersList = verify();
+    console.log("test")
 
     if (usersList.hasOwnProperty(username) && usersList[username] == password) {
         // alert("SUCCESS");
