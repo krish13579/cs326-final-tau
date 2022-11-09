@@ -63,17 +63,17 @@ function validateInfo() {
 
     if (first.length === 0 || last.length === 0) {
         alert("Name is not filled out");
-        return false;
+        return;
     }
 
     if (pass !== cPass) {
         alert("Password does not match confirmed password");
-        return false;
+        return;
     }
 
     if (email.indexOf("@") === -1) {
         alert("not a valid email address");
-        return false;
+        return;
     }
   sendServer({name: "hello"});
 
