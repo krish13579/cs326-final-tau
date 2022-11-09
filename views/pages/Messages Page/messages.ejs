@@ -12,13 +12,13 @@
         <div class="content">
             <header><u>Messages</u></header>
             <div class="containerTwo">
-                <div class="Name" id="fullName">
+                <div class="First Name" id="first">
                     <header>Full Name</header>
                 </div>
-                <div class="Email" id="email">
+                <div class="Last Name" id="last">
                     <header>Email Adress </header>
                 </div>
-                <div class="Last-Contacted-On" id="lco">
+                <div class="Email" id="email">
                     <header>Last Contacted On</header>
                 </div>
             </div>
@@ -90,6 +90,42 @@
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/views/pages/logIn Page/login";
         });
+
+        window.onload = init;
+
+        function init(){
+            getMessageData();
+        }
+
+        function populate(info){
+            let f = document.getElementById("first");
+            let l = document.getElementById("last")
+            let e = document.getElementById("email");
+
+            for(let i = 0; i<info.length; ++i){
+                let first = document.createElement("div");
+                let last= document.createElement("div");
+                let ema = document.createElement("div");
+                first.textContent = info[i].firstName;
+                last.textContent = info[i].lastName;
+                ema.textContent = info[i].email;
+
+                f.append(first);
+                l.append(last);
+                e.append(ema);
+            }
+        }
+
+        async function getMessageData(){
+         let response = await fetch('/messageData');
+         if(response.ok){
+            let response2 = await response.json;
+            populate(response2);
+         }else{
+            alert("error loading data");
+         }
+        }
+
     </script>
 </body>
 

@@ -10,9 +10,7 @@ const ridesFile = './rides.json';
 let users = [];
 let rides = [];
 
-app.get('/views/pages/login Page/login.html', (req, res) => {
-    res.render('login.html');
-});
+
 // MAKE SURE TO CALL THIS FUNCTION SOMEWHERE
 function reload(filename1, filename2) {
   /*
@@ -68,25 +66,45 @@ function verifyUser(u, response) {
     response.write("<h1> email : " + email + " and password: " + password + " is valid" + " </h1>");
 }
 
-function getRides(u, response){
+function updateUser(u,response){
+    response.write("user " + u.email + " has been updated");
+}
+
+function requestRide(r, response){
+
+ response.write("ride request" + r.rideID + " has been created");
+}
+
+
+
+function reserveSeat(r,response){
+
+    response.write("seat for ride " + r.rideID +" has been reserved");
+
+}
+
+
+function getBookedRides(u, response){
     let cities = ["New York", "Boston", "Hartford", "Amherst"];
     let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
     let prices = ["$30","$40"];
     let seats = ["1","2","3"];
-    let fNames = ["bob","tom","steve","mike","john"];
-    let lNames = ["smith", "stern", "malhotra", "israni"]
+    let users = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+  
     
    let rideData = []
     for(let i = 0; i< 10; ++i){
         let temp = {
             rideID: Math.floor(Math.random()*1000),
-            driverFirstName: fNames[Math.floor(Math.random()*fNames.length)], 
-            driverLastName: lNames[Math.floor(Math.random()*lNames.length)],
+            creator: users[Math.floor(Math.random()*users.length)], 
+            type: "offered",
             origin:cities[Math.floor(Math.random()*cities.length)] , 
             destination: cities[Math.floor(Math.random()*dates.length)], 
             date : dates[Math.floor(Math.random()*cities.length)], 
             price: prices[Math.floor(Math.random()*prices.length)], 
-            seatsOffered: Math.floor(Math.random() * 3)};
+            numOfSeats: Math.floor(Math.random() * 3),
+            bookedUsers: ["bob@gmail.com"];
+        };
         rideData.push(JSON.stringify(temp));
     }
 
@@ -96,6 +114,118 @@ function getRides(u, response){
     
 }
 
+function getOfferedRides(u,response){
+    let cities = ["New York", "Boston", "Hartford", "Amherst"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let prices = ["$30","$40"];
+    let seats = ["1","2","3"];
+    let users = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+  
+    
+   let rideData = []
+    for(let i = 0; i< 10; ++i){
+        let temp = {
+            rideID: Math.floor(Math.random()*1000),
+            creator: users[Math.floor(Math.random()*users.length)], 
+            type: "offered",
+            origin:cities[Math.floor(Math.random()*cities.length)] , 
+            destination: cities[Math.floor(Math.random()*dates.length)], 
+            date : dates[Math.floor(Math.random()*cities.length)], 
+            price: prices[Math.floor(Math.random()*prices.length)], 
+            numOfSeats: Math.floor(Math.random() * 3),
+            bookedUsers: [];
+        };
+        rideData.push(JSON.stringify(temp));
+    }
+
+
+    response.write(JSON.stringify(rideData));
+    
+}
+
+getAllRequestedRides(response){
+    let cities = ["New York", "Boston", "Hartford", "Amherst"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let prices = ["$30","$40"];
+    let seats = ["1","2","3"];
+    let users = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+  
+    
+   let rideData = []
+    for(let i = 0; i< 10; ++i){
+        let temp = {
+            rideID: Math.floor(Math.random()*1000),
+            creator: users[Math.floor(Math.random()*users.length)], 
+            type: "request",
+            origin:cities[Math.floor(Math.random()*cities.length)] , 
+            destination: cities[Math.floor(Math.random()*dates.length)], 
+            date : dates[Math.floor(Math.random()*cities.length)], 
+            price: prices[Math.floor(Math.random()*prices.length)], 
+            numOfSeats: null,
+            bookedUsers: [];
+        };
+        rideData.push(JSON.stringify(temp));
+    }
+
+
+    response.write(JSON.stringify(rideData));
+}
+
+getAllOffereddRides(response){
+    let cities = ["New York", "Boston", "Hartford", "Amherst"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let prices = ["$30","$40"];
+    let seats = ["1","2","3"];
+    let users = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+  
+    
+   let rideData = []
+    for(let i = 0; i< 10; ++i){
+        let temp = {
+            rideID: Math.floor(Math.random()*1000),
+            creator: users[Math.floor(Math.random()*users.length)], 
+            type: "offered",
+            origin:cities[Math.floor(Math.random()*cities.length)] , 
+            destination: cities[Math.floor(Math.random()*dates.length)], 
+            date : dates[Math.floor(Math.random()*cities.length)], 
+            price: prices[Math.floor(Math.random()*prices.length)], 
+            numOfSeats: Math.floor(Math.random() * 3),
+            bookedUsers: [];
+        };
+        rideData.push(JSON.stringify(temp));
+    }
+
+
+    response.write(JSON.stringify(rideData));
+}
+
+function getUserInformation(email,response){
+    let emails = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
+    let fNames = ["tommy","timothy","steven","Bruce"];
+    let lNames = ["malhotra","israni","jiminez","patel"];
+    let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
+    let passwords = ["admin","123","000"];
+
+    let userObject = {
+        // Constant String
+            "firstName" :fNames[Math.floor(Math.random()*fNames.length)] , 
+            //Constant String
+            "lastName": lNames[Math.floor(Math.random()*lNames.length)], 
+            // Constant Date Object
+            "birthday": dates[Math.floor(Math.random()*cities.length)], 
+            // Constant String
+            "email": emails[Math.floor(Math.random()*emails.length)], 
+            // Constant String
+            "password": passwords[Math.floor(Math.random()*passwords.length)] ,
+        };
+        
+
+response.write(JSON.stringify(userObject));
+}
+
+
+
+/*
 function getExactRide(rideID){
     let cities = ["New York", "Boston", "Hartford", "Amherst"];
     let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
@@ -122,7 +252,8 @@ function getExactRide(rideID){
     response.write(JSON.stringify(rideData));
     
 }
-
+*/
+/*
 function getDrives(u, response){
     let cities = ["New York", "Boston", "Hartford", "Amherst"];
     let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
@@ -149,7 +280,8 @@ function getDrives(u, response){
     response.write(JSON.stringify(driveData));
     
 }
-
+*/
+/*
 function getAllDrives(response){
     let cities = ["New York", "Boston", "Hartford", "Amherst"];
     let dates = ["12/08/2022","12/07/2022","12/06/2022","12/05/2022"];
@@ -174,7 +306,7 @@ function getAllDrives(response){
     response.write(JSON.stringify(rideData));
 }
 
-
+*/
 
 
 
