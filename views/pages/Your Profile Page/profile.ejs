@@ -37,12 +37,17 @@
         </div>
         <br><br>
         <div class="centered">
-            <button class="myButton" id="back">Back</button>
+            <button class="myButton" id="back">Return to Dashboard</button>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <button class="myButton" id="submit">Change Information</button>
         </div>
         <script>
-
+            document.getElementById("back").addEventListener("click", () => {
+                window.location.href = "/views/pages/Your Rides Page/yourRides.ejs"; 
+            });
+            document.getElementById("submit").addEventListener("click", () => {
+                alert("Updated"); 
+            });
         </script>
     </body>
 </html>

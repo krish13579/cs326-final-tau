@@ -42,13 +42,16 @@
     </div>
     <br>
     <div class="centered">
-        <p>Already a user? <u>Log In</u></p>
+        <p>Already a user? <u id="toLogin">Log In</u></p>
     </div>
     <script>
         document.getElementById("submit").addEventListener("click", () => {
             if (validateInfo()) {
                 window.location.href = "views/pages/logIn Page/login";
             }
+        });
+        document.getElementById("toLogin").addEventListener("click", () => {
+            window.location.href = "views/pages/logIn Page/login";
         });
 
         
