@@ -33,9 +33,10 @@
     </div>
     <script>
         window.onload = init
+        const username = document.getElementById("Username").value;
+        const pass = document.getElementById("Password").value;
         function init(){
-            let username = document.getElementById("Username").value;
-            let pass = document.getElementById("Password").value;
+            
             verify();
         }
         document.getElementById("submit").addEventListener("click", () => {
