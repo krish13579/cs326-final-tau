@@ -1,46 +1,87 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Sign Up Page</title>
-        <link rel="stylesheet" href="signUp.css" type="text/css">
-        <script type="module" src="signUp.js" defer></script>
-    </head>
-    <body>
-        <br><br><br><br><br><br>
-        <div class="centered">
-            <header>Ride Buddy.</header>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder=" First Name" id="firstName"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Last Name" id="lastName"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Birthday" id="birthday" type="date"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Email Address" id="email" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Password" id="password" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Confirm Password" id="confirmPassword" />
-        </div>
-        <br><br>
-        <div class="centered">
-            <button class="myButton" id="submit">Submit</button>
-        </div>
-        <br>
-        <div class="centered">
-            <p>Already a user? <u>Log In</u></p>
-        </div>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up Page</title>
+    <link href="/public/assets/signUp.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="signUp.js" defer></script>
+</head>
+
+<body>
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder=" First Name" id="firstName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Last Name" id="lastName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Birthday" id="birthday" type="date" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Email Address" id="email" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Password" id="password" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Confirm Password" id="confirmPassword" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="submit">Submit</button>
+    </div>
+    <br>
+    <div class="centered">
+        <p>Already a user? <u>Log In</u></p>
+    </div>
+    <script>
+        document.getElementById("submit").addEventListener("click", () => {
+            if (validateInfo()) {
+                window.location.href = "../Login Page/login.html";
+            }
+        });
+
+        function validateInfo() {
+
+            let first = document.getElementById("firstName").value;
+            let last = document.getElementById("lastName").value;
+            let birth = document.getElementById("birthday").value;
+            let email = document.getElementById("email").value;
+            let pass = document.getElementById("password").value;
+            let cPass = document.getElementById("confirmPassword").value;
+
+            if (first.length === 0 || last.length === 0) {
+                alert("Name is not filled out");
+                return false;
+            }
+
+            if (pass !== cPass) {
+                alert("Password does not match confirmed password");
+                return false;
+            }
+
+            if (email.indexOf("@") === -1) {
+                alert("not a valid email address");
+                return false;
+            }
+
+            let newUser = { "firstName": first, "lastName": last, "birthday": birth, "email": email, "password": pass };
+
+            alert("SUCCESS");
+
+
+        }
+    </script>
+</body>
+
 </html>

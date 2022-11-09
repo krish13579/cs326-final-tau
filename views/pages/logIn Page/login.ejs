@@ -1,37 +1,81 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Login Page</title>
-        <link href="/public/assets/login.css" rel="stylesheet" type="text/css" />
-        <script type="module" src="login.js" defer></script>
 
-    </head>
-    <body>
-        
-        <br><br><br><br><br><br>
-        <div class="centered">
-            <header>Ride Buddy.</header>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Username" id="Username"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <input placeholder="Password" id="Password"/>
-        </div>
-        <br><br>
-        <div class="centered">
-            <button class="myButton" id="submit">Submit</button>
-        </div>
-        <script>
-            document.getElementById("submit").addEventListener("click", () => {
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link href="/public/assets/login.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="login.js" defer></script>
+
+</head>
+
+<body>
+
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Username" id="Username" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Password" id="Password" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="submit">Submit</button>
+    </div>
+
+    <br>
+    <div class="centered">
+        <p>Not already a user? <u id="signup">Sign Up</u></p>
+    </div>
+    <script>
+        document.getElementById("submit").addEventListener("click", () => {
+            if (isExistingUser()) {
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
-            });
-        </script>
-        <br>
-        <div class="centered">
-            <p>Not already a user? <u id="signup">Sign Up</u></p>
-        </div>
-    </body>
+            }
+        });
+        document.getElementById("signup").addEventListener("click", () => {
+            window.location.href = "/views/pages/Sign Up Page/signUp";
+        });
+        function isExistingUser() {
+            let username = document.getElementById("Username").value;
+            let password = document.getElementById("Password").value;
+
+            if (username.length === 0 || password.length === 0) {
+                alert("Please enter a username and password to login");
+                return false;
+            }
+
+            const usersList = verify();
+            console.log("test")
+
+            if (usersList.hasOwnProperty(username) && usersList[username] == password) {
+                // alert("SUCCESS");
+                return true;
+            }
+            else {
+                alert("Invalid username or password. Please try again or sign up!")
+                return true;
+            }
+
+
+        }
+        function verify() {
+            // let response = await fetch(url);
+            // if(response.ok){
+            //     let response2 = await response.json();
+            //     return response2;
+            // }else{
+            //     alert("error getting data from server")
+            // }
+            let u = { "maahig": "password", "krishM": "password123", "kabirI": "password0" };
+            return u;
+
+        }
+    </script>
+</body>
+
 </html>
