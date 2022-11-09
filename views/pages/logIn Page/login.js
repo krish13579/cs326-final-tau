@@ -2,7 +2,7 @@ import {verifyUser} from "../../../server.js";
 
 document.getElementById("submit").addEventListener("click", () => {
     if (isExistingUser()) {
-        window.location.href = "../Find Riders Page/findRiders.html";
+        window.location.href = "../Find Riders Page/findRiders";
     }
 });
 
