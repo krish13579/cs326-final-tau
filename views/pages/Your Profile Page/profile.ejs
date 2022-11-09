@@ -46,34 +46,29 @@
     <script>
         const u = "user@gmail.com";
 
-        window.onload = getUserInfo()
+        window.onload = init()
         document.getElementById("back").addEventListener("click", () => {
             window.location.href = "/views/pages/Your Rides Page/yourRides";
         });
         document.getElementById("submit").addEventListener("click", () => {
             alert("Updated");
         });
-        document.getElementById("intro").innerHTML = "Hello "
-        document.getElementById("intro").innerHTML = document.getElementById("intro").innerHTML + document.getElementById("firstName").value + " " + document.getElementById("lastName").value
+        function init(){
+            getUserInfo();
+        }
         function setter(u) {
             let userInfo = u;
-            for (let user in userInfo) {
-                if (u === userInfo[user].email) {
-                    document.getElementById("firstName").value = userInfo[user].firstName
-                    document.getElementById("lastName").value = userInfo[user].lastName
-                    document.getElementById("birthday").value = userInfo[user].birthday
-                    document.getElementById("email").value = userInfo[user].email
-                }
-            }
+            document.getElementById("firstName").value = userInfo[firstName]
+            document.getElementById("lastName").value = userInfo[lastName]
+            document.getElementById("birthday").value = userInfo[birthday]
+            document.getElementById("email").value = userInfo[email]
+
         }
         async function getUserInfo() {
-
             let responseR = await fetch('/getUserInformation');
-            if (responseR.ok && responseD.ok) {
-                let response = await responseD.json();
-                let userData = response;
-                setter(userDate);
-
+            if (responseR.ok) {
+                let res = await responseR.json();
+                setter(res);
             } else {
                 alert("error getting data from server")
             }

@@ -41,8 +41,9 @@ app.post("/createUser", (req, res) => {
     let u = createUser(null);
     res.send(u);
 });
-app.post("/getUserInformation", (req, res) => {
-  let u = getUserInformation("tom@gmail.com", null);
+app.get("/getUserInformation", (req, res) => {
+  let user = getConnectedUsers(null)
+  let u = getUserInformation(user[email], null);
   res.send(u);
 });
 

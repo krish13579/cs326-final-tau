@@ -1,4 +1,3 @@
-const u = "maahig@gmail.com";
 window.onload = setter(u);
 
 // document.getElementById("fd").addEventListener("click", () => {
@@ -21,34 +20,21 @@ window.onload = setter(u);
 // });
 function setter(u) {
     let userInfo = getUserInfo();
-    for (let user in userInfo) {
-
-        if (u === userInfo[user].email) {
-            console.log("test")
+    
             document.getElementById("firstName").value = userInfo[user].firstName
             document.getElementById("lastName").value = userInfo[user].lastName
             document.getElementById("birthday").value = userInfo[user].birthday
             document.getElementById("email").value = userInfo[user].email
-        }
+      
+}
+async function getUserInfo() {
+    let responseR = await fetch('/getUserInformation');
+    if (responseR.ok) {
+        let res = await responseR.json();
+        setter(res);
+    } else {
+        alert("error getting data from server")
     }
 }
-function getUserInfo() {
-    // let response = await fetch(url);
-    // if(response.ok){
-    //     let response2 = await response.json();
-    //     return response2;
-    // }else{
-    //     alert("error getting data from server")
-    // }
-    const users = [{ "firstName": "Maahi", "lastName": "Goel", "birthday": '2000-11-10', "email": "maahig@gmail.com" },
-    { "firstName": "X", "lastName": "Y", "birthday": '2000-01-11', "email": "x@gmail.com" },
-    { "firstName": "A", "lastName": "B", "birthday": '2000-01-11', "email": "a@gmail.com" }]
-    return users;
-
-
-}
-function changePassword(){
     
-}
-
 
