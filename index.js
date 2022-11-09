@@ -41,6 +41,7 @@ app.post("/createUser", (req, res) => {
     let u = createUser(null);
     res.send(u);
 });
+
 app.get("/getUserInformation", (req, res) => {
   let u = getUserInformation(null);
   res.send(u);
@@ -84,7 +85,7 @@ function reserveSeat(r,response){
 
 }
 
-function getUserInformation(response){
+function getUserInformation(u){
     let emails = ["tom@gmail.com","steve@gmail.com","mike@gmail.com","john@gmail.com"];
     let fNames = ["tommy","timothy","steven","Bruce"];
     let lNames = ["malhotra","israni","jiminez","patel"];
@@ -105,7 +106,7 @@ function getUserInformation(response){
         };
         
 
-        return (JSON.stringify(userObject));
+        return JSON.stringify(userObject);
 }
 
 
