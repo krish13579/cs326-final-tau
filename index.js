@@ -38,9 +38,9 @@ app.get('/messageData',(req,res) =>
 });
 
 app.post("/createUser", (req, res) => {
-    let u = createUser(req.body);
-    res.send(JSON.stringify({"firstName":yes}));
-  });
+    let u = createUser(null);
+    res.send(u);
+});
 
 
 
@@ -80,6 +80,10 @@ function reserveSeat(r,response){
 
 
 function createUser(u) {
+
+    if(u === null){
+        return JSON.stringify({"firstName":yes});
+    }
     
     let nUser = JSON.parse(u);
     /*
