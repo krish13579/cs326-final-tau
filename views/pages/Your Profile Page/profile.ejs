@@ -56,6 +56,7 @@
         }
         async function getUserInfo() {
             let res = await fetch('/getUserInformation');
+            
             if (res.ok) {
                 setter(await res.json());
 
