@@ -43,6 +43,10 @@ app.post("/createUser", (req, res) => {
   let u = createUser(null);
   res.send(u);
 });
+app.get('/getConnectedUsers', (req, res) => {
+  let r = getConnectedUsers(null);
+  res.send(r);
+});
 
 
 

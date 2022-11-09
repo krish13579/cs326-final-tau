@@ -40,39 +40,38 @@
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
-        function isExistingUser() {
+        function isExistingUser(u) {
             let username = document.getElementById("Username").value;
-            let password = document.getElementById("Password").value;
+            let pass = document.getElementById("Password").value;
 
             if (username.length === 0 || password.length === 0) {
                 alert("Please enter a username and password to login");
                 return false;
             }
 
-            const usersList = verify();
+            const usersList = u;
             console.log("test")
-
-            if (usersList.hasOwnProperty(username) && usersList[username] == password) {
-                // alert("SUCCESS");
-                return true;
+            for(user in u){
+                if (user[email] == username && user[password] == password) {
+                    // alert("SUCCESS");
+                    return true;
+                }
+                else {
+                    alert("Invalid username or password. Please try again or sign up!")
+                    return false;
+                }
             }
-            else {
-                alert("Invalid username or password. Please try again or sign up!")
-                return false;
-            }
-
 
         }
-        function verify() {
-            // let response = await fetch(url);
-            // if(response.ok){
-            //     let response2 = await response.json();
-            //     return response2;
-            // }else{
-            //     alert("error getting data from server")
-            // }
-            let u = { "user": "password"};
-            return u;
+        async function verify() {
+            let responseR = await fetch('/getConnectedUsers');
+            if (responseR.ok) {
+                let response1 = await responseR.json();
+                let userData = response1;
+                isExistingUser(userData);
+            } else {
+                alert("error getting data from server")
+            }
  
         }
     </script>
