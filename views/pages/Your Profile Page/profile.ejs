@@ -54,14 +54,6 @@
         function init(){
             getUserInfo();
         }
-        function setter(u) {
-            let userInfo = u;
-            document.getElementById("firstName").value = userInfo[firstName]
-            document.getElementById("lastName").value = userInfo[lastName]
-            document.getElementById("birthday").value = userInfo[birthday]
-            document.getElementById("email").value = userInfo[email]
-
-        }
         async function getUserInfo() {
             let res = await fetch('/getUserInformation');
             if (res.ok) {
@@ -74,6 +66,15 @@
                 alert("error getting data from server")
             }
         }
+        function setter(u) {
+            let userInfo = u;
+            document.getElementById("firstName").value = userInfo[firstName]
+            document.getElementById("lastName").value = userInfo[lastName]
+            document.getElementById("birthday").value = userInfo[birthday]
+            document.getElementById("email").value = userInfo[email]
+
+        }
+        
 
     </script>
 </body>
