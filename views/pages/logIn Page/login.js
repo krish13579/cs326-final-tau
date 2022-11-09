@@ -18,7 +18,7 @@ function isExistingUser() {
         return false;
     }
 
-    const usersList = verifyUser();
+    const usersList = verify();
 
     if (usersList.hasOwnProperty(username) && usersList[username] == password) {
         // alert("SUCCESS");
@@ -39,6 +39,7 @@ function verify() {
     // }else{
     //     alert("error getting data from server")
     // }
-    
+    let u = {"maahig": "password", "krishM": "password123", "kabirI": "password0"};
+    return u;
 
 }
