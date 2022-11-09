@@ -76,8 +76,15 @@ function validateInfo() {
         alert("not a valid email address");
         return false;
     }
-   sendServer({name: "hello"});
+   let response = sendServer({name: "hello"});
+
+   if(response === true){
+    alert("Success, you may now log in");
     return true;
+   }else{
+    alert("registration failed, please try again");
+    return false;
+   }
 
 }
 
@@ -92,10 +99,11 @@ async function sendServer(nUser) {
     });
 
     if(response.ok){
-        console.log("its working");
+        return true;
     }else{
-        console.log("its failing");
+        return false;
     }
+    
     
 
 
