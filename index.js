@@ -113,7 +113,7 @@ function getUserInformation(u) {
     //Constant String
     "lastName": lNames[Math.floor(Math.random() * lNames.length)],
     // Constant Date Object
-    "birthday": dates[Math.floor(Math.random() * cities.length)],
+    "birthday": dates[Math.floor(Math.random() * dates.length)],
     // Constant String
     "email": emails[Math.floor(Math.random() * emails.length)],
     // Constant String
