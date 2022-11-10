@@ -32,7 +32,6 @@ app.get('/getAllOfferedRides', (req, res) => {
   res.send(r);
 });
 
-
 app.get('/getUserInformation', (req, res) => {
   let r = getUserInformation(null);
   res.send(r);
@@ -241,7 +240,7 @@ function getAllRequestedRides() {
       destination: cities[Math.floor(Math.random() * dates.length)],
       date: dates[Math.floor(Math.random() * cities.length)],
       price: prices[Math.floor(Math.random() * prices.length)],
-      numOfSeats: null,
+      numOfSeats: seats[Math.floor(Math.random() * seats.length)],
       bookedUsers: [],
     };
     rideData.push(Jtemp);
