@@ -43,8 +43,8 @@ app.post("/createUser", (req, res) => {
   let u = createUser(null);
   res.send(u);
 });
-app.get('/getConnectedUsers', (req, res) => {
-  let r = getConnectedUsers(null);
+app.get('/verifyUser', (req, res) => {
+  let r = verifyUser(null);
   res.send(r);
 });
 
@@ -147,6 +147,7 @@ function getConnectedUsers(u) {
     };
     users.push(userObject);
   }
+  
 
 
   return JSON.stringify(users);

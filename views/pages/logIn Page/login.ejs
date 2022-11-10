@@ -37,7 +37,7 @@
         window.onload = init
       
         function init(){
-            isExistingUser(verify());
+            verify();
         }
         document.getElementById("submit").addEventListener("click", () => {
             if (isExistingUser()) {
@@ -47,8 +47,7 @@
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
-        function isExistingUser(userData) {
-            console.log(userData)
+        function isExistingUser(u) {
             username = document.getElementById("Username").value;
             pass = document.getElementById("Password").value;
 
@@ -56,30 +55,16 @@
                 alert("Please enter a username and password to login");
                 return false;
             }
-            const usersList = u;
-            console.log(" u: ", usersList);
-
-            for(user in u){
-                console.log("test", user)
-                if (user[email] == username && user[password] == pass) {
-                    console.log("test")
-                    return true;
-
-                }
-            }
-            alert("Invalid username or password. Please try again or sign up!")
-            return false;
+            return true;
                 
 
         }
         async function verify() {
-            let responseR = await fetch('/getConnectedUsers');
+            let responseR = await fetch('/verifyUser');
             if (responseR.ok) {
                 let response1 = await responseR.json();
-                console.log(response1)
                 let userData = response1;
-                console.log("user data: ", userData)
-                return userData;
+                isExistingUser(userData);
             } else {
                 alert("error getting data from server")
             }
