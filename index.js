@@ -213,8 +213,8 @@ function getOfferedRides(u) {
       creator: users[Math.floor(Math.random() * users.length)],
       type: "offered",
       origin: cities[Math.floor(Math.random() * cities.length)],
-      destination: cities[Math.floor(Math.random() * dates.length)],
-      date: dates[Math.floor(Math.random() * cities.length)],
+      destination: cities[Math.floor(Math.random() * cities.length)],
+      date: dates[Math.floor(Math.random() * dates.length)],
       price: prices[Math.floor(Math.random() * prices.length)],
       numOfSeats: Math.floor(Math.random() * 3),
       bookedUsers: []
@@ -269,13 +269,13 @@ function getAllOfferedRides() {
       creator: users[Math.floor(Math.random() * users.length)],
       type: "offered",
       origin: cities[Math.floor(Math.random() * cities.length)],
-      destination: cities[Math.floor(Math.random() * dates.length)],
-      date: dates[Math.floor(Math.random() * cities.length)],
+      destination: cities[Math.floor(Math.random() * cities.length)],
+      date: dates[Math.floor(Math.random() * dates.length)],
       price: prices[Math.floor(Math.random() * prices.length)],
       numOfSeats: Math.floor(Math.random() * 3),
       bookedUsers: [],
     };
-    rideData.push(JSON.stringify(temp));
+    rideData.push(temp);
   }
 
 
