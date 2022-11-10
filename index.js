@@ -104,7 +104,7 @@ function getUserInformation(u) {
   let emails = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
   let fNames = ["tommy", "timothy", "steven", "Bruce"];
   let lNames = ["malhotra", "israni", "jiminez", "patel"];
-  let dates = ["2022/01/11", "2011/01/22", "2022/01/12", "2022/10/10"];
+  let dates = ["2022-01-11", "2011-01-22", "2022-01-12", "2022-10-10"];
   let passwords = ["admin", "123", "000"];
 
   let userObject = {
