@@ -54,12 +54,15 @@
         function init(){
             getUserInfo();
         }
+        let userData = {};
+        
         async function getUserInfo() {
             let res = await fetch('/getUserInformation');
             
             if (res.ok) {
                 let response2 = await res.json();
-                setter(response2);
+                userData = JSON.parse(JSON.stringify(response2));
+                setter(userData);
 
             } else {
                 alert("error getting data from server")
@@ -68,6 +71,7 @@
 
         }
         function setter(u) {
+        console.log(u);
             let userInfo = u;
             document.getElementById("firstName").value = userInfo[firstName];
             document.getElementById("lastName").value = userInfo[lastName];
