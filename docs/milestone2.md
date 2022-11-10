@@ -212,7 +212,7 @@
 ## Division of Labor:  
 
 - Maahi
-	 - JS for Login, Profile, Find Drivers, and Find Riders Pages
+	 - JS for Welcome, Login, Profile, Find Drivers, and Find Riders Pages
 	 - Link Pages Together
 	 - Mark-down file creation
 - Kabir
