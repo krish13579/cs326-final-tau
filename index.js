@@ -55,6 +55,10 @@ app.post("/requestRide", (req, res) => {
   let u = requestRide(null);
   res.send(u);
 });
+app.post("/createRide", (req, res) => {
+  let u = createRide(null);
+  res.send(u);
+});
 app.get('/verifyUser', (req, res) => {
   let r = verifyUser(null);
   res.send(r);
@@ -66,13 +70,11 @@ app.get('/verifyUser', (req, res) => {
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-function createRide(r) {
-  if (r == null) {
-    return
-  }
-  let nRide = JSON.parse(r);
-  return JSON.stringify(nRide);
+function createRide(u) {
+  
+  let nReq = JSON.parse(u);
 
+  return JSON.stringify(nReq);
 
 }
 
@@ -89,7 +91,8 @@ function requestRide(u) {
 
   let nReq = JSON.parse(u);
 
-  return JSON.stringify(nReq);}
+  return JSON.stringify(nReq);
+}
 
 
 

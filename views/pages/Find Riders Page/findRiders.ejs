@@ -82,7 +82,7 @@
             window.location.href = "/views/pages/Find Drivers Page/findDrivers";
         });
         document.getElementById("fr").addEventListener("click", () => {
-            window.location.href = "/views/pages/Find Riders Page/findRiders"; 
+            window.location.href = "/views/pages/Find Riders Page/findRiders";
         });
         document.getElementById("yr").addEventListener("click", () => {
             window.location.href = "/views/pages/Your Rides Page/yourRides";
@@ -96,9 +96,12 @@
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/views/pages/logIn Page/login";
         });
+        document.getElementById("sub").addEventListener("click", () => {
+            validateInfo();
+        });
         window.onload = init
         function init() {
-            
+
             getData();
 
         }
@@ -132,9 +135,55 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-    
+
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
+            }
+        }
+        function validateInfo() {
+
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let date = document.getElementById("date").value;
+            let seats = document.getElementById("numSeats").value;
+            let price = document.getElementById("ppseats").value;
+
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0 || seats.length === 0) {
+                alert("All required fields are not filled out");
+                return;
+            }
+
+            let userObject = {
+                // Constant String
+                "from": from,
+                //Constant String
+                "to": to,
+                // Constant Date Object
+                "date": date,
+                // Constant String
+                "seats": seats,
+                // Constant String
+                "price": price,
+            };
+            sendServer(userObject);
+
+        }
+        async function sendServer(nReq) {
+
+            let response = await fetch('/createRide', {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Your ride has been created!");
+
+            } else {
+                alert("Request failed");
             }
         }
     </script>

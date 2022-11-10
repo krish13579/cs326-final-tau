@@ -97,14 +97,13 @@
             window.location.href = "/views/pages/logIn Page/login";
         });
         document.getElementById("sub").addEventListener("click", () => {
-            console.log("test")
             validateInfo();
         });
         window.onload = init
         function init() {
             getData();
         }
-      
+
         let obj = [];
         async function getData() {
 
@@ -149,7 +148,7 @@
             let price = document.getElementById("idealPrice").value;
             let addInfo = document.getElementById("adInfo").value;
 
-            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0 ) {
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0) {
                 alert("All required fields are not filled out");
                 return;
             }
@@ -186,12 +185,6 @@
             } else {
                 alert("Request failed");
             }
-
-
-
-
-
-
         }
     </script>
 </body>
