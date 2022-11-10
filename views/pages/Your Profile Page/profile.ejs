@@ -58,7 +58,7 @@
             let res = await fetch('/getUserInformation');
             
             if (res.ok) {
-                response2 = await res.json();
+                let response2 = await res.json();
                 setter(response2);
 
             } else {
