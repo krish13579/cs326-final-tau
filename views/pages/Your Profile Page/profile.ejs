@@ -71,14 +71,12 @@
 
         }
         function setter(u) {
-        console.log(u);
-            let userInfo = u;
-            document.getElementById("firstName").value = userInfo[firstName];
-            document.getElementById("lastName").value = userInfo[lastName];
-            document.getElementById("birthday").value = userInfo[birthday];
-            document.getElementById("email").value = userInfo[email];
-            document.getElementById("fn").innerHTML = userInfo[firstName];
-            document.getElementById("ln").innerHTML = userInfo[lastName];
+            document.getElementById("firstName").value = u.firstName;
+            document.getElementById("lastName").value = u.lastName;
+            document.getElementById("birthday").value = u.birthday;
+            document.getElementById("email").value = u.email;
+            document.getElementById("fn").innerHTML = u.firstName;
+            document.getElementById("ln").innerHTML = u.lastName;
 
         }
         
