@@ -40,8 +40,7 @@
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
             }
             else{
-                window.location.href = "/views/pages/logIn Page/login.";
-
+                alert("Please enter a username and password to login");
             }
         });
         document.getElementById("signup").addEventListener("click", () => {
@@ -56,7 +55,6 @@
                 return true;
             }
             else{
-                alert("Please enter a username and password to login");
                 return false;
             }
         }
