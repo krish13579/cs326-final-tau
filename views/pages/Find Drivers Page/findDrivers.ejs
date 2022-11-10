@@ -125,7 +125,7 @@
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
             rider.classList.add("riderHeading");
-            rider.textContent = "All Offered Drives";
+            rider.textContent = "";
             rider.id = "rider";
             mainDiv.append(rider);
             let rideData = rd;
@@ -136,6 +136,8 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
+                console.log(entry)
+                console.log("test: ",  entry.origin)
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
             }
