@@ -108,7 +108,7 @@
             let responseR = await fetch('/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-                let riderData = response2;
+                let riderData = JSON.parse(response2);
                 populate(riderData);
 
             } else {
@@ -166,7 +166,7 @@
             sendServer(userObject);
 
         }
-
+        const obj = 
         async function sendServer(nReq) {
 
             let response = await fetch('/requestRide', {
