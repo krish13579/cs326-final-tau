@@ -103,12 +103,14 @@
         document.getElementById("sub").addEventListener("click", () => {
             validateInfo();
         });
+        let obj = [];
         async function getData() {
 
             let responseR = await fetch('/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-                let riderData = JSON.parse(response2);
+                obj = response2
+                console.log(obj)
                 populate(riderData);
 
             } else {
@@ -166,7 +168,6 @@
             sendServer(userObject);
 
         }
-        const obj = 
         async function sendServer(nReq) {
 
             let response = await fetch('/requestRide', {
