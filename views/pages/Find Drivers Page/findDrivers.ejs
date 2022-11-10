@@ -96,13 +96,14 @@
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/views/pages/logIn Page/login";
         });
+        document.getElementById("sub").addEventListener("click", () => {
+            validateInfo();
+        });
         window.onload = init
         function init() {
             getData();
         }
-        document.getElementById("sub").addEventListener("click", () => {
-            validateInfo();
-        });
+      
         let obj = [];
         async function getData() {
 
