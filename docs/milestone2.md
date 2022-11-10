@@ -1,4 +1,5 @@
-## Data Structure:
+##APIs
+### Data Structure:
 
 	const userObject = {
 
@@ -66,9 +67,9 @@
 
 	};
 
-## Function Structure:
+### Function Structure:
 
-### Post Methods
+#### Post Methods
 
 -   Create User:
     
@@ -185,3 +186,43 @@
 	    
 
 	- Extension Name: /messageData
+
+
+## CLient Side UI
+
+<img width="1440" alt="Screen Shot 2022-11-09 at 10 56 20 PM" src="https://user-images.githubusercontent.com/67108579/200997275-37ac89d2-81d5-4d49-aa32-046844c960d5.png">
+
+### Find Drivers page lists all current riders a user can reserve. This page allows the user to look through available rides based on different criteria. The user can also request a ride if they don't see one that fits their criteria. This can be done through the request form on the right hand side. 
+
+
+<img width="929" alt="Screen Shot 2022-11-09 at 10 59 29 PM" src="https://user-images.githubusercontent.com/67108579/200997448-86c95ac9-4eef-45f6-bced-f5760ff3ff97.png">
+
+### The user can access their personal details in the profiles tab. The user will see their information and can edit their information or change their password on this page. 
+
+<img width="1427" alt="Screen Shot 2022-11-09 at 11 00 28 PM" src="https://user-images.githubusercontent.com/67108579/200997547-e442b2e6-1bb5-4360-b7f5-0fb58e5877ee.png">
+
+### The user can see all their previouslt requested, created, and completed rides on this page. 
+
+<img width="1439" alt="Screen Shot 2022-11-09 at 11 01 09 PM" src="https://user-images.githubusercontent.com/67108579/200997636-be86e369-e8c6-4bd9-b7f6-c8eb58651496.png">
+
+### Find Riders page lists all current requests people have made. This page allows the drivers to look through current requests based on different criteria. The user can also create a ride if have a new opening for a seat on an upcoming trip. This can be done through the request form on the right hand side. 
+
+## Link: https://ridebuddy1.herokuapp.com/
+
+## Division of Labor:  
+
+- Maahi
+	 - JS for Login, Profile, Find Drivers, and Find Riders Pages
+	 - Link Pages Together
+	 - Mark-down file creation
+- Kabir
+	- HTML & CSS of Login, Signup, Your Rides, Profile, Messages, Find Drivers, Find Riders Pages
+	- Set up Heruko Server and Procfile for application
+	- Final Project API Documentation
+- Krish
+	- JS for Signup, Your Rides, and Messages Pages
+	- Set up Server to Implement dummy data
+	- Initial Project API Documentation
+
+
+
