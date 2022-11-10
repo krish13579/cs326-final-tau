@@ -11,7 +11,8 @@
 <body>
     <br><br><br><br><br><br>
     <div class="centered">
-        <header id="intro">Hello firstName lastName.</header>
+        <header id="intro">
+           <div>Hello</div><div id="fn"></div> <div id="fn"></div></header>
     </div>
     <br><br>
     <div class="centered">
@@ -73,6 +74,8 @@
             document.getElementById("lastName").value = userInfo[lastName];
             document.getElementById("birthday").value = userInfo[birthday];
             document.getElementById("email").value = userInfo[email];
+            document.getElementById("fn").innerHTML = userInfo[firstName];
+            document.getElementById("ln").innerHTML = userInfo[lastName];
 
         }
         
