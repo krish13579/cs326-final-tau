@@ -23,6 +23,15 @@ app.get('/getBookedRides', (req, res) => {
   let r = getBookedRides(null);
   res.send(r);
 });
+app.get('/getAllRequestedRides', (req, res) => {
+  let r = getAllRequestedRides(null);
+  res.send(r);
+});
+app.get('/getAllOfferedRides', (req, res) => {
+  let r = getAllOfferedRides(null);
+  res.send(r);
+});
+
 
 app.get('/getUserInformation', (req, res) => {
   let r = getUserInformation(null);
@@ -239,7 +248,7 @@ function getAllRequestedRides() {
   }
 
 
-  response.write(JSON.stringify(rideData));
+  return JSON.stringify(rideData);
 }
 
 function getAllOfferedRides() {
@@ -267,5 +276,5 @@ function getAllOfferedRides() {
   }
 
 
-  response.write(JSON.stringify(rideData));
+  return JSON.stringify(rideData);
 }
