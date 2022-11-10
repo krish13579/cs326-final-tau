@@ -51,6 +51,10 @@ app.post("/createUser", (req, res) => {
   let u = createUser(null);
   res.send(u);
 });
+app.post("/requestRide", (req, res) => {
+  let u = requestRide(null);
+  res.send(u);
+});
 app.get('/verifyUser', (req, res) => {
   let r = verifyUser(null);
   res.send(r);
@@ -81,10 +85,11 @@ function updateUser(u, response) {
   response.write("user " + u.email + " has been updated");
 }
 
-function requestRide(r, response) {
+function requestRide(u) {
 
-  response.write("ride request" + r.rideID + " has been created");
-}
+  let nReq = JSON.parse(u);
+
+  return JSON.stringify(nReq);}
 
 
 

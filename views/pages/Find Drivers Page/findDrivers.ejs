@@ -19,10 +19,10 @@
                 </div>
                 <div class="Request">
                     <header>Request a Ride!</header>
-                    <input placeholder="From Location" id="from" />
-                    <input placeholder="To Location" id="to" />
-                    <input placeholder="Date" id="date" type="date" />
-                    <input placeholder="Ideal Price" id="idealPrice" />
+                    <input placeholder="From Location*" id="from" />
+                    <input placeholder="To Location*" id="to" />
+                    <input placeholder="Date*" id="date" type="date" />
+                    <input placeholder="Ideal Price*" id="idealPrice" />
                     <input placeholder="Additional Information" id="adInfo" />
                     <br><br>
                     <button class="myButton2" id="sub">Submit</button>
@@ -76,7 +76,7 @@
                 </tbody>
             </table>
         </div>
-    </div> 
+    </div>
     <script>
         document.getElementById("fd").addEventListener("click", () => {
             window.location.href = "/views/pages/Find Drivers Page/findDrivers";
@@ -98,11 +98,11 @@
         });
         window.onload = init
         function init() {
-            
             getData();
-
         }
-
+        document.getElementById("sub").addEventListener("click", () => {
+            validateInfo();
+        });
         async function getData() {
 
             let responseR = await fetch('/getBookedRides');
@@ -132,12 +132,66 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-    
+
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
             }
         }
 
+        function validateInfo() {
+
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let date = document.getElementById("date").value;
+            let price = document.getElementById("idealprice").value;
+            let addInfo = document.getElementById("adInfo").value;
+
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0 ) {
+                alert("All fields are not filled out");
+                return;
+            }
+
+            let userObject = {
+                // Constant String
+                "from": first,
+                //Constant String
+                "to": last,
+                // Constant Date Object
+                "date": date,
+                // Constant String
+                "price": price,
+                // Constant String
+                "addInfo": addInfo,
+            };
+            sendServer(userObject);
+
+        }
+
+        async function sendServer(nReq) {
+
+            let response = await fetch('/requestRide', {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Your request has been created. Hang tight as we let the drivers know!");
+                window.location.href = "pages/Find Drivers Page/findDrivers";
+
+            } else {
+                alert("Request failed");
+            }
+
+
+
+
+
+
+        }
     </script>
 </body>
 
