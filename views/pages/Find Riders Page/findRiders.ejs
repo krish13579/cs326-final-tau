@@ -96,6 +96,47 @@
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/views/pages/logIn Page/login";
         });
+        window.onload = init
+        function init() {
+            
+            getData();
+
+        }
+
+        async function getData() {
+
+            let responseR = await fetch('/getBookedRides');
+            if (responseR.ok) {
+                let response2 = await responseR.json();
+                let riderData = response2;
+                populate(riderData);
+
+            } else {
+                alert("error getting data from server")
+            }
+
+
+        }
+
+        function populate(rd) {
+
+            let mainDiv = document.getElementById("avalRides");
+            let rider = document.createElement("div");
+            rider.classList.add("riderHeading");
+            rider.textContent = "";
+            rider.id = "rider";
+            mainDiv.append(rider);
+            let rideData = rd;
+
+            for (let i = 0; i < rideData.length; ++i) {
+                let temp = document.createElement("div");
+                temp.classList.add("rider");
+                let entry = rideData[i];
+    
+                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
+                rider.append(temp);
+            }
+        }
     </script>
 </body>
 
