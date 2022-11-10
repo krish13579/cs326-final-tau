@@ -137,8 +137,8 @@
                 temp.classList.add("rider");
                 let entry = rideData[i];
                 console.log(entry)
-                console.log("test: ",  entry.origin)
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
+                console.log("test: ",  entry["origin"])
+                temp.textContent = "Origin: " + entry["origin"] + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
             }
         }
