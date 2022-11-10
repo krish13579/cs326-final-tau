@@ -148,22 +148,17 @@
             let seats = document.getElementById("numSeats").value;
             let price = document.getElementById("ppseats").value;
 
-            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0 || seats.length === 0) {
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price === null || seats === null) {
                 alert("All required fields are not filled out");
                 return;
             }
 
             let userObject = {
-                // Constant String
                 "from": from,
-                //Constant String
                 "to": to,
-                // Constant Date Object
                 "date": date,
-                // Constant String
                 "seats": seats,
-                // Constant String
-                "price": price,
+                "price": price
             };
             sendServer(userObject);
 
