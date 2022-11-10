@@ -105,7 +105,7 @@
         });
         async function getData() {
 
-            let responseR = await fetch('/getBookedRides');
+            let responseR = await fetch('/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
                 let riderData = response2;
