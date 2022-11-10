@@ -244,7 +244,7 @@ function getAllRequestedRides() {
       numOfSeats: null,
       bookedUsers: [],
     };
-    rideData.push(JSON.stringify(temp));
+    rideData.push(Jtemp);
   }
 
 

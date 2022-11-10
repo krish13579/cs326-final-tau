@@ -109,7 +109,6 @@
             if (responseR.ok) {
                 let response2 = await responseR.json();
                 let riderData = response2;
-                console.log("test reaches response is ok")
                 populate(riderData);
 
             } else {
@@ -120,7 +119,6 @@
         }
 
         function populate(rd) {
-            console.log("test reaches populate")
 
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
@@ -131,14 +129,11 @@
             let rideData = rd;
 
             for (let i = 0; i < rideData.length; ++i) {
-                console.log("test reaches for loop")
-
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-                console.log(entry)
-                console.log("test: ",  entry["origin"])
-                temp.textContent = "Origin: " + entry["origin"] + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
+    
+                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
             }
         }
