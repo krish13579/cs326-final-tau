@@ -37,7 +37,7 @@
         window.onload = init
       
         function init(){
-            verify();
+            isExistingUser(verify());
         }
         document.getElementById("submit").addEventListener("click", () => {
             if (isExistingUser()) {
@@ -47,7 +47,8 @@
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
-        function isExistingUser(u) {
+        function isExistingUser(userData) {
+            console.log(userData)
             username = document.getElementById("Username").value;
             pass = document.getElementById("Password").value;
 
@@ -55,9 +56,8 @@
                 alert("Please enter a username and password to login");
                 return false;
             }
-
             const usersList = u;
-            console.log(" u: ", u);
+            console.log(" u: ", usersList);
 
             for(user in u){
                 console.log("test", user)
@@ -79,7 +79,7 @@
                 console.log(response1)
                 let userData = response1;
                 console.log("user data: ", userData)
-                isExistingUser(userData);
+                return userData;
             } else {
                 alert("error getting data from server")
             }
