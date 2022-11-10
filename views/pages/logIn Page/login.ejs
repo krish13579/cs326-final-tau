@@ -36,11 +36,12 @@
         let pass = document.getElementById("Password").value;
     
         document.getElementById("submit").addEventListener("click", () => {
-            if (username.length === 0 || pass.length === 0) {
-                alert("Please enter a username and password to login");
-            }
             if (isExistingUser()) {
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
+            }
+            else{
+                window.location.href = "/views/pages/logIn Page/login.";
+
             }
         });
         document.getElementById("signup").addEventListener("click", () => {
@@ -50,7 +51,14 @@
             username = document.getElementById("Username").value;
             pass = document.getElementById("Password").value;
             let user = u
-            return true;
+
+            if (username.length != 0 || pass.length != 0) {
+                return true;
+            }
+            else{
+                alert("Please enter a username and password to login");
+                return false;
+            }
         }
         async function verify() {
             let responseR = await fetch('/verifyUser');
