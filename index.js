@@ -247,7 +247,7 @@ function getAllRequestedRides() {
       numOfSeats: seats[Math.floor(Math.random() * seats.length)],
       bookedUsers: [],
     };
-    rideData.push(Jtemp);
+    rideData.push(temp);
   }
 
 
