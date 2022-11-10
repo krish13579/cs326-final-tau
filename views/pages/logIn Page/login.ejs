@@ -40,6 +40,9 @@
             verify();
         }
         document.getElementById("submit").addEventListener("click", () => {
+            if (username.length === 0 || pass.length === 0) {
+                alert("Please enter a username and password to login");
+            }
             if (isExistingUser()) {
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
             }
@@ -50,14 +53,8 @@
         function isExistingUser(u) { //currently works with any username and password until we create the database
             username = document.getElementById("Username").value;
             pass = document.getElementById("Password").value;
-
-            if (username.length === 0 || pass.length === 0) {
-                alert("Please enter a username and password to login");
-                return false;
-            }
+            let user = u
             return true;
-                
-
         }
         async function verify() {
             let responseR = await fetch('/verifyUser');
