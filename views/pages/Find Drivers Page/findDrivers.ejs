@@ -120,8 +120,8 @@
 
         }
 
-        function reserveSeat(){
-
+        function reserveSeat(entry){
+            console.log(entry);
         }
 
         function populate(rd) {
@@ -142,6 +142,9 @@
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
+                btn.addEventListener("click", (event) => {
+                    reserveSeat(entry);
+                });
                 temp.appendChild(btn);
                 rider.append(temp);
             }
