@@ -297,16 +297,16 @@ function getOfferedRides(u) {
 //   })
 //   pool.end();
 // }
-async function getAllRequestedRides() {
-  try {
-    const res = await pool.query(
-      `SELECT origin, destination, date, price, seats from rides where type='requested'`
-    );
-    return res.rows[0][data];
-  } catch (err) {
-    return err.stack;
-  }
-}
+// async function getAllRequestedRides() {
+//   try {
+//     const res = await pool.query(
+//       `SELECT origin, destination, date, price, seats from rides where type='requested'`
+//     );
+//     return res.rows[0][data];
+//   } catch (err) {
+//     return err.stack;
+//   }
+// }
 function getAllOfferedRides() {
   let cities = ["New York", "Boston", "Hartford", "Amherst"];
   let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
