@@ -30,8 +30,9 @@ app.get('/getBookedRides', (req, res) => {
   let r = getBookedRides(null);
   res.send(r);
 });
-app.get('/getAllRequestedRides', (req, res) => {
-  let r = getAllRequestedRides(null);
+app.get('/getAllRequestedRides', async (req, res) => {
+  let r = await getAllRequestedRides(null);
+  console.log(r)
   res.send(r);
 });
 app.get('/getAllOfferedRides', (req, res) => {
@@ -126,7 +127,8 @@ function requestRide(u) {
 
   let nReq = JSON.parse(u);
 
-  return JSON.stringify(nReq);}
+  return JSON.stringify(nReq);
+}
 
 
 
@@ -196,7 +198,7 @@ function getConnectedUsers(u) {
     };
     users.push(userObject);
   }
-  
+
 
 
   return JSON.stringify(users);
@@ -263,40 +265,47 @@ function getOfferedRides(u) {
 
 }
 
-function getAllRequestedRides() {
-  let cities = ["New York", "Boston", "Hartford", "Amherst"];
-  let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
-  let prices = ["$30", "$40"];
-  let seats = ["1", "2", "3"];
-  let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
+// function getAllRequestedRides() {
+//   // let cities = ["New York", "Boston", "Hartford", "Amherst"];
+//   // let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
+//   // let prices = ["$30", "$40"];
+//   // let seats = ["1", "2", "3"];
+//   // let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
 
 
-  let rideData = []
-  for (let i = 0; i < 10; ++i) {
-    let temp = {
-      rideID: Math.floor(Math.random() * 1000),
-      creator: users[Math.floor(Math.random() * users.length)],
-      type: "request",
-      origin: cities[Math.floor(Math.random() * cities.length)],
-      destination: cities[Math.floor(Math.random() * cities.length)],
-      date: dates[Math.floor(Math.random() * dates.length)],
-      price: prices[Math.floor(Math.random() * prices.length)],
-      numOfSeats: seats[Math.floor(Math.random() * seats.length)],
-      bookedUsers: [],
-    };
-    rideData.push(temp);
+//   // let rideData = []
+//   // for (let i = 0; i < 10; ++i) {
+//   //   let temp = {
+//   //     rideID: Math.floor(Math.random() * 1000),
+//   //     creator: users[Math.floor(Math.random() * users.length)],
+//   //     type: "request",
+//   //     origin: cities[Math.floor(Math.random() * cities.length)],
+//   //     destination: cities[Math.floor(Math.random() * cities.length)],
+//   //     date: dates[Math.floor(Math.random() * dates.length)],
+//   //     price: prices[Math.floor(Math.random() * prices.length)],
+//   //     numOfSeats: seats[Math.floor(Math.random() * seats.length)],
+//   //     bookedUsers: [],
+//   //   };
+//   //   rideData.push(temp);
+//   // }
+
+//   pool.query(`SELECT origin, destination, date, price, seats from rides where type='requested'`, (error, results) => {
+//     if (err)
+//       throw err;
+//     return (result.rows[0][data]);
+//   })
+//   pool.end();
+// }
+async function getAllRequestedRides() {
+  try {
+    const res = await pool.query(
+      `SELECT origin, destination, date, price, seats from rides where type='requested'`
+    );
+    return res.rows[0][data];
+  } catch (err) {
+    return err.stack;
   }
-  // console.log("test");
-  // pool.query('SELECT * FROM rides', (error, results) => {
-  //   if (error) {
-  //     throw error 
-  //   }
-  //   return response.status(200).json(results.rows);
-  // })
-
-  return JSON.stringify(rideData);
 }
-
 function getAllOfferedRides() {
   let cities = ["New York", "Boston", "Hartford", "Amherst"];
   let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
