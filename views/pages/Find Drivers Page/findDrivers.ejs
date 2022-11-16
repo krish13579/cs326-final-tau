@@ -141,6 +141,7 @@
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
+                btn.classList.add("myButton2");
                 temp.appendChild(btn);
                 rider.append(temp);
             }
