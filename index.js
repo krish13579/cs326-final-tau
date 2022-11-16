@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const { pool } = require('./config')
+const db = require('./queries')
 
 
 
@@ -30,11 +30,12 @@ app.get('/getBookedRides', (req, res) => {
   let r = getBookedRides(null);
   res.send(r);
 });
-app.get('/getAllRequestedRides', async (req, res) => {
-  let r = await getAllRequestedRides(null);
-  console.log(r)
-  res.send(r);
-});
+app.get('/getAllRequestedRides', db.getAllRequestedRides);
+// async (req, res) => {
+//   let r = await getAllRequestedRides(null);
+//   console.log(r)
+//   res.send(r);
+// });
 app.get('/getAllOfferedRides', (req, res) => {
   let r = getAllOfferedRides(null);
   res.send(r);
