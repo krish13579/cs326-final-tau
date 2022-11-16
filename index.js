@@ -289,7 +289,7 @@ function getAllRequestedRides() {
   // }
   pool.query('SELECT * FROM rides where rides.type = `offered`', (error, results) => {
     if (error) {
-      throw error
+      throw error 
     }
     let ridedata = response.status(200).json.stringify(results.rows);
     return json.stringify(ridedata)
