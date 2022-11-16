@@ -1,6 +1,8 @@
+const { json } = require('express')
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
+const { pool } = require('./config')
 
 
 
@@ -20,6 +22,12 @@ const app = express()
 
 
 app.get('/getBookedRides', (req, res) => {
+  // pool.query('SELECT * FROM rides where ', (error, results) => {
+  //   if (error) {
+  //     throw error
+  //   }
+  //   response.status(200).json(results.rows)
+  // }))
   let r = getBookedRides(null);
   res.send(r);
 });
@@ -257,31 +265,37 @@ function getOfferedRides(u) {
 }
 
 function getAllRequestedRides() {
-  let cities = ["New York", "Boston", "Hartford", "Amherst"];
-  let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
-  let prices = ["$30", "$40"];
-  let seats = ["1", "2", "3"];
-  let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
+  // let cities = ["New York", "Boston", "Hartford", "Amherst"];
+  // let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
+  // let prices = ["$30", "$40"];
+  // let seats = ["1", "2", "3"];
+  // let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
 
 
-  let rideData = []
-  for (let i = 0; i < 10; ++i) {
-    let temp = {
-      rideID: Math.floor(Math.random() * 1000),
-      creator: users[Math.floor(Math.random() * users.length)],
-      type: "request",
-      origin: cities[Math.floor(Math.random() * cities.length)],
-      destination: cities[Math.floor(Math.random() * cities.length)],
-      date: dates[Math.floor(Math.random() * dates.length)],
-      price: prices[Math.floor(Math.random() * prices.length)],
-      numOfSeats: seats[Math.floor(Math.random() * seats.length)],
-      bookedUsers: [],
-    };
-    rideData.push(temp);
-  }
+  // let rideData = []
+  // for (let i = 0; i < 10; ++i) {
+  //   let temp = {
+  //     rideID: Math.floor(Math.random() * 1000),
+  //     creator: users[Math.floor(Math.random() * users.length)],
+  //     type: "request",
+  //     origin: cities[Math.floor(Math.random() * cities.length)],
+  //     destination: cities[Math.floor(Math.random() * cities.length)],
+  //     date: dates[Math.floor(Math.random() * dates.length)],
+  //     price: prices[Math.floor(Math.random() * prices.length)],
+  //     numOfSeats: seats[Math.floor(Math.random() * seats.length)],
+  //     bookedUsers: [],
+  //   };
+  //   rideData.push(temp);
+  // }
+  pool.query('SELECT * FROM rides where rides.type = `offered`', (error, results) => {
+    if (error) {
+      throw error
+    }
+    let ridedata = response.status(200).json.stringify(results.rows);
+    return json.stringify(ridedata)
+  })
 
-
-  return JSON.stringify(rideData);
+  // return JSON.stringify(rideData);
 }
 
 function getAllOfferedRides() {
