@@ -287,12 +287,12 @@ function getAllRequestedRides() {
   //   };
   //   rideData.push(temp);
   // }
-  pool.query('SELECT * FROM rides where rides.type = `offered`', (error, results) => {
+  console.log("test");
+  pool.query('SELECT * FROM rides', (error, results) => {
     if (error) {
       throw error 
     }
-    let ridedata = response.status(200).json.stringify(results.rows);
-    return json.stringify(ridedata)
+    return response.status(200).json(results.rows);
   })
 
   // return JSON.stringify(rideData);
