@@ -23,11 +23,11 @@
     </div>
     <br><br>
     <div class="centered">
-        <input placeholder="Birthday" name="Birthday" id="birthday" type="date"/>
+        <input placeholder="Birthday" name="Birthday" id="birthday" type="date" />
     </div>
     <br><br>
     <div class="centered">
-        <input placeholder="Email Address" id="email" readonly/>
+        <input placeholder="Email Address" id="email" readonly />
     </div>
     <br><br>
     <div class="centered">
@@ -49,16 +49,16 @@
             window.location.href = "/views/pages/Your Rides Page/yourRides";
         });
         document.getElementById("submit").addEventListener("click", () => {
-            alert("Updated");
+            changeInfo();
         });
-        function init(){
+        function init() {
             getUserInfo();
         }
         let userData = {};
-        
+
         async function getUserInfo() {
             let res = await fetch('/getUserInformation');
-            
+
             if (res.ok) {
                 let response2 = await res.json();
                 userData = JSON.parse(JSON.stringify(response2));
@@ -67,7 +67,7 @@
             } else {
                 alert("error getting data from server")
             }
-         
+
 
         }
         function setter(u) {
@@ -79,62 +79,62 @@
             document.getElementById("ln").innerHTML = u.lastName;
 
         }
-        
+
         function changeInfo() {
 
-let first = document.getElementById("firstName").value;
-let last = document.getElementById("lastName").value;
-let birth = document.getElementById("birthday").value;
-let email = document.getElementById("email").value;
-let pass = document.getElementById("password").value;
-let cPass = document.getElementById("confirmPassword").value;
+            let first = document.getElementById("firstName").value;
+            let last = document.getElementById("lastName").value;
+            let birth = document.getElementById("birthday").value;
+            let email = document.getElementById("email").value;
+            let pass = document.getElementById("password").value;
+            let cPass = document.getElementById("confirmPassword").value;
 
-if (length(pass) > 0 && pass !== cPass) {
-    alert("Password does not match confirmed password");
-    return;
-}
-let userObject = {
-        // Constant String
-            "firstName" :first, 
-            //Constant String
-            "lastName": last, 
-            // Constant Date Object
-            "birthday": birth, 
-            // Constant String
-            "email": email, 
-            // Constant String
-            "password": pass ,
-        };
-sendServer(userObject);
+            if (length(pass) > 0 && pass !== cPass) {
+                alert("Password does not match confirmed password");
+                return;
+            }
+            let userObject = {
+                // Constant String
+                "firstName": first,
+                //Constant String
+                "lastName": last,
+                // Constant Date Object
+                "birthday": birth,
+                // Constant String
+                "email": email,
+                // Constant String
+                "password": pass,
+            };
+            sendServer(userObject);
 
-}
+        }
 
-async function sendServer(nUser) {
-let response = await fetch('/createUser', {
-method: 'POST',
-json: true,
-body: JSON.stringify(nUser),
-headers: {
-'Content-type': 'application/json; charset=UTF-8',
-}
-});
-
-
-if(response.ok){
-    let response2 = await response.json();
-    alert("Welcome, you will now be redirected to the login page");
-    window.location.href = "/views/pages/logIn Page/login";
-    
-}else{
-    alert("Sign up failed");
-}
+        async function sendServer(nUser) {
+            let response = await fetch('/createUser', {
+                method: 'POST',
+                json: true,
+                body: JSON.stringify(nUser),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
 
 
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Welcome, you will now be redirected to the login page");
+                window.location.href = "/views/pages/logIn Page/login";
+
+            } else {
+                alert("Sign up failed");
+            }
 
 
 
 
-}
+
+
+        }
 
     </script>
 </body>
