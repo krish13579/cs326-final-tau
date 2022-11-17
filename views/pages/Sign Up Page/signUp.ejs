@@ -95,7 +95,8 @@ function validateInfo() {
 async function sendServer(nUser) {
    let response = await fetch('/createUser', {
   method: 'POST',
-  body: (nUser),
+  json: true,
+  body: nUser,
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
   }
