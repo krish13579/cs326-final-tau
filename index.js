@@ -24,18 +24,25 @@ const app = express()
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
 
 
-app.get('/getBookedRides', (req, res) => {
-  let r = getBookedRides(null);
-  res.send(r);
-});
+
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
 app.get('/getAllOfferedRides', db.getAllOfferedRides);
 
-app.get('/getUserInformation', (req, res) => {
-  let r = getUserInformation(null);
+app.post("/updateUser", (req, res) => {
+  let u = updateUser(null);
+  res.send(u);
+});
+
+app.get('/getUserInformation/:userid',db.getUserInformation);
+
+
+app.get('/getBookedRides', (req, res) => {
+  let r = getBookedRides(null);
   res.send(r);
 });
+
+
 
 app.get('/getOfferedRides', (req, res) => {
   let r = getOfferedRides(null);
@@ -57,10 +64,7 @@ app.get('/verifyUser', (req, res) => {
   let r = verifyUser(null);
   res.send(r);
 });
-app.post("/updateUser", (req, res) => {
-  let u = updateUser(null);
-  res.send(u);
-});
+
 app.post("/createRide", (req, res) => {
   let u = createRide(null);
   res.send(u);
