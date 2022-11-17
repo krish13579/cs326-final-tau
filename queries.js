@@ -1,4 +1,3 @@
-const { Pool } = require('pg')
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'vsxcthxiaisgiy',
@@ -7,7 +6,6 @@ const pool = new Pool({
   password: 'f9c54a39e2e9d24873f2c2ae11bb997a15f19e1bd12e4d2818fc2e7606c37843',
   port: 5432,
 })
-const client = new Client({   connectionString: process.env.DATABASE_URL,   ssl: {     rejectUnauthorized: false   } });
 
 const getAllRequestedRides = (request, response) => {
   pool.query(`SELECT origin, destination, date, price, seats from rides where type='requested'`, (error, results) => {
