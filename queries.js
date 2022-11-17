@@ -69,7 +69,8 @@ const createUser = async (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send(`User added with ID: ${results.email}`)
+      console.log("works sign up");
+      response.status(201).send(`User added with ID: ${results.email}`);
     })
   }
 }

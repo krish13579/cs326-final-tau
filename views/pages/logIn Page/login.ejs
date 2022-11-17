@@ -36,35 +36,37 @@
         let pass = document.getElementById("Password").value;
     
         document.getElementById("submit").addEventListener("click", () => {
-            if (isExistingUser()) {
-                window.location.href = "/views/pages/Your Rides Page/yourRides";
-            }
-            else{
-                alert("Please enter a username and password to login");
-            }
+            // if (isExistingUser()) {
+            //     window.location.href = "/views/pages/Your Rides Page/yourRides";
+            // }
+            // else{
+            //     alert("Please enter a username and password to login");
+            // }
+            verify();
         });
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
-        function isExistingUser(u) { //currently works with any username and password until we create the database
-            username = document.getElementById("Username").value;
-            pass = document.getElementById("Password").value;
+        // function isExistingUser(u) { //currently works with any username and password until we create the database
+        //     username = document.getElementById("Username").value;
+        //     pass = document.getElementById("Password").value;
 
-            if (username.length != 0 && pass.length != 0) {
-                return verify();
-            }
-            else{
-                return false;
-            }
-        }
+        //     if (username.length != 0 && pass.length != 0) {
+        //         return true;
+        //     }
+        //     else{
+        //         return false;
+        //     }
+        // }
         async function verify() {
             let responseR = await fetch('/verifyUser');
             if (responseR.ok) {
                 let response1 = await responseR.json();
                 let userData = response1;
-                isExistingUser(userData);
+                // let {userid} = response1.body;
+                window.location.href = "/views/pages/Your Rides Page/yourRides";
             } else {
-                alert("error getting data from server")
+                alert("UserID or password did not match our records. Please try again or sign up!")
             }
  
         }

@@ -103,6 +103,7 @@ async function sendServer(nUser) {
   });
     if(response.ok){
         let response2 = await response.json();
+        console.log("recieved user");
         alert("Welcome, you will now be redirected to the login page");
         window.location.href = "/views/pages/logIn Page/login";
         
