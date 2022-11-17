@@ -7,6 +7,7 @@ const db = require('./queries')
 
 const app = express()
   .use(express.json())
+  .use(bodyParser.urlencoded({ extended: true }))
   .use(express.static(path.join(__dirname, 'public')))
   .use('/public', express.static('public'))
   .set('views', path.join(__dirname, 'views'))
