@@ -23,14 +23,14 @@ const getAllRequestedRides = (request, response) => {
 }
 
 const getUserInformation = (request, response) => {
-  const userid = parseInt(request.params.userid)
+  // const userid = parseInt(request.params.userid)
 
-  pool.query('SELECT * FROM users WHERE userid = $1', [userid], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
+  // pool.query('SELECT * FROM users WHERE userid = $1', [userid], (error, results) => {
+  //   if (error) {
+  //     throw error
+  //   }
+  //   response.status(200).json(results.rows)
+  // })
 }
 
 const verifyUser = async (request, response) => {
