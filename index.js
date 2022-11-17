@@ -36,8 +36,10 @@ app.post("/updateUser", (req, res) => {
   res.send(u);
 });
 
-app.get('/getUserInformation/:id',db.getUserInformation);
-
+app.get('/getUserInformation/:id', (req, res) => {
+  let r = getUserInformation(null);
+  res.send(r);
+});
 
 app.get('/getBookedRides', (req, res) => {
   let r = getBookedRides(null);
