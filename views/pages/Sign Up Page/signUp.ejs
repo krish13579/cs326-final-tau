@@ -108,6 +108,10 @@ async function sendServer(nUser) {
         window.location.href = "/views/pages/logIn Page/login";
         
     }else{
+        if(response.status === 401){
+            alert("User exists. Sign up with a different email address.");
+
+        }
         alert("Sign up failed");
     }
     

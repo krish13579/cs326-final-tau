@@ -62,7 +62,9 @@ const createUser = async (request, response) => {
   const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]); //Checking if user already exists
   const arr = data.rows;
   if (arr.length != 0) {
-    return response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
+     response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
+     throw new Error(`Error! status: ${response.status}`);
+
   }
   else {
     pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
