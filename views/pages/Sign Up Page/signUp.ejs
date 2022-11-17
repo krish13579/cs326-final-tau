@@ -93,7 +93,7 @@ function validateInfo() {
 }
 
 async function sendServer(nUser) {
-
+    console.log(nUser);
    let response = await fetch('/createUser', {
   method: 'POST',
   body: nUser,

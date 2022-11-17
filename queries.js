@@ -23,9 +23,8 @@ const getAllRequestedRides = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  const { firstName, lastName, email, birthday, password } = request.body
-
-  pool.query('INSERT INTO users (fname, lname, email, bdate, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, email, birthday, password], (error, results) => {
+  const { firstName, lastName, birthday, email, password } = request.body;
+  pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
     if (error) {
       alert("failed");
 
