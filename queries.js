@@ -75,6 +75,9 @@ const createUser = async (request, response) => {
         alert("failed");
 
       }
+      alert("Welcome, you will now be redirected to the login page");
+      window.location.href = "/views/pages/logIn Page/login";
+
       response.status(201).send(`User added with ID: ${results.email}`)
     })
   }
