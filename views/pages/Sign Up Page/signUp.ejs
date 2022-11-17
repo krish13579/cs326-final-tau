@@ -96,7 +96,7 @@ async function sendServer(nUser) {
 
    let response = await fetch('/createUser', {
   method: 'POST',
-  body: JSON.stringify(nUser),
+  body: nUser,
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
   }
