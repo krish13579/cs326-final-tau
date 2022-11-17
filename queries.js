@@ -22,6 +22,17 @@ const getAllRequestedRides = (request, response) => {
   })
 }
 
+const getUserInformation = (request, response) => {
+  const userid = parseInt(request.params.userid)
+
+  pool.query('SELECT * FROM users WHERE userid = $1', [userid], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 const createUser = (request, response) => {
   const { firstName, lastName, birthday, email, password } = request.body;
   pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
@@ -43,6 +54,6 @@ const getAllOfferedRides = (request, response) => {
 }
 
 
-module.exports = { getAllRequestedRides, createUser, getAllOfferedRides }
+module.exports = { getAllRequestedRides, createUser, getAllOfferedRides, getUserInformation }
 
 7
