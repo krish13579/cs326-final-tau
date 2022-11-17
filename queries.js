@@ -67,17 +67,13 @@ const createUser = async (request, response) => {
   const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]); //Checking if user already exists
   const arr = data.rows;
   if (arr.length != 0) {
-    alert("Email already there, No need to register again.");
+    return response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
   }
   else {
     pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
       if (error) {
-        alert("failed");
-
+        throw error;
       }
-      alert("Welcome, you will now be redirected to the login page");
-      window.location.href = "/views/pages/logIn Page/login";
-
       response.status(201).send(`User added with ID: ${results.email}`)
     })
   }
