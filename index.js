@@ -29,15 +29,8 @@ app.get('/getBookedRides', (req, res) => {
   res.send(r);
 });
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
-// async (req, res) => {
-//   let r = await getAllRequestedRides(null);
-//   console.log(r)
-//   res.send(r);
-// });
-app.get('/getAllOfferedRides', (req, res) => {
-  let r = getAllOfferedRides(null);
-  res.send(r);
-});
+
+app.get('/getAllOfferedRides', db.getAllOfferedRides);
 
 app.get('/getUserInformation', (req, res) => {
   let r = getUserInformation(null);
@@ -55,10 +48,7 @@ app.get('/messageData', (req, res) => {
 });
 
 app.post("/createUser", db.createUser);
-//  (req, res) => {
-//   let u = createUser(null);
-//   res.send(u);
-// });
+
 app.post("/requestRide", (req, res) => {
   let u = requestRide(null);
   res.send(u);

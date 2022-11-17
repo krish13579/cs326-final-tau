@@ -33,6 +33,16 @@ const createUser = (request, response) => {
   })
 }
 
-module.exports = { getAllRequestedRides, createUser }
+const getAllOfferedRides = (request, response) => {
+  pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, Seats from rides where type='offered'`, (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+
+module.exports = { getAllRequestedRides, createUser, getAllOfferedRides }
 
 7
