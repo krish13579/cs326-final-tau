@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const db = require('./queries')
+const jwt = require("jsonwebtoken");
+
 
 
 
@@ -34,7 +36,7 @@ app.post("/updateUser", (req, res) => {
   res.send(u);
 });
 
-app.get('/getUserInformation/',db.getUserInformation);
+app.get('/getUserInformation/:id',db.getUserInformation);
 
 
 app.get('/getBookedRides', (req, res) => {
@@ -60,10 +62,7 @@ app.post("/requestRide", (req, res) => {
   let u = requestRide(null);
   res.send(u);
 });
-app.get('/verifyUser', (req, res) => {
-  let r = verifyUser(null);
-  res.send(r);
-});
+app.get('/verifyUser', db.verifyUser);
 
 app.post("/createRide", (req, res) => {
   let u = createRide(null);
