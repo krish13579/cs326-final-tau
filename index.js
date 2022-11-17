@@ -21,12 +21,6 @@ const app = express()
 
 
 app.get('/getBookedRides', (req, res) => {
-  // pool.query('SELECT * FROM rides where ', (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(200).json(results.rows)
-  // }))
   let r = getBookedRides(null);
   res.send(r);
 });
@@ -56,10 +50,11 @@ app.get('/messageData', (req, res) => {
   res.send(r);
 });
 
-app.post("/createUser", (req, res) => {
-  let u = createUser(null);
-  res.send(u);
-});
+app.post("/createUser", db.createUser);
+//  (req, res) => {
+//   let u = createUser(null);
+//   res.send(u);
+// });
 app.post("/requestRide", (req, res) => {
   let u = requestRide(null);
   res.send(u);
@@ -165,16 +160,16 @@ function getUserInformation(u) {
 }
 
 
-function createUser(u) {
+// function createUser(u) {
 
-  if (u === null) {
-    return JSON.stringify({ firstName: "yes" });
-  }
+//   if (u === null) {
+//     return JSON.stringify({ firstName: "yes" });
+//   }
 
-  let nUser = JSON.parse(u);
+//   let nUser = JSON.parse(u);
 
-  return JSON.stringify(nUser);
-}
+//   return JSON.stringify(nUser);
+// }
 
 function getConnectedUsers(u) {
   let emails = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
@@ -267,46 +262,31 @@ function getOfferedRides(u) {
 }
 
 // function getAllRequestedRides() {
-//   // let cities = ["New York", "Boston", "Hartford", "Amherst"];
-//   // let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
-//   // let prices = ["$30", "$40"];
-//   // let seats = ["1", "2", "3"];
-//   // let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.com"];
+    // let cities = ["New York", "Boston", "Hartford", "Amherst"];
+    // let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];
+    // let prices = ["$30", "$40"];
+    // let seats = ["1", "2", "3"];
+    // let users = ["tom@gmail.com", "steve@gmail.com", "mike@gmail.com", "john@gmail.co    
+
+    // let rideData = []
+    // for (let i = 0; i < 10; ++i) {
+    //   let temp = {
+    //     rideID: Math.floor(Math.random() * 1000),
+    //     creator: users[Math.floor(Math.random() * users.length)],
+    //     type: "request",
+    //     origin: cities[Math.floor(Math.random() * cities.length)],
+    //     destination: cities[Math.floor(Math.random() * cities.length)],
+    //     date: dates[Math.floor(Math.random() * dates.length)],
+    //     price: prices[Math.floor(Math.random() * prices.length)],
+    //     numOfSeats: seats[Math.floor(Math.random() * seats.length)],
+    //     bookedUsers: [],
+    //   };
+    //   rideData.push(temp);
+    // }
+//return JSON.stringify(rideData);
+//}
 
 
-//   // let rideData = []
-//   // for (let i = 0; i < 10; ++i) {
-//   //   let temp = {
-//   //     rideID: Math.floor(Math.random() * 1000),
-//   //     creator: users[Math.floor(Math.random() * users.length)],
-//   //     type: "request",
-//   //     origin: cities[Math.floor(Math.random() * cities.length)],
-//   //     destination: cities[Math.floor(Math.random() * cities.length)],
-//   //     date: dates[Math.floor(Math.random() * dates.length)],
-//   //     price: prices[Math.floor(Math.random() * prices.length)],
-//   //     numOfSeats: seats[Math.floor(Math.random() * seats.length)],
-//   //     bookedUsers: [],
-//   //   };
-//   //   rideData.push(temp);
-//   // }
-
-//   pool.query(`SELECT origin, destination, date, price, seats from rides where type='requested'`, (error, results) => {
-//     if (err)
-//       throw err;
-//     return (result.rows[0][data]);
-//   })
-//   pool.end();
-// }
-// async function getAllRequestedRides() {
-//   try {
-//     const res = await pool.query(
-//       `SELECT origin, destination, date, price, seats from rides where type='requested'`
-//     );
-//     return res.rows[0][data];
-//   } catch (err) {
-//     return err.stack;
-//   }
-// }
 function getAllOfferedRides() {
   let cities = ["New York", "Boston", "Hartford", "Amherst"];
   let dates = ["12/08/2022", "12/07/2022", "12/06/2022", "12/05/2022"];

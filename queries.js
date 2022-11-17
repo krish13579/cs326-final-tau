@@ -17,7 +17,17 @@ const getAllRequestedRides = (request, response) => {
   })
 }
 
+const createUser = (request, response) => {
+  const { fname, lname, email, bdate, password } = request.body
 
-module.exports = { getAllRequestedRides }
+  pool.query('INSERT INTO users (fname, lname, email, bdate, password) VALUES ($1, $2, $3, $4, $5)', [fname, lname, email, bdate, password], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`User added with ID: ${results.email}`)
+  })
+}
+
+module.exports = { getAllRequestedRides, createUser }
 
 
