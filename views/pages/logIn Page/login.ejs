@@ -42,7 +42,12 @@
             // else{
             //     alert("Please enter a username and password to login");
             // }
-            verify();
+            if (username.length != 0 && pass.length != 0) {
+                verify();
+            }
+            else{
+                alert("Please enter a username and password.")
+            }
         });
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
@@ -59,6 +64,7 @@
         //     }
         // }
         async function verify() {
+
             let responseR = await fetch('/verifyUser');
             if (responseR.ok) {
                 let response1 = await responseR.json();
