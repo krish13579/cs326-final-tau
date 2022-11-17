@@ -38,7 +38,7 @@ const verifyUser = async (request, response) => {
     const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]) //Verifying if the user exists in the database
     const user = data.rows;
     if (user.length === 0) {
-      res.status(400).json({
+      response.status(400).json({
       error: "User is not registered, Sign Up first",
       })
     }
