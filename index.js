@@ -6,12 +6,12 @@ const db = require('./queries')
 
 
 const app = express()
+  .use(express.json())
   .use(express.static(path.join(__dirname, 'public')))
   .use('/public', express.static('public'))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
-  
   .get('/views/pages/Your%20Rides%20Page/yourRides', (req, res) => res.render('pages/Your Rides Page/yourRides'))
   .get('/views/pages/Sign%20Up%20Page/signUp', (req, res) => res.render('pages/Sign Up Page/signUp'))
   .get('/views/pages/logIn%20Page/login', (req, res) => res.render('pages/logIn Page/login'))
