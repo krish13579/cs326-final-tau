@@ -36,7 +36,7 @@ app.post("/updateUser", (req, res) => {
   res.send(u);
 });
 
-app.get('/getUserInformation/:id', (req, res) => {
+app.get('/getUserInformation', (req, res) => {
   let r = getUserInformation(null);
   res.send(r);
 });
