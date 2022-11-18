@@ -108,10 +108,10 @@ function createRide(r) {
 
 }
 
-function verifyUser(u, p) {
-  let nUser = JSON.parse(u);
-  return JSON.stringify(nUser);
-}
+// function verifyUser(u, p) {
+//   let nUser = JSON.parse(u);
+//   return JSON.stringify(nUser);
+// }
 
 function updateUser(u, response) {
   response.write("user " + u.email + " has been updated");

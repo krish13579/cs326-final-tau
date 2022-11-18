@@ -35,28 +35,27 @@ const getUserInformation = (request, response) => {
 
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
-    const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]) //Verifying if the user exists in the database
-    const user = data.rows;
-    if (user.length === 0) {
-      response.status(400).json({
-      error: "User is not registered, Sign Up first",
-      })
-    }
-    else{
+    // const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]) //Verifying if the user exists in the database
+    // const user = data.rows;
+    // if (user.length === 0) {
+    //   response.status(400).json({
+    //   error: "User is not registered, Sign Up first",
+    //   })
+    // }
+    // else{
       const pass = await pool.query(`SELECT password FROM users WHERE email= $1;`, [email])
       console.log(pass)
       if(pass === password){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
       else{
+        console.log(pass)
         return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
       }
     }
   //  if(err){
   //   response.status(400).json({ status: 'failed', message: 'Error while login.' });
   // }
-
-}
 
 const createUser = async (request, response) => {
   const { firstName, lastName, birthday, email, password } = request.body;
