@@ -44,6 +44,7 @@ const verifyUser = async (request, response) => {
     }
     else{
       const pass = await pool.query(`SELECT password FROM users WHERE email= $1;`, [email])
+      console.log(pass)
       if(pass === password){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
@@ -51,9 +52,9 @@ const verifyUser = async (request, response) => {
         return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
       }
     }
-   if(err){
-    response.status(400).json({ status: 'failed', message: 'Error while login.' });
-  }
+  //  if(err){
+  //   response.status(400).json({ status: 'failed', message: 'Error while login.' });
+  // }
 
 }
 
