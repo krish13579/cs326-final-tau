@@ -63,8 +63,6 @@ const createUser = async (request, response) => {
   const arr = data.rows;
   if (arr.length != 0) {
      response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
-     throw new Error(`Error! status: ${response.status}`);
-
   }
   else {
     pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
@@ -72,10 +70,9 @@ const createUser = async (request, response) => {
         throw error;
       }
       console.log("works sign up");
-      alert("Welcome, you will now be redirected to the login page");
-      window.location.href = "/views/pages/logIn Page/login";
-      response.status(201).send(`User added with ID: ${results.email}`);
-     
+      // response.status(201).send(`User added with ID: ${results.email}`);
+      response.status(201).json({ status: 'success', message: `User added with ID: ${results.email}` });
+      
     })
   }
 }
