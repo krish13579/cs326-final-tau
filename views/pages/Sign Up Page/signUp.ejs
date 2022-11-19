@@ -101,6 +101,7 @@ async function sendServer(nUser) {
     'Content-type': 'application/json; charset=UTF-8',
   }
   });
+  
     if(response.ok){
         let response2 = await response.json();
         console.log("recieved user");

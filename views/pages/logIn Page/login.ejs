@@ -68,7 +68,6 @@
             let responseR = await fetch('/verifyUser');
             if (responseR.ok) {
                 let response1 = await responseR.json();
-                let userData = response1;
                 // let {userid} = response1.body;
                 window.location.href = "/views/pages/Your Rides Page/yourRides";
             } else {
