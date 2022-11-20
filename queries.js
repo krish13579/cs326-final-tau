@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt")
+
 const Pool = require('pg').Pool
 require('dotenv').config()
 const pool = new Pool({
@@ -35,16 +37,23 @@ const getUserInformation = (request, response) => {
 
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
-      const data = await pool.query(`SELECT * from users where users.email=$1 and users.password=$2;`, [email, password])
-      console.log(data);
-      const arr = data.rows;
-      if(arr.length != 0){
+      const hashed = hashPassword(password);
+     //const data = await pool.query(`SELECT * from users where users.email=$1 and users.password=$2;`, [email, hashed])
+     // const arr = data.rows;
+     // if(arr.length != 0){
+      if(comparePassword(password, hashed)){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
       else{
         return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
       }
     }
+// compare password
+async function comparePassword(plaintextPassword, hash) {
+  const result = await bcrypt.compare(plaintextPassword, hash);
+  return result;
+}
+
 
 const createUser = async (request, response) => {
   const { firstName, lastName, birthday, email, password } = request.body;
@@ -54,7 +63,8 @@ const createUser = async (request, response) => {
      response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
   }
   else {
-    pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, password], (error, results) => {
+    const hashed = hashPassword(password);
+    pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, hashed], (error, results) => {
       if (error) {
         throw error;
       }
@@ -63,6 +73,12 @@ const createUser = async (request, response) => {
     })
   }
 }
+async function hashPassword(plaintextPassword) {
+  const hash = await bcrypt.hash(plaintextPassword, 10);
+  return hash;
+}
+
+
 
 const getAllOfferedRides = (request, response) => {
   pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, Seats from rides where type='offered'`, (error, results) => {
