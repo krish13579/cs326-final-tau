@@ -121,7 +121,50 @@
         }
 
         function reserveSeat(entry){
-            console.log(entry);
+         
+            
+                let rideObject = {
+    
+                // Constant Integer
+                
+                "rideID" : entry.rid,
+                
+                // Constant String
+                
+                "creator" : entry.userId,
+                
+                // Boolean = Request or Offered
+                
+                "type" : "Offered",
+                
+                // Constant String
+                
+                "origin": entry.origin,
+                
+                // Constant String
+                
+                "destination": entry.destination,
+                
+                // Constant Date Object
+                
+                "date": entry.date,
+                
+                // Constant Integer
+                
+                "price": entry.price,
+                
+                // Dynamic Integer
+                
+                "numOfSeats" : entry.numOfSeats,
+                
+                // Dynamic Array
+                
+                "bookedUsers" : entry.bookedUsers
+                
+                };
+                
+                sendServerTwo(rideObject);
+
         }
 
         function populate(rd) {
@@ -196,6 +239,26 @@
                 alert("Request failed");
             }
         }
+        
+        async function sendServerTwo(nReq) {
+
+            let anotherresponse = await fetch('/reserveSeat', {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (anotherresponse.ok) {
+                let response2 = await anotherresponse.json();
+                alert("Your seat has been reserved!");
+
+            } else {
+                alert("Request failed");
+            }
+        }
+        
     </script>
 </body>
 
