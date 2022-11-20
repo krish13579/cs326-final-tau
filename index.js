@@ -24,6 +24,7 @@ const app = express()
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
 
 
+app.use(session({secret: 'ssshhhhh'}));
 
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
