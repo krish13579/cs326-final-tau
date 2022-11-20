@@ -84,7 +84,7 @@
             if (response.ok) {
                 let response2 = await response.json();
                 document.getElementById("var1").value = document.getElementById("Username").value;
-                console.log(document.getElementById("var1").value);
+                alert(document.getElementById("var1").value);
                 window.location.href = "/views/pages/Your Rides Page/yourRides"
 
             } else {
