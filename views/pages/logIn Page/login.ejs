@@ -32,15 +32,19 @@
         <p>Not already a user? <u id="signup">Sign Up</u></p>
     </div>
     <script>
-        
-    
+
+
         document.getElementById("submit").addEventListener("click", () => {
             let username = document.getElementById("Username").value;
             let pass = document.getElementById("Password").value;
-            if (username.length != 0 && pass.length != 0) {
-                verify();
+            let userObj = {
+                "email" : username, 
+                "password": pass
             }
-            else{
+            if (username.length != 0 && pass.length != 0) {
+                sendServer(userObj);
+            }
+            else {
                 alert("Please enter a username and password.")
             }
         });
@@ -48,18 +52,42 @@
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
 
-        
-        async function verify() {
-            let responseR = await fetch('/verifyUser');
-            if (responseR.ok) {
-                let response1 = await responseR.json();
-                // let {userid} = response1.body;
-                window.location.href = "/views/pages/Your Rides Page/yourRides";
+
+        // async function verify() {
+        //     let responseR = await fetch('/verifyUser');
+        //     if (responseR.ok) {
+        //         let response1 = await responseR.json();
+        //         // let {userid} = response1.body;
+        //         window.location.href = "/views/pages/Your Rides Page/yourRides";
+        //     } else {
+        //         console.log("verify: ", responseR);
+        //         alert("UserID or password did not match our records. Please try again or sign up!!")
+        //     }
+
+        // }
+        async function sendServer(nUser) {
+            let response = await fetch('/verifyUser', {
+                method: 'POST',
+                json: true,
+                body: JSON.stringify(nUser),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (response.ok) {
+                let response2 = await response.json();
+                window.location.href = "/views/pages/Your Rides Page/yourRides"
+
             } else {
-                console.log("verify: ", responseR);
-                alert("UserID or password did not match our records. Please try again or sign up!!")
+                if (response.status === 401) {
+                    alert("UserID or password did not match our records. Please try again or sign up!");
+                }
+                else{
+                    alert("login failed");
+                }
             }
- 
+
         }
     </script>
 </body>

@@ -6,7 +6,6 @@ const db = require('./queries')
 
 
 
-
 const app = express()
   .use(express.json())
   .use(bodyParser.urlencoded({ extended: true }))
