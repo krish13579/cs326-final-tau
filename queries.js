@@ -62,7 +62,7 @@ const createUser = async (request, response) => {
   if (arr.length != 0) {
      response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
   }
-  else {
+  else { //get password
     const hashed = await hashPassword(password);
     pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, hashed], (error, results) => {
       if (error) {
