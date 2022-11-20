@@ -39,8 +39,8 @@ const verifyUser = async (request, response) => {
   const { email, password } = request.body;
       const hashed = await hashPassword(password);
       const data = await pool.query(`SELECT password from users where users.email=$1;`, [email])
-     // const arr = data.rows;
-     // if(arr.length != 0){
+     const arr = data.rows;
+     if(arr.length != 0){
       if(comparePassword(password, data)){
         console.log("password: ", password);
         console.log("hashed: ", data);
@@ -50,6 +50,11 @@ const verifyUser = async (request, response) => {
         return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
       }
     }
+    else{
+      return response.status(401).json({ status: 'failed', message: 'Error' });
+
+    }
+}
 // compare password
 async function comparePassword(plaintextPassword, hash) {
   const result = await bcrypt.compare(plaintextPassword, hash);
