@@ -37,12 +37,6 @@
         document.getElementById("submit").addEventListener("click", () => {
             let username = document.getElementById("Username").value;
             let pass = document.getElementById("Password").value;
-            // if (isExistingUser()) {
-            //     window.location.href = "/views/pages/Your Rides Page/yourRides";
-            // }
-            // else{
-            //     alert("Please enter a username and password to login");
-            // }
             if (username.length != 0 && pass.length != 0) {
                 verify();
             }
@@ -53,17 +47,8 @@
         document.getElementById("signup").addEventListener("click", () => {
             window.location.href = "/views/pages/Sign Up Page/signUp";
         });
-        // function isExistingUser(u) { //currently works with any username and password until we create the database
-        //     username = document.getElementById("Username").value;
-        //     pass = document.getElementById("Password").value;
 
-        //     if (username.length != 0 && pass.length != 0) {
-        //         return true;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // }
+        
         async function verify() {
             let responseR = await fetch('/verifyUser');
             if (responseR.ok) {
