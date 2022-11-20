@@ -36,8 +36,9 @@ const getUserInformation = (request, response) => {
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
       const data = await pool.query(`SELECT * from users where users.email=$1 and users.password=$2;`, [email, password])
+      console.log(data);
       const arr = data.rows;
-      if(arr.length === 1){
+      if(arr.length != 0){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
       else{
