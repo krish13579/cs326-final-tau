@@ -37,7 +37,7 @@ const getUserInformation = (request, response) => {
 
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
-      const hashed = hashPassword(password);
+      const hashed = await hashPassword(password);
      //const data = await pool.query(`SELECT * from users where users.email=$1 and users.password=$2;`, [email, hashed])
      // const arr = data.rows;
      // if(arr.length != 0){
@@ -63,7 +63,7 @@ const createUser = async (request, response) => {
      response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
   }
   else {
-    const hashed = hashPassword(password);
+    const hashed = await hashPassword(password);
     pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, birthday, email, hashed], (error, results) => {
       if (error) {
         throw error;
