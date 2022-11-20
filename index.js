@@ -29,6 +29,8 @@ app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
 app.get('/getAllOfferedRides', db.getAllOfferedRides);
 
+app.post('/verifyUser', db.verifyUser);
+
 app.post("/updateUser", (req, res) => {
   let u = updateUser(null);
   res.send(u);
@@ -62,7 +64,6 @@ app.post("/requestRide", (req, res) => {
   let u = requestRide(null);
   res.send(u);
 });
-app.get('/verifyUser', db.verifyUser);
 
 app.post("/createRide", (req, res) => {
   let u = createRide(null);
@@ -79,7 +80,7 @@ app.post("/reserveSeat", (req, res) => {
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-updateUser
+// updateUser
 
 function updateUser(u) {
   if (r == null) {
