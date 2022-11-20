@@ -51,6 +51,10 @@
         document.getElementById("submit").addEventListener("click", () => {
             changeInfo();
         });
+
+        const userName = JSON.parse(window.localStorage.getItem("userName"));
+        console.log(userName);
+
         function init() {
             getUserInfo();
         }
