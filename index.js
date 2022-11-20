@@ -2,8 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const db = require('./queries')
-const session = require('express-session');
+const db = require('./queries');
+
 
 
 const app = express()
@@ -24,7 +24,6 @@ const app = express()
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
 
 
-app.use(session({secret: 'ssshhhhh'}));
 
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
