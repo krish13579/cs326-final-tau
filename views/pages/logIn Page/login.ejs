@@ -81,7 +81,7 @@
                     window.localStorage.removeItem("userName");
                 }
                 window.localStorage.setItem("userName", JSON.stringify(document.getElementById("Username").value));
-                console.log(JSON.parse(window.localStorage.getItem("userName")));
+                alert(JSON.parse(window.localStorage.getItem("userName")));
                 window.location.href = "/views/pages/Your Rides Page/yourRides"
 
             } else {
