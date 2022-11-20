@@ -32,6 +32,13 @@ const app = express()
   .get('/views/pages/Find%20Drivers%20Page/findDrivers', (req, res) => res.render('pages/Find Drivers Page/findDrivers'))
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
 
+// parsing the incoming data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//serving public file
+app.use(express.static(__dirname));
+
 
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
