@@ -91,6 +91,9 @@
             window.location.href = "/views/pages/logIn Page/login";
         });
 
+        const userName = JSON.parse(window.localStorage.getItem("userName"));
+        console.log(userName);
+
         window.onload = init;
 
         function init(){
