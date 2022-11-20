@@ -99,6 +99,10 @@
         document.getElementById("sub").addEventListener("click", () => {
             validateInfo();
         });
+
+        const userName = JSON.parese(window.localStorage.getItem("userName"));
+        console.log(userName);
+
         window.onload = init
         function init() {
             getData();
