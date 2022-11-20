@@ -53,27 +53,31 @@
         });
 
         const userName = JSON.parse(window.localStorage.getItem("userName"));
-        console.log(userName);
+        let userInformation = {};
+        async function getUserServerCall(nReq) {
+            let response = await fetch('/getUserInformation', {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            
+            if (response.ok) {
+                let response2 = await response.json();
+                userInformation = JSON.parse(JSON.stringify(response2));
+                setter(userInformation);
+            } 
+            else {
+                alert("Request failed");
+            }
+        }
+        getUserServerCall(userName);
 
         function init() {
             getUserInfo();
         }
-        let userData = {};
 
-        async function getUserInfo() {
-            let res = await fetch('/getUserInformation');
-
-            if (res.ok) {
-                let response2 = await res.json();
-                userData = JSON.parse(JSON.stringify(response2));
-                setter(userData);
-
-            } else {
-                alert("error getting data from server")
-            }
-
-
-        }
         function setter(u) {
             document.getElementById("firstName").value = u.firstName;
             document.getElementById("lastName").value = u.lastName;
