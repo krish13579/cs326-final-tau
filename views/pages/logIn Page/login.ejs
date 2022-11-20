@@ -34,8 +34,7 @@
 
     <form style="display: none" action="/views/pages/Your Rides Page/yourRides" method="POST" id="form">
         <input type="hidden" id="var1" name="var1" value=""/>
-        <input type="hidden" id="var2" name="var2" value=""/>
-      </form>
+    </form>
 
 
     <script>
@@ -84,6 +83,8 @@
 
             if (response.ok) {
                 let response2 = await response.json();
+                document.getElementById("var1").value = document.getElementById("Username").value;
+                console.log(document.getElementById("var1").value);
                 window.location.href = "/views/pages/Your Rides Page/yourRides"
 
             } else {
