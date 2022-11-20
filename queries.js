@@ -36,12 +36,11 @@ const getUserInformation = (request, response) => {
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
       const pass = await pool.query(`SELECT password FROM users WHERE email= $1;`, [email])
-      console.log(pass)
+      console.log(JSON.stringify(pass))
       if(pass === password){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
       else{
-        console.log(pass)
         return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
       }
     }
