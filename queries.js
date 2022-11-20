@@ -35,7 +35,7 @@ const getUserInformation = (request, response) => {
 
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
-      const data = await pool.query(`SELECT * FROM users WHERE email= $1 AND password= $2;`, [email, password])
+      const data = await pool.query(`SELECT * from users where users.email=$1 and users.password=$2;`, [email, password])
       const arr = data.rows;
       if(arr.length === 1){
           response.status(200).json({ status: 'success', message: 'Login successfully!' });
@@ -47,7 +47,7 @@ const verifyUser = async (request, response) => {
 
 const createUser = async (request, response) => {
   const { firstName, lastName, birthday, email, password } = request.body;
-  const data = await pool.query(`SELECT * FROM users WHERE email= $1;`, [email]); //Checking if user already exists
+  const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [email]); //Checking if user already exists
   const arr = data.rows;
   if (arr.length != 0) {
      response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
