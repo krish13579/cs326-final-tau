@@ -31,12 +31,6 @@
     <div class="centered">
         <p>Not already a user? <u id="signup">Sign Up</u></p>
     </div>
-
-    <form style="display: none" action="/views/pages/Your Rides Page/yourRides" method="POST" id="form">
-        <input type="hidden" id="var1" name="var1" value=""/>
-    </form>
-
-
     <script>
 
 
@@ -83,9 +77,7 @@
 
             if (response.ok) {
                 let response2 = await response.json();
-                document.getElementById("var1").value = document.getElementById("Username").value;
-                document.getElementById("form").submit();
-                //window.location.href = "/views/pages/Your Rides Page/yourRides"
+                window.location.href = "/views/pages/Your Rides Page/yourRides"
 
             } else {
                 if (response.status === 401) {
