@@ -39,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 //serving public file
 app.use(express.static(__dirname));
 
+// cookie parser middleware
+app.use(cookieParser());
 
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
