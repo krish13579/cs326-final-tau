@@ -3,23 +3,14 @@ const bodyParser = require('body-parser');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const db = require('./queries')
-const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
 
-// creating 24 hours from milliseconds
-const oneDay = 1000 * 60 * 60 * 24;
+
 
 const app = express()
   .use(express.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
   .use(express.static(path.join(__dirname, 'public')))
-  .use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false
-  }))
   .use('/public', express.static('public'))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
@@ -32,15 +23,7 @@ const app = express()
   .get('/views/pages/Find%20Drivers%20Page/findDrivers', (req, res) => res.render('pages/Find Drivers Page/findDrivers'))
   .get('/views/pages/Messages%20Page/messages', (req, res) => res.render('pages/Messages Page/messages'))
 
-// parsing the incoming data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-//serving public file
-app.use(express.static(__dirname));
-
-// cookie parser middleware
-app.use(cookieParser());
 
 app.get('/getAllRequestedRides', db.getAllRequestedRides);
 
