@@ -43,7 +43,8 @@ password - password (hashed for security)
 
 ### Maahi Goel: 
 - Database Implementation
-- Hashing of Password and User Authentication
+- User Information Hashing
+- User Authentication
 - API calls for sign up page
 - MD file compilation and release
 
