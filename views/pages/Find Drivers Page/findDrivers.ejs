@@ -105,7 +105,6 @@
          async function getUserServerCall(nReq) {
              let response = await fetch('/getUserInformation', {
                  method: 'POST',
-                 json:true,
                  body: JSON.stringify(nReq),
                  headers: {
                      'Content-type': 'application/json; charset=UTF-8',
@@ -114,7 +113,7 @@
             
              if (response.ok) {
                  let response2 = await response.json();
-                console.log("we good");
+           
                  userInformation = JSON.parse(JSON.stringify(response2));
                 setter(userInformation);
             } 
