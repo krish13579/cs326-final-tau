@@ -31,7 +31,7 @@ app.get('/getAllOfferedRides', db.getAllOfferedRides);
 
 app.post('/verifyUser', db.verifyUser);
 
-app.get('/getUserInformation', db.getUserInformation);
+app.post('/getUserInformation', db.getUserInformation);
 
 app.post("/updateUser", (req, res) => {
   let u = updateUser(null);
