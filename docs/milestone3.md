@@ -1,5 +1,5 @@
 
-### Database: 
+# Database: 
 
 ## Rides Tables
 <img width="714" alt="Screen Shot 2022-11-20 at 9 33 29 PM" src="https://user-images.githubusercontent.com/67108579/202950945-0d850533-9426-4e1c-9b7a-0aabaa7ea76a.png">
@@ -39,15 +39,15 @@ password - password (hashed for security)
 
 
 
-### Division of Labor: 
+# Division of Labor: 
 
-# Maahi Goel: 
+### Maahi Goel: 
 - Database Implementation
 - Hashing of Password and User Authentication
 - API calls for sign up page
 - MD file compilation and release
 
-# Kabir Israni:
+### Kabir Israni:
 - Post functions for Reserve a seat functionality
 - User Session Tracking 
 - API calls
