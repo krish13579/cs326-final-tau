@@ -37,23 +37,23 @@ const getUserInformation = (request, response) => {
 
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
-      const hashed = await hashPassword(password);
-      const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [email])
-     const arr = passdata.rows;
-     if(arr.length != 0){
-      if(comparePassword(password, passdata.rows[0].data)){
-        console.log("password: ", password);
-        console.log("hashed: ", passdata);
-        response.status(200).json({ status: 'success', message: 'Login successfully!' });
-      }
-      else{
-        return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
-      }
+  const hashed = await hashPassword(password);
+  const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [email])
+  const arr = passdata.rows;
+  if (arr.length != 0) {
+    if (comparePassword(password, passdata.rows[0].data)) {
+      console.log("password: ", password);
+      console.log("hashed: ", passdata.rows[0].data);
+      response.status(200).json({ status: 'success', message: 'Login successfully!' });
     }
-    else{
-      return response.status(401).json({ status: 'failed', message: 'Error' });
+    else {
+      return response.status(401).json({ status: 'failed', message: 'Invalid email or password!' });
+    }
+  }
+  else {
+    return response.status(401).json({ status: 'failed', message: 'Error' });
 
-    }
+  }
 }
 // compare password
 async function comparePassword(plaintextPassword, hash) {
@@ -67,7 +67,7 @@ const createUser = async (request, response) => {
   const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [email]); //Checking if user already exists
   const arr = data.rows;
   if (arr.length != 0) {
-     response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
+    response.status(401).json({ status: 'failed', message: 'User email exists. Please login or sign up with a different email!' });
   }
   else { //get password
     const hashed = await hashPassword(password);
