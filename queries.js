@@ -26,7 +26,7 @@ const getAllRequestedRides = (request, response) => {
 
 const getUserInformation = async (request, response) => {
   const {email} = request.body;
-  console.log(request.body);
+  console.log("we're  in" + request.body);
   const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [email], (error, results) => {
     if (error) {
       throw error
