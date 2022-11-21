@@ -25,12 +25,9 @@ const getAllRequestedRides = (request, response) => {
 }
 
 const getUserInformation = async (request, response) => {
-
   const {email} = request.body;
   const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [email]);
   response.status(200).json(data.rows)
-
-
 }
 
 const verifyUser = async (request, response) => {
