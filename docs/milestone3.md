@@ -38,6 +38,8 @@ email - email address (userID)
 password - password (hashed for security)  
 
 
+## GetUser API call is created but is giving an error. Due to this, the profile page is not being populated. Once, the getUser API bug gets fixed, the website will work. 
+
 
 # Division of Labor: 
 
@@ -55,4 +57,4 @@ password - password (hashed for security)
 - Client Side data storage
 
 ### Krish Malhotra:
-- API calls for other pages
+- API calls for other pages (Not working currently for profile page and forms) 
