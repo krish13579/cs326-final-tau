@@ -53,5 +53,5 @@ password - password (hashed for security)
 - URL routing
 - Client Side data storage
 
-# Krish Malhotra:
+### Krish Malhotra:
 - API calls for other pages
