@@ -38,12 +38,12 @@ const getUserInformation = (request, response) => {
 const verifyUser = async (request, response) => {
   const { email, password } = request.body;
       const hashed = await hashPassword(password);
-      const data = await pool.query(`SELECT password from users where users.email=$1;`, [email])
-     const arr = data.rows;
+      const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [email])
+     const arr = passdata.rows;
      if(arr.length != 0){
-      if(comparePassword(password, data)){
+      if(comparePassword(password, passdata.rows[0].data)){
         console.log("password: ", password);
-        console.log("hashed: ", data);
+        console.log("hashed: ", passdata);
         response.status(200).json({ status: 'success', message: 'Login successfully!' });
       }
       else{
