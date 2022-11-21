@@ -40,7 +40,7 @@ const verifyUser = async (request, response) => {
   const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [email])
   const arr = passdata.rows;
   if (arr.length != 0) {
-    if (comparePassword(password, passdata.rows[0])) {
+    if (comparePassword(password, passdata.rows[0].password)) {
       console.log("password: ", password);
       console.log("hashed: ", passdata.rows[0].password);
       response.status(200).json({ status: 'success', message: 'Login successfully!' });
