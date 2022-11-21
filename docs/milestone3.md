@@ -38,7 +38,7 @@ email - email address (userID)
 password - password (hashed for security)  
 
 
-## GetUser API call is created but is giving an error. Due to this, the profile page is not being populated. Once, the getUser API bug gets fixed, the website will work. 
+## GetUser API call is created but is giving an error. Due to this, the profile page is not being populated. Once, the getUser API bug gets fixed, the website will work as intended. 
 
 
 # Division of Labor: 
