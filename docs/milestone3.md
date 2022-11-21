@@ -49,7 +49,8 @@ password - password (hashed for security)
 
 ### Kabir Israni:
 - Post functions for Reserve a seat functionality
-- User Session Tracking and Routing
+- User Session Tracking
+- URL routing
 - Client Side data storage
 
 # Krish Malhotra:
