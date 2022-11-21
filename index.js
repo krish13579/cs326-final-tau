@@ -31,15 +31,14 @@ app.get('/getAllOfferedRides', db.getAllOfferedRides);
 
 app.post('/verifyUser', db.verifyUser);
 
+app.post('/getUserInformation', db.getUserInformation);
+
 app.post("/updateUser", (req, res) => {
   let u = updateUser(null);
   res.send(u);
 });
 
-app.post('/getUserInformation', (req, res) => {
-  let r = getUserInformation(null);
-  res.send(r);
-});
+
 
 app.get('/getBookedRides', (req, res) => {
   let r = getBookedRides(null);
