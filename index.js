@@ -33,49 +33,19 @@ app.post('/verifyUser', db.verifyUser);
 
 app.post('/getUserInformation', db.getUserInformation );
 
+app.post('/requestRide', db.requestRide);
 
-app.post("/updateUser", (req, res) => {
-  let u = updateUser(null);
-  res.send(u);
-});
+app.post('/createRide', db.createRide);
 
+app.post('/reserveSeat', db.reserveSeat);
+app.post('/getBookedRides', db.getBookedRides);
+app.post('/getOfferedRides', db.getOfferedRides);
+app.post('/messageData', db.getConnectedUsers);
 
-
-app.get('/getBookedRides', (req, res) => {
-  let r = getBookedRides(null);
-  res.send(r);
-});
-
-
-
-app.get('/getOfferedRides', (req, res) => {
-  let r = getOfferedRides(null);
-  res.send(r);
-});
-
-app.get('/messageData', (req, res) => {
-  let r = getConnectedUsers(null);
-  res.send(r);
-});
 
 app.post("/createUser", db.createUser);
 
-app.post("/requestRide", (req, res) => {
-  let u = requestRide(null);
-  res.send(u);
-});
-
-app.post("/createRide", (req, res) => {
-  let u = createRide(null);
-  res.send(u);
-});
-app.post("/reserveSeat", (req, res) => {
-  let u = reserveSeat(null);
-  res.send(u);
-});
-
-
-
+app.post('/updateUser', db.updateUser);
 
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
