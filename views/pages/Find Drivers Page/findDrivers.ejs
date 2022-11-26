@@ -187,10 +187,8 @@
                 "bookedUsers" : entry.bookedUsers
                 
                 };
-
-                console.log(rideObject);
                 
-                sendServerTwo(rideObject);
+                reserveSeatServerRequest(rideObject);
 
         }
 
@@ -276,7 +274,7 @@
             }
         }
         
-        async function sendServerTwo(nReq) {
+        async function reserveSeatServerRequest(nReq) {
 
             let anotherresponse = await fetch('/reserveSeat', {
                 method: 'POST',
