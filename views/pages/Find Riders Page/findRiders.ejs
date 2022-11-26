@@ -134,6 +134,8 @@
             let responseR = await fetch('/getAllRequestedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
+                console.log("response converted")
+                console.log(response2);
                 let riderData = response2;
                 populate(riderData);
 
