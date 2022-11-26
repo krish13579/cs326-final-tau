@@ -109,4 +109,5 @@ const rideObject = {
   - Here the **email** key of the **user object** in the database is being sent by the client side code of the application.
   - The server will respond with an **array** of all **user objects** where the user identified with the **creator** in the ride objects with **type = “offered”,** and the **email** is present in the **bookedUsers array.**
   - Extension Name:  /messageData
+
 Kabir Israni, Krish Malhotra, Maahi Goel
