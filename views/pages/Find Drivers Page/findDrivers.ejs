@@ -134,9 +134,12 @@
 
             let responseR = await fetch('/getAllOfferedRides');
             if (responseR.ok) {
+                console.log("response is okay");
                 let response2 = await responseR.json();
-                obj = response2
-                populate(obj);
+                console.log("response:");
+                console.log("response2");
+                console.log("sending to populate")
+                populate(response2);
 
             } else {
                 alert("error getting data from server")
@@ -193,7 +196,8 @@
         }
 
         function populate(rd) {
-
+            console.log("inside populate");
+            console.log(rd);
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
             rider.classList.add("riderHeading");
@@ -206,6 +210,8 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
+                console.log("here is the entry")
+                console.log(entry);
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
