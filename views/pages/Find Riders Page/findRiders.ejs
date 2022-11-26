@@ -176,14 +176,29 @@
                 return;
             }
 
-            let userObject = {
-                "from": from,
-                "to": to,
-                "date": date,
-                "seats": seats,
+            let newRideObject = {
+                // Constant Integer
+                "rideID" : rid,
+                // Constant String
+                "creator" : userName,
+                // Boolean = Request or Offered
+                "type" : "Offered",
+                // Constant String
+                "origin": from, 
+                // Constant String
+                "destination": to, 
+                // Constant Date Object
+                "date": date, 
+                // Constant Integer
                 "price": price,
+                // Dynamic Integer
+                "numOfSeats" : seats,
+                // Dynamic Array
+                "bookedUsers" : []
             };
-            sendServer(userObject);
+
+            console.log(newRideObject);
+            //sendServer(userObject);
 
         }
         async function sendServer(nReq) {
