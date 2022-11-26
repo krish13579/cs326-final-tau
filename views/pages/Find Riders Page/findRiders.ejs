@@ -137,6 +137,7 @@
                 console.log("response converted")
                 console.log(response2);
                 let riderData = response2;
+                console.log("Sending to populate")
                 populate(riderData);
 
             } else {
@@ -160,7 +161,8 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-
+                console.log("inside populate");
+                console.log(entry);
                 temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
                 rider.append(temp);
             }
