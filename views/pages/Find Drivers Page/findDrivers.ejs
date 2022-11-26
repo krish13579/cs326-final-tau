@@ -231,20 +231,28 @@
                 return;
             }
 
-            let userObject = {
+            let newRideObject = {
+                // Constant Integer
+                "rideID" : Math.random(),
                 // Constant String
-                "from": from,
-                //Constant String
-                "to": to,
+                "creator" : userName,
+                // Boolean = Request or Offered
+                "type" : "Request",
+                // Constant String
+                "origin": from, 
+                // Constant String
+                "destination": to, 
                 // Constant Date Object
-                "date": date,
-                // Constant String
+                "date": date, 
+                // Constant Integer
                 "price": price,
-                // Constant String
-                "addInfo": addInfo,
+                // Dynamic Integer
+                "numOfSeats" : 0,
+                // Dynamic Array
+                "bookedUsers" : []
             };
-            console.log(userObject);
-            sendServer(userObject);
+            console.log(newRideObject);
+            //sendServer(userObject);
 
         }
         async function sendServer(nReq) {
