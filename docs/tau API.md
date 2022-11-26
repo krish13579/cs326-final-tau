@@ -1,6 +1,4 @@
-﻿
-
-**tnbTau API**
+**TAU API**
 ## **Data Structure:**
 const userObject = {
 
