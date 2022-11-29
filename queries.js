@@ -17,7 +17,7 @@ const pool = new Pool({
 pool.connect(() => console.log("connected"))
 
 const getAllRequestedRides = (request, response) => {
-  pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, Seats from rides where type='requested'`, (error, results) => {
+  pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='requested'`, (error, results) => {
     if (error) {
       throw error
     }
