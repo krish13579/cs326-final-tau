@@ -101,31 +101,31 @@
                     'Content-type': 'application/json; charset=UTF-8',
                 }
             });
-            
+
             if (response.ok) {
                 let response2 = await response.json();
                 userInformation = JSON.parse(JSON.stringify(response2));
-            } 
+            }
             else {
                 alert("Request failed");
             }
         }
-        getUserServerCall({email: userName});
+        const emid = getUserServerCall({ email: userName });
 
         window.onload = init;
 
-        function init(){
-            getMessageData();
+        function init() {
+            getMessageData(emid);
         }
 
-        function populate(info){
+        function populate(info) {
             let f = document.getElementById("first");
             let l = document.getElementById("last")
             let e = document.getElementById("email");
 
-            for(let i = 0; i<info.length; ++i){
+            for (let i = 0; i < info.length; ++i) {
                 let first = document.createElement("div");
-                let last= document.createElement("div");
+                let last = document.createElement("div");
                 let ema = document.createElement("div");
                 first.textContent = info[i].firstName;
                 last.textContent = info[i].lastName;
@@ -137,16 +137,26 @@
                 l.append(last);
                 e.append(ema);
             }
+
+
         }
 
-        async function getMessageData(){
-         let response = await fetch('/messageData');
-         if(response.ok){
-            let response2 = await response.json();
-            populate(response2);
-         }else{
-            alert("error loading data");
-         }
+        async function getMessageData(emid) {
+            let response = await fetch('/messageData', {
+                method: 'POST',
+                json: true,
+                body: JSON.stringify(emid),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            if (response.ok) {
+                let response2 = await response.json();
+                let messageData = response2;
+                populate(messageData);
+            } else {
+                alert("error receiving data from server.");
+            }
         }
 
     </script>

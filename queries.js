@@ -220,4 +220,3 @@ const getAllOfferedRides = (request, response) => {
 
 module.exports = { updateUser,getAllRequestedRides, createUser, getAllOfferedRides, getUserInformation, verifyUser,requestRide,createRide,reserveSeat,getBookedRides,getOfferedRides,getConnectedUsers }
 
-7
