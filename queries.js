@@ -27,7 +27,7 @@ const getAllRequestedRides = (request, response) => {
 
 const getConnectedUsers = async (request, response) => {
   const {email} = request.body;
-  pool.query(`SELECT creator from rides where type='offered' AND ARRAY_CONTAINS(bookedUsers, $1)`, [email], (error, results) => {
+  pool.query(`SELECT creator from rides where type='offered' AND ARRAY_CONTAINS(bookedusers, $1)`, [email], (error, results) => {
     if (error) {
       throw error
     }
