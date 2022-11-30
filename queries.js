@@ -207,7 +207,7 @@ async function hashPassword(plaintextPassword) {
 
 
 const getAllOfferedRides = (request, response) => {
-  pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, Seats from rides where type='offered'`, (error, results) => {
+  pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, numOfSeats from rides where type='offered'`, (error, results) => {
     if (error) {
       throw error
     }
