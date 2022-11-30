@@ -110,8 +110,8 @@
                 alert("Request failed");
             }
         }
-        const emid = getUserServerCall({ email: userName });
-
+        getUserServerCall({ email: userName });
+        const userObj = {"email": userName };
         window.onload = init;
 
         function init() {
@@ -141,11 +141,11 @@
 
         }
 
-        async function getMessageData(emid) {
+        async function getMessageData(userObj) {
             let response = await fetch('/messageData', {
                 method: 'POST',
                 json: true,
-                body: JSON.stringify(emid),
+                body: userObj,
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
