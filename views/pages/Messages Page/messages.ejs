@@ -153,6 +153,7 @@
             if (response.ok) {
                 let response2 = await response.json();
                 let messageData = response2;
+                console.log("this is message data: " + messageData);
                 populate(messageData);
             } else {
                 alert("error receiving data from server")
