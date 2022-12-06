@@ -54,8 +54,9 @@
             if(request.ok){
                 const response = await request.json();
                 if(response.validity){
-                    const url = '/yourProfile/'+ JSON.stringify({"email": userObj.email});
-                    window.location.href = url;
+                    // const url = '/yourProfile/'+ JSON.stringify({"email": userObj.email});
+                    // window.location.href = url;
+                    console.log(response.comments);
                 }
                 else{
                     alert(response.comments);
