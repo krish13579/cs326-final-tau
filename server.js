@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 5000
 
 //Set Up View Engine
 app.set("view engine", "ejs");
@@ -26,4 +27,4 @@ app.get("/signUp", (req, res) => {
 const userRouter = require("./routes/users");
 app.use("/users", userRouter);
 
-app.listen(3000);
+app.listen(PORT);
