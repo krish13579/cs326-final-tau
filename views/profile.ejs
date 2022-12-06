@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link href="/public/assets/profile.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header id="intro"><span>Hello</span> <span id="fn"> </span> <span id="ln"></span><span>!</span></header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder=" First Name" id="firstName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Last Name" id="lastName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Birthday" name="Birthday" id="birthday" type="date" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Email Address" id="email" readonly />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="New Password" id="newPassword" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Confirm New Password" id="confirmPassword" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="toLogin">Return to Login</button>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <button class="myButton" id="submit">Change Information</button>
+    </div>
+    <script>
+        const username = "<%= email%>";
+
+        async function getUserProfile(username){
+            // GET REQUEST
+            let request = await fetch('/users/'+ username);
+            // CHECK RESPONSE
+            if(request.ok){
+                const response = await request.json();
+                document.getElementById("firstName").value = response.firstName;
+                document.getElementById("lastName").value = response.lastName;
+                document.getElementById("birthday").value = response.birthday;
+                document.getElementById("email").value = username;
+            }
+            else{
+                alert("Error in Fetching");
+            }
+        }
+
+        async function updateUserProfile(newUserObj){
+            const url = '/users/' + JSON.stringify(username);
+            // PUT REQUEST
+            const request = await fetch(url, {
+                method: 'PUT',
+                json: true,
+                body: JSON.stringify(newUserObj),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            
+        }
+
+        getUserProfile(username);
+
+        document.getElementById("toLogin").addEventListener("click", async () => {
+            window.location.href = '/';
+        });
+
+        document.getElementById("submit").addEventListener("click", async () => {
+            if(document.getElementById("confirmPassword").value !== document.getElementById("newPassword").value){
+                alert("Passwords do not match.")
+            }
+            const newUserObj = {
+                "firstName": document.getElementById("firstName").value,
+                "lastName": document.getElementById("lastName").value,
+                "birthday": document.getElementById("birthday").value,
+                "email" : username, 
+                "password": document.getElementById("newPassword").value
+            }
+            updateUserProfile(newUserObj);
+        });
+
+    </script>
+</body>
+
+</html>

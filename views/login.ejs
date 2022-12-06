@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link href="/public/assets/login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Username" id="Username" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Password" id="Password" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="submit">Submit</button>
+    </div>
+    <br>
+    <div class="centered">
+        <p>Not already a user? <u id="signUp">Sign Up!<u></p>
+    </div>
+    <script>
+
+        document.getElementById("submit").addEventListener("click", () => {
+            const username = document.getElementById("Username").value;
+            const pass = document.getElementById("Password").value;
+            const userObj = {
+                "firstName": "NULL",
+                "lastName": "NULL",
+                "birthday": "NULL",
+                "email" : username, 
+                "password": pass
+            }
+            if (username.length != 0 && pass.length != 0) {
+                checkUserCredentials(userObj);
+            }
+            else {
+                alert("Please enter a username and password.");
+            }
+        });
+
+        async function checkUserCredentials(userObj){
+            // GET REQUEST
+            let request = await fetch('/users/verify/'+ JSON.stringify(userObj));
+            // CHECK RESPONSE
+            if(request.ok){
+                const response = await request.json();
+                if(response.validity){
+                    const url = '/yourProfile/'+ JSON.stringify({"email": userObj.email});
+                    window.location.href = url;
+                }
+                else{
+                    alert(response.comments);
+                }
+            }
+        }
+
+        document.getElementById("signUp").addEventListener("click", async () => {
+            window.location.href = 'signUp';
+        });
+    </script>
+</body>
+</html>

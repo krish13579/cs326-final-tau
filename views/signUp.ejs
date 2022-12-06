@@ -1,0 +1,98 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up Page</title>
+    <link href="/public/assets/signUp.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <br><br><br><br><br><br>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder=" First Name" id="firstName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Last Name" id="lastName" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Birthday" id="birthday" type="date" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Email Address" id="email" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Password" id="password" />
+    </div>
+    <br><br>
+    <div class="centered">
+        <input placeholder="Confirm Password" id="confirmPassword" />
+    </div> 
+    <br><br>
+    <div class="centered">
+        <button class="myButton" id="submit">Submit</button>
+    </div>
+    <br>
+    <div class="centered">
+        <p>Already a user? <u id="toLogin">Log In</u></p>
+    </div>
+    <script>
+
+        document.getElementById("submit").addEventListener("click", () => {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const birthday = document.getElementById("birthday").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const userObj = {
+                "firstName": firstName,
+                "lastName": lastName,
+                "birthday": birthday,
+                "email" : email, 
+                "password": password
+            }
+            if (password !== document.getElementById("confirmPassword").value) {
+                alert("Passwords do not match!");
+                return;
+            }
+            if (firstName.length === 0 || lastName.length === 0) {
+                alert("Name is not filled out");
+                return;
+            }
+            if (email.indexOf("@") === -1) {
+                alert("Not a valid email address");
+                return;
+            }
+            else{
+               createUser(userObj);
+               alert("Redirecting to Login Page!");
+               window.location.href = '/';
+
+            }
+        });
+
+        async function createUser(userObj){
+            const request = await fetch('/users/0', {
+                method: 'POST',
+                json: true,
+                body: JSON.stringify(userObj),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+        }
+
+        document.getElementById("toLogin").addEventListener("click", async () => {
+            window.location.href = '/';
+        });
+    </script>
+</body>
+
+</html>
