@@ -38,7 +38,7 @@ async function encryptAndSaveToDB(newData) {
 async function compareHashedPassword(passInDb, passSent) {
     try {
 
-        console.log("TEST"+ bcrypt.compareSync(passSent, passInDb))
+        console.log("TEST" + bcrypt.compareSync(passSent, passInDb))
         return bcrypt.compareSync(hashedPassWord, passInDb);
     }
     catch {
@@ -57,7 +57,7 @@ async function deleteUserFromDB(userID) {
     //         throw error
     //     }
     results.status(200).json({ status: 'success', message: 'done' })
-        
+
 }
 
 
@@ -76,20 +76,21 @@ router.get("/verify/:userObj", async (req, res) => {
     if (arr.length != 0) {
         foundObj.status = true;
         foundObj.password = arr[0].password;
+        console.log("found: " + foundObj.password)
+        console.log("usrer: " + userObj.password)
+        // console.log(await compareHashedPassword(foundObj.password, hashed.password))
+        // const flag = await bcrypt.compareSync('$2b$10$0tos1esjYs4GilGsxqPZcOzn3ve7ILME6HrNnUrnd/MPw.0UlsfGS', foundObj.password)
+        const response = {
+            "validity":  compareHashedPassword(foundObj.password, userObj.password),
+            "comments": foundObj.status === false ? "No Account In Database" : compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
+        };
+        console.log(response)
+        res.status(200).json(response);
     }
-    else{
+    else {
         res.status(401).send('User does not exist. Please sign up.');
     }
-    console.log("found: " + foundObj.password)
-    console.log("usrer: " + userObj.password)
-    // console.log(await compareHashedPassword(foundObj.password, hashed.password))
-    // const flag = await bcrypt.compareSync('$2b$10$0tos1esjYs4GilGsxqPZcOzn3ve7ILME6HrNnUrnd/MPw.0UlsfGS', foundObj.password)
-    const response = {
-        "validity": await compareHashedPassword(foundObj.password, userObj.password),
-        "comments": foundObj.status === false ? "No Account In Database" : await compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
-    };
-    console.log(response)
-    res.status(200).json(response);
+
 });
 
 //register new user
@@ -107,8 +108,9 @@ router.get("/register/:userObj", async (req, res) => {
             if (error) {
                 throw error;
             }
-            res.status(201).json({ status: 'success', message: `User added with ID: ${results.email}` });
-
+            else {
+                res.status(201).json({ status: 'success', message: `User added with ID: ${results.email}` });
+            }
         })
     }
 });
