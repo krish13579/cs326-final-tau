@@ -90,13 +90,6 @@ router.get("/verify/:userObj", async (req, res) => {
 //register new user
 router.get("/register/:userObj", async (req, res) => {
     const userObj = JSON.parse(req.params.userObj);
-    
-    const fname = userObj.firstName
-    const lname = userObj.lastName
-    const bdate = userObj.birthday
-    const email = userObj.email
-    const password = userObj.password
-
     const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [userObj.email]); //Checking if user already exists
     const arr = data.rows;
     if (arr.length != 0) {
@@ -113,9 +106,14 @@ router.get("/register/:userObj", async (req, res) => {
 
         })
     }
+});
 
+//profileUpdate
+router.get("/profile/:userObj", async (req, res) => {
+    const userObj = JSON.parse(req.params.userObj);
 
 });
+
 //Individual User Routes
 router.route("/:id")
     .get(async (req, res) => {
