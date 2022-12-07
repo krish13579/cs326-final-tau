@@ -45,12 +45,16 @@ async function compareHashedPassword(passInDb, passSent) {
 
 
 
-function deleteUserFromDB(userId, storageArr) {
-    let result = storageArr.filter(x => {
-        x.email !== userId
-    });
-    return result;
-}
+async function deleteUserFromDB(userID){
+    const id = userID
+  
+    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`User deleted with ID: ${id}`)
+    })
+  }
 
 
 //Sign Up Routes
@@ -65,15 +69,19 @@ router.get("/verify/:userObj", async (req, res) => {
 
     const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [userObj.email])
     const arr = passdata.rows;
+    console.log(arr)
+    console.log((arr[0]))
     if (arr.length != 0) {
         foundObj.status = true;
-        foundObj.password = passdata[0];
+        foundObj.password = arr[0];
     }
-    console.log("test" , compareHashedPassword(foundObj.password, userObj.password))
+    // console.log("test" , compareHashedPassword(foundObj.password, userObj.password))
     const response = {
-        "validity": compareHashedPassword(foundObj.password, userObj.password),
+        "validity": await compareHashedPassword(foundObj.password, userObj.password),
         "comments": foundObj.status === false ? "No Account In Database" : compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
     };
+    console.log(response)
+
     res.status(200).json(response);
 });
 
@@ -104,7 +112,7 @@ router.route("/:id")
         console.log(userObjArray);
         const userId = req.params.id;
         //Removed Old User Data
-        userObjArray = JSON.parse(JSON.stringify(deleteUserFromDB(userId, userObjArray)));
+        userObjArray = JSON.parse(JSON.stringify(deleteUserFromDB(userId)));
         let body = '';
         req.on('data', data => body += data);
         req.on('end', () => {
