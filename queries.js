@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { response } = require("express");
+const { response, json } = require("express");
 
 const Pool = require('pg').Pool
 require('dotenv').config()
@@ -15,6 +15,16 @@ const pool = new Pool({
   }
 });
 pool.connect(() => console.log("connected"))
+
+const getAllUsers = () => {
+  pool.query('Select * from users', (error, results) => {
+    if (error) {
+      throw error
+    }
+    return (results.rows)
+  })
+}
+
 
 const getAllRequestedRides = (request, response) => {
   pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='requested'`, (error, results) => {
@@ -218,5 +228,5 @@ const getAllOfferedRides = (request, response) => {
 
 
 
-module.exports = { updateUser,getAllRequestedRides, createUser, getAllOfferedRides, getUserInformation, verifyUser,requestRide,createRide,reserveSeat,getBookedRides,getOfferedRides,getConnectedUsers }
+module.exports = { getAllUsers, updateUser,getAllRequestedRides, createUser, getAllOfferedRides, getUserInformation, verifyUser,requestRide,createRide,reserveSeat,getBookedRides,getOfferedRides,getConnectedUsers }
 

@@ -2,44 +2,50 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const bcrypt = require("bcrypt");
+// const db = require("../queries.js")
+const Pool = require('pg').Pool
+require('dotenv').config()
+const pool = new Pool({
+    user: process.env.POSTGRES_USER,
+    connectionString: 'postgres://vsxcthxiaisgiy:f9c54a39e2e9d24873f2c2ae11bb997a15f19e1bd12e4d2818fc2e7606c37843@ec2-18-215-41-121.compute-1.amazonaws.com:5432/depqr2p28kevvk',
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    port: process.env.POSTGRES_PORT,
+    ssl: {
+        rejectUnauthorized: false,
+    }
+});
+pool.connect(() => console.log("connected"))
 
 //Set Up View Engine
 app.set("view engine", "ejs");
 
-//Using Local Storage
-let userObjArray = [{
-    "firstName": "Kabir",
-    "lastName": "Israni",
-    "birthday": "01-12-2002",
-    "email" : "test@umass.edu", 
-    "password": "pass"
-}];
-
-async function encryptAndSaveToDB(newData){
-    try{
+async function encryptAndSaveToDB(newData) {
+    try {
         let result = JSON.parse(JSON.stringify(newData));
         const salt = await bcrypt.genSalt();
         const hashedPassWord = await bcrypt.hash(newData.password, salt);
         result.password = hashedPassWord;
         userObjArray.push(result);
     }
-    catch{
+    catch {
         console.log("Unable to encrypt and save data");
     }
 }
 
-async function compareHashedPassword(passInDb, passSent){
-    try{
+async function compareHashedPassword(passInDb, passSent) {
+    try {
         return await bcrypt.compare(passSent, passInDb);
     }
-    catch{
+    catch {
 
     }
 }
 
 
 
-function deleteUserFromDB(userId, storageArr){
+function deleteUserFromDB(userId, storageArr) {
     let result = storageArr.filter(x => {
         x.email !== userId
     });
@@ -53,18 +59,20 @@ router.get("/new", (req, res) => {
 });
 
 // Verify Users Route
-router.get("/verify/:userObj", (req, res) => {
+router.get("/verify/:userObj", async (req, res) => {
     const userObj = JSON.parse(req.params.userObj);
-    let foundObj = {"status": false, "password": "null"};
-    userObjArray.forEach(x => {
-        if(x.email === userObj.email){
-            foundObj.status = true;
-            foundObj.password = x.password;
-        }
-    })
+    let foundObj = { "status": false, "password": "null" };
+
+    const passdata = await pool.query(`SELECT password from users where users.email=$1;`, [userObj.email])
+    const arr = passdata.rows;
+    if (arr.length != 0) {
+        foundObj.status = true;
+        foundObj.password = passdata[0];
+    }
+    console.log("test" , compareHashedPassword(foundObj.password, userObj.password))
     const response = {
-       "validity": compareHashedPassword(foundObj.password, userObj.password),
-       "comments": foundObj.status === false ? "No Account In Database" : compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
+        "validity": compareHashedPassword(foundObj.password, userObj.password),
+        "comments": foundObj.status === false ? "No Account In Database" : compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
     };
     res.status(200).json(response);
 });
@@ -75,7 +83,7 @@ router.route("/:id")
         const userId = req.params.id;
         let result = {};
         userObjArray.forEach(x => {
-            if (x.email === userId){
+            if (x.email === userId) {
                 result["firstName"] = x.firstName;
                 result["lastName"] = x.lastName;
                 result["birthday"] = x.birthday;
