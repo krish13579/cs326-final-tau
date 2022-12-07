@@ -210,8 +210,8 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-        
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats + "    ";
+                console.log("test" + entry.fdate)
+                temp.textContent = "Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
