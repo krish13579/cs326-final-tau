@@ -1,0 +1,83 @@
+header {
+    font-size: 30px;
+    font-family: 'Trebuchet MS', sans-serif;
+    padding: 10px;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: none;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.centered{
+    font-family: 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myButton {
+    width: 200px;
+	box-shadow:inset 0px 1px 3px 0px #219485;
+	background:linear-gradient(to bottom, #ffffff 5%, #ffffff 100%);
+	background-color:#ffffff;
+	border-radius:5px;
+	border:1px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Trebuchet MS;
+	font-size:20px;
+	font-weight:bold;
+	padding:11px 35px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #bababa;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #ffffff 5%, #ffffff 100%);
+	background-color:#ffffff;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.container {
+display: grid; 
+grid-template-columns: 0.5fr 1.5fr; 
+grid-template-rows: 1fr; 
+gap: 0px 0px; 
+grid-template-areas: 
+    "article content"; 
+}
+.content { grid-area: content; }
+.article { grid-area: article; }
+
+.driver{
+border: thin solid black;
+padding: 10px;
+margin: 10px;
+font-family: 'Trebuchet MS', sans-serif;
+font-size: 15px;
+}
+
+.rider{
+border: thin solid black;
+padding: 10px;
+margin: 10px;
+font-family: 'Trebuchet MS', sans-serif;
+font-size: 15px;
+}
+
+.yourRidesDiv {
+	display: grid; 
+	grid-auto-columns: 1fr; 
+	grid-template-columns: 1fr 1fr; 
+	grid-template-rows: 1fr; 
+	gap: 0px 0px; 
+	grid-template-areas: 
+	  "driverHeading riderHeading"; 
+  }
+  .driverHeading { grid-area: driverHeading; }
+  .riderHeading { grid-area: riderHeading; }
