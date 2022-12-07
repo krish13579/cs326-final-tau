@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link href="/public/assets/login.css" rel="stylesheet" type="text/css" />
+       <link href="/public/assets/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -50,13 +50,13 @@
         async function checkUserCredentials(userObj){
             // GET REQUEST
             let request = await fetch('/users/verify/'+ JSON.stringify(userObj));
+            
             // CHECK RESPONSE
             if(request.ok){
                 const response = await request.json();
                 if(response.validity){
-                    // const url = '/yourProfile/'+ JSON.stringify({"email": userObj.email});
-                    // window.location.href = url;
-                    console.log(response);
+                    const url = '/findDrivers/'+ JSON.stringify({email: userObj.email});
+                    window.location.href = url;
                 }
                 else{
                     alert(response.comments);
@@ -70,3 +70,4 @@
     </script>
 </body>
 </html>
+ 
