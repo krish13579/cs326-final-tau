@@ -1,0 +1,307 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Find Drivers Page</title>
+    <link href="/public/assets/findDrivers.css" rel="stylesheet" type="text/css" />
+    
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <header><u>Find Drivers</u></header>
+            <div class="owcontainer">
+                <div class="Availble-rides">
+                    <header>Available Rides</header>
+                    <div id="avalRides" class="avalRides"></div>
+                </div>
+                <div class="Request">
+                    <header>Request a Ride!</header>
+                    <input placeholder="From Location*" id="from" />
+                    <input placeholder="To Location*" id="to" />
+                    <input placeholder="Date*" id="date" type="date" />
+                    <input placeholder="Ideal Price*" id="idealPrice" />
+                    <input placeholder="Additional Information" id="adInfo" />
+                    <br><br>
+                    <button class="myButton2" id="sub">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="article">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <header>Ride Buddy.</header>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="fd">Find Drivers</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="fr">Find Riders</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="yr">Your Rides</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="mess">Messages</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="yp">Your Profile</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="lo">Log Out</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const username = "<%= email%>";
+        document.getElementById("fd").addEventListener("click", () => {
+            const url = '/findDrivers/'+ JSON.stringify({email:username});
+                    window.location.href = url;
+        });
+        document.getElementById("fr").addEventListener("click", () => {
+            const url = '/findRiders/'+ JSON.stringify({email:username});
+                    window.location.href = url;
+        
+        });
+        document.getElementById("yr").addEventListener("click", () => {
+            const url = '/yourRides/'+ JSON.stringify({email:username});
+                    window.location.href = url;
+        });
+        document.getElementById("mess").addEventListener("click", () => {
+            window.location.href = "/views/pages/Messages Page/messages";
+        });
+        document.getElementById("yp").addEventListener("click", () => {
+            window.location.href = "/views/pages/Your Profile Page/profile";
+        });
+        document.getElementById("lo").addEventListener("click", () => {
+            window.location.href = "/views/pages/logIn Page/login";
+        });
+        document.getElementById("sub").addEventListener("click", () => {
+            validateInfo();
+        });
+
+       
+        // let userInformation = {};
+        //  async function getUserServerCall(nReq) {
+        //      let response = await fetch('/getUserInformation', {
+        //          method: 'POST',
+        //          body: JSON.stringify(nReq),
+        //          headers: {
+        //              'Content-type': 'application/json; charset=UTF-8',
+        //          }
+        //      });
+            
+        //      if (response.ok) {
+        //          let response2 = await response.json();
+           
+        //          userInformation = JSON.parse(JSON.stringify(response2));
+        //         setter(userInformation);
+        //     } 
+        //    else {
+        //         alert("Request failed");
+        //     }
+        //  }
+        //  getUserServerCall({email: userName});
+
+        window.onload = init
+        function init() {
+            getData();
+        }
+
+        let obj = [];
+        async function getData() {
+
+            let responseR = await fetch('/rides/getAllOfferedRides');
+            if (responseR.ok) {
+               
+                let response2 = await responseR.json();
+              
+                populate(response2);
+
+            } else {
+                alert("error getting data from server")
+            }
+
+
+        }
+
+        function reserveSeat(entry){
+         
+            
+                let rideObject = {
+    
+                // Constant Integer
+                
+                "rideID" : entry.rid,
+                
+                // Constant String
+                
+                "creator" : entry.userId,
+                
+                // Boolean = Request or Offered
+                
+                "type" : "Offered",
+                
+                // Constant String
+                
+                "origin": entry.origin,
+                
+                // Constant String
+                
+                "destination": entry.destination,
+                
+                // Constant Date Object
+                
+                "date": entry.date,
+                
+                // Constant Integer
+                
+                "price": entry.price,
+                
+                // Dynamic Integer
+                
+                "numOfSeats" : entry.numOfSeats,
+                
+                // Dynamic Array
+                
+                "bookedUsers" : entry.bookedUsers
+                
+                };
+             
+                reserveSeatServerRequest(rideObject);
+
+        }
+
+        function populate(rd) {
+       
+            let mainDiv = document.getElementById("avalRides");
+            let rider = document.createElement("div");
+            rider.classList.add("riderHeading");
+            rider.textContent = "";
+            rider.id = "rider";
+            mainDiv.append(rider);
+            let rideData = rd;
+
+            for (let i = 0; i < rideData.length; ++i) {
+                let temp = document.createElement("div");
+                temp.classList.add("rider");
+                let entry = rideData[i];
+        
+                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats + "    ";
+                let btn = document.createElement("button");
+                btn.innerHTML = "Reserve";
+                btn.classList.add("myButton2");
+                btn.addEventListener("click", (event) => {
+                    reserveSeat(entry);
+                });
+                temp.appendChild(btn);
+                rider.append(temp);
+            }
+        }
+
+        function validateInfo() {
+
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let date = document.getElementById("date").value;
+            let price = document.getElementById("idealPrice").value;
+            let addInfo = document.getElementById("adInfo").value;
+
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0) {
+                alert("All required fields are not filled out");
+                return;
+            }
+
+            let newRideObject = {
+                // Constant Integer
+                "rideID" : Math.random(),
+                // Constant String
+                "creator" : username,
+                // Boolean = Request or Offered
+                "type" : "Request",
+                // Constant String
+                "origin": from, 
+                // Constant String
+                "destination": to, 
+                // Constant Date Object
+                "date": date, 
+                // Constant Integer
+                "price": price,
+                // Dynamic Integer
+                "numOfSeats" : 0,
+                // Dynamic Array
+                "bookedUsers" : []
+            };
+    
+            sendServer(newRideObject);
+
+        }
+        async function sendServer(nReq) {
+            let url = '/rides/requestRide/'+JSON.stringify(username);
+            let response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Your request has been created. Hang tight as we let the drivers know!");
+
+            } else {
+                alert("Request failed");
+            }
+        }
+        
+        async function reserveSeatServerRequest(nReq) {
+          
+            let url = "/rides/reserveSeat/" + JSON.stringify(username)+"/"+JSON.stringify(nReq.rideID);
+            let anotherresponse = await fetch(url, {
+                method: 'POST',
+                json:true,
+                body: JSON.stringify({email: username, rideID: nReq.rideID }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (anotherresponse.ok) {
+                let response2 = await anotherresponse.json();
+                alert("Your seat has been reserved!");
+
+            } else {
+                alert("Request failed");
+            }
+        }
+        
+    </script>
+</body>
+
+</html>
