@@ -35,7 +35,7 @@ router.get("/getAllOfferedRides", (req, res) => {
 });
 
 router.get("/getAllRequestedRides", (req, res) => {
-    pool.query(`SELECT rideid origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='requested'`, (error, results) => {
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='Request'`, (error, results) => {
         if (error) {
             throw error
         }
@@ -107,7 +107,7 @@ router.post('/requestRide/:userInfo', (req, res) => {
         const data = JSON.parse(body);
         // createReqRide(user, data);
         // res.json({ status: "success" });
-        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($2, $3, $4, $5, $6, $7, $8, $9)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
             if (error) {
                 throw error;
             }
