@@ -52,10 +52,6 @@ async function deleteUserFromDB(userID) {
     const id = userID
 
     pool.query('DELETE FROM users WHERE email = $1', [id]);
-    // , (error, results) => {
-    //     if (error) {
-    //         throw error
-    //     }
     results.status(200).json({ status: 'success', message: 'done' })
 
 }
@@ -76,19 +72,19 @@ router.get("/verify/:userObj", async (req, res) => {
     if (arr.length != 0) {
         foundObj.status = true;
         foundObj.password = arr[0].password;
-        console.log("found: " + foundObj.password)
-        console.log("usrer: " + userObj.password)
-        console.log(await compareHashedPassword(foundObj.password, userObj.password))
-        // const flag = await bcrypt.compareSync('$2b$10$0tos1esjYs4GilGsxqPZcOzn3ve7ILME6HrNnUrnd/MPw.0UlsfGS', foundObj.password)
         const response = {
-            "validity":  await compareHashedPassword(foundObj.password, userObj.password),
-            "comments": foundObj.status === false ? "No Account In Database" :  await compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
+            "validity": await compareHashedPassword(foundObj.password, userObj.password),
+            "comments": foundObj.status === false ? "No Account In Database" : await compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
         };
-        console.log(response)
         res.status(200).json(response);
     }
     else {
-        res.status(401).send('User does not exist. Please sign up.');
+        const response = {
+            "validity": false,
+            "comments": "User does not exist. Please sign up."
+        }
+        res.status(200).json(response);
+
     }
 
 });
