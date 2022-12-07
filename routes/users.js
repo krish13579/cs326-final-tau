@@ -51,12 +51,13 @@ async function compareHashedPassword(passInDb, passSent) {
 async function deleteUserFromDB(userID) {
     const id = userID
 
-    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).send(`User deleted with ID: ${id}`)
-    })
+    pool.query('DELETE FROM users WHERE email = $1', [id]);
+    // , (error, results) => {
+    //     if (error) {
+    //         throw error
+    //     }
+    results.status(200).json({ status: 'success', message: 'done' })
+        
 }
 
 
@@ -123,12 +124,13 @@ router.route("/:id")
     .get(async (req, res) => {
         const userId = req.params.id;
         let result = {};
-        const user = await pool.query(`SELECT * from users where users.email=$1;`, [userId])
+        const user = await pool.query(`SELECT fname, lname, to_char(bdate, 'YYYY-MM-DD') fdate from users where users.email=$1;`, [userId])
         const data = user.rows;
+
         if (data.length != 0) {
             result["firstName"] = data[0].fname;
             result["lastName"] = data[0].lname;
-            result["birthday"] = data[0].bdate;
+            result["birthday"] = data[0].fdate;
         }
         res.status(200).json(result);
     })
