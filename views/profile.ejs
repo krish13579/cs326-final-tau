@@ -45,6 +45,7 @@
         const username = "<%= email%>";
 
         async function getUserProfile(username){
+            console.log(username);
             // GET REQUEST
             let request = await fetch('/users/'+ username);
             // CHECK RESPONSE
