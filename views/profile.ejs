@@ -50,6 +50,8 @@
             // CHECK RESPONSE
             if(request.ok){
                 const response = await request.json();
+                document.getElementById("fn").value = response.firstName;
+                document.getElementById("ln").value = response.lastName;
                 document.getElementById("firstName").value = response.firstName;
                 document.getElementById("lastName").value = response.lastName;
                 document.getElementById("birthday").value = response.birthday;
