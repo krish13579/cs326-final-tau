@@ -7,39 +7,87 @@
 </head>
 
 <body>
-    <br><br><br><br><br><br>
-    <div class="centered">
-        <header id="intro"><span>Hello</span> <span id="fn"> </span> <span id="ln"></span><span>!</span></header>
+    <div class="content">
+        <div class="centered">
+            <header id="intro"><span>Hello</span> <span id="fn"> </span> <span id="ln"></span><span>!</span></header>
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder=" First Name" id="firstName" />
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder="Last Name" id="lastName" />
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder="Birthday" name="Birthday" id="birthday" type="date" />
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder="Email Address" id="email" readonly />
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder="New Password" id="newPassword" />
+        </div>
+        <br><br>
+        <div class="centered">
+            <input placeholder="Confirm New Password" id="confirmPassword" />
+        </div>
+        <br><br>
+        <div class="centered">
+            <button class="myButton" id="toLogin">Return to Login</button>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <button class="myButton" id="submit">Change Information</button>
+        </div>
     </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder=" First Name" id="firstName" />
-    </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder="Last Name" id="lastName" />
-    </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder="Birthday" name="Birthday" id="birthday" type="date" />
-    </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder="Email Address" id="email" readonly />
-    </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder="New Password" id="newPassword" />
-    </div>
-    <br><br>
-    <div class="centered">
-        <input placeholder="Confirm New Password" id="confirmPassword" />
-    </div>
-    <br><br>
-    <div class="centered">
-        <button class="myButton" id="toLogin">Return to Login</button>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <button class="myButton" id="submit">Change Information</button>
+    <div class="article">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <header>Ride Buddy.</header>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="fd">Find Drivers</button></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="fr">Find Riders</button></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="yr">Your Rides</button></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="mess">Messages</button></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="yp">Your Profile</button></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="myButton" id="lo">Log Out</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <script>
         const username = "<%= email%>";
