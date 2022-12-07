@@ -39,7 +39,7 @@ async function compareHashedPassword(passInDb, passSent) {
     try {
 
         console.log("TEST" + bcrypt.compareSync(passSent, passInDb))
-        return bcrypt.compareSync(hashedPassWord, passInDb);
+        return bcrypt.compareSync(passSent, passInDb);
     }
     catch {
 
@@ -78,11 +78,11 @@ router.get("/verify/:userObj", async (req, res) => {
         foundObj.password = arr[0].password;
         console.log("found: " + foundObj.password)
         console.log("usrer: " + userObj.password)
-        // console.log(await compareHashedPassword(foundObj.password, hashed.password))
+        console.log(await compareHashedPassword(foundObj.password, userObj.password))
         // const flag = await bcrypt.compareSync('$2b$10$0tos1esjYs4GilGsxqPZcOzn3ve7ILME6HrNnUrnd/MPw.0UlsfGS', foundObj.password)
         const response = {
-            "validity":  compareHashedPassword(foundObj.password, userObj.password),
-            "comments": foundObj.status === false ? "No Account In Database" : compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
+            "validity":  await compareHashedPassword(foundObj.password, userObj.password),
+            "comments": foundObj.status === false ? "No Account In Database" :  await compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
         };
         console.log(response)
         res.status(200).json(response);

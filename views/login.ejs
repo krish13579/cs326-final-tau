@@ -58,12 +58,12 @@
                     const url = '/findDrivers/'+ JSON.stringify({email: userObj.email});
                     window.location.href = url;
                 }
-                if(response.status === 401){
+                if(!response.validity){
                     alert("Username or password incorrect. Please try again or sign up for a new user!")
                 }
-                else{
-                    alert(response.comments);
-                }
+                // else{
+                //     alert(response.comments);
+                // }
             }
         }
 
