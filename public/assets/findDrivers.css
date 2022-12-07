@@ -18,15 +18,15 @@ header {
 }
 
 .myButton {
-    width: 200px;
+  width: 200px;
 	box-shadow:inset 0px 1px 3px 0px #219485;
 	background:linear-gradient(to bottom, #ffffff 5%, #ffffff 100%);
-	background-color:#ffffff;
+	background-image: linear-gradient(to right, #19547b, #19547b);
 	border-radius:5px;
 	border:1px solid #000000;
 	display:inline-block;
 	cursor:pointer;
-	color:#000000;
+	color:#ffff;
 	font-family:Trebuchet MS;
 	font-size:20px;
 	font-weight:bold;
@@ -35,7 +35,7 @@ header {
 	text-shadow:0px -1px 0px #bababa;
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #ffffff 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #19547b 5%, #72b352 100%);
 	background-color:#ffffff;
 }
 .myButton:active {
