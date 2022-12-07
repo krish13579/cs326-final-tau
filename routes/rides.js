@@ -2,158 +2,94 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const bcrypt = require("bcrypt");
-
-// getAllrides
-//getride()
-
-let ridesDB = [   {"rideID" : (Math.floor(Math.random()*1000)),
-// Constant String
-"creator" : "kmalhotra@umass.edu",
-// Boolean = Request or Offered
-"type" : "offered",
-// Constant String
-"origin" : "NY" ,
-// Constant String
-"destination":"Boston" , 
-// Constant Date Object
-"date": "01/15/2023", 
-// Constant Integer
-"price": 10 ,
-// Dynamic Integer
-"numOfSeats" : 2,
-// Dynamic Array
-"bookedUsers" : []
-}, {"rideID" : (Math.floor(Math.random()*1000)),
-// Constant String
-"creator" : "test@umass.edu",
-// Boolean = Request or Offered
-"type" : "requested",
-// Constant String
-"origin" : "Hartford" ,
-// Constant String
-"destination":"Amherst" , 
-// Constant Date Object
-"date": "01/20/2023", 
-// Constant Integer
-"price": 15 ,
-// Dynamic Integer
-"numOfSeats" : 1,
-// Dynamic Array
-"bookedUsers" : []
-}];
-
-function createReqRide(u,d){
-
-    let nRide =  {"rideID" : (Math.floor(Math.random()*1000)),
-// Constant String
-"creator" : u,
-// Boolean = Request or Offered
-"type" : "requested",
-// Constant String
-"origin" : d.origin ,
-// Constant String
-"destination": d.destination , 
-// Constant Date Object
-"date": d.date, 
-// Constant Integer
-"price": d.price ,
-// Dynamic Integer
-"numOfSeats" : d.numOfSeats,
-// Dynamic Array
-"bookedUsers" : d.bookedUsers
-}
-
-ridesDB.push(nRide);
-console.log(ridesDB);
-    
-}
-
-function createOffRide(u,d){
-
-    let nRide =  {"rideID" : (Math.floor(Math.random()*1000)),
-// Constant String
-"creator" : u,
-// Boolean = Request or Offered
-"type" : "offered",
-// Constant String
-"origin" : d.origin ,
-// Constant String
-"destination": d.destination , 
-// Constant Date Object
-"date": d.date, 
-// Constant Integer
-"price": d.price ,
-// Dynamic Integer
-"numOfSeats" : d.numOfSeats,
-// Dynamic Array
-"bookedUsers" : d.bookedUsers
-}
-
-ridesDB.push(nRide);
-console.log(ridesDB);
-    
-}
+const Pool = require('pg').Pool
+require('dotenv').config()
+const pool = new Pool({
+    user: process.env.POSTGRES_USER,
+    connectionString: 'postgres://vsxcthxiaisgiy:f9c54a39e2e9d24873f2c2ae11bb997a15f19e1bd12e4d2818fc2e7606c37843@ec2-18-215-41-121.compute-1.amazonaws.com:5432/depqr2p28kevvk',
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    port: process.env.POSTGRES_PORT,
+    ssl: {
+        rejectUnauthorized: false,
+    }
+});
 //Set Up View Engine
 app.set("view engine", "ejs");
 
 router.get("/getAllOfferedRides", (req, res) => {
-    let results = [];
-    for( elem of ridesDB){
-        if(elem.type === "offered"){
-            results.push(elem);
+    // let results = [];
+    // for (elem of ridesDB) {
+    //     if (elem.type === "offered") {
+    //         results.push(elem);
+    //     }
+    // }
+    // res.json(results);
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, numOfSeats from rides where type='offered'`, (error, results) => {
+        if (error) {
+            throw error
         }
-    }
-    res.json(results);
+        res.status(200).json(results.rows)
+    })
 });
 
 router.get("/getAllRequestedRides", (req, res) => {
-    let results = [];
-    for( elem of ridesDB){
-        if(elem.type === "requested"){
-            results.push(elem);
+    pool.query(`SELECT rideid origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='requested'`, (error, results) => {
+        if (error) {
+            throw error
         }
-    }
-    res.json(results);
+        res.status(200).json(results.rows)
+    })
 });
 
-router.get("/getBookedRides/:userInfo",(req, res) => {
+router.get("/getBookedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    console.log(user);
-    let results = [];
-    for( elem of ridesDB){
-        if(elem.bookedUsers.includes(user)){
-            results.push(elem);
+    pool.query(`SELECT * from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
+        if (error) {
+            throw error
         }
-    }
-    res.json(results);
+        res.status(200).json(results.rows)
+    })
 });
 
-router.get("/getOfferedRides/:userInfo",(req, res) => {
+router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    console.log(user);
-    let results = [];
-    for( elem of ridesDB){
-        if(elem.creator = user && elem.type==="offered"){
-            results.push(elem);
+    pool.query(`SELECT * from rides WHERE creator = $1 AND type = 'offered' `, [user], (error, results) => {
+        if (error) {
+            throw error
         }
-    }
-    res.json(results);
+        res.status(200).json(results.rows)
+    })
 });
 
 
 
 router.post('/reserveSeat/:id/:rid', (req, res) => {
-   
-    let user = req.params.id;
-    let rid = req.params.rid;
 
-    for(elem of ridesDB){
-        if(elem.rideID = rid){
-            elem.bookedUsers.push(user);
-            res.json({status: "success"});
+    let user = req.params.id;
+    let rid = req.params.rideid;
+    pool.query('SELECT * from rides where rides.rideID=$1;', [rid], (error, results) => {
+        if (error) {
+            throw error;
         }
-    }
-    
+        else
+        {if (results.numOfSeats > 0) {
+            const nSeats = results.numOfSeats - 1;
+            const nBooked = results.bookedUsers.push(user);
+            console.log(nBooked)
+            pool.query('UPDATE rides SET numofseats=$1, bookedusers=$2 where rides.rideID =$3;', [nSeats, nBooked, rid], (error2, results2) => {
+                if (error2) {
+                    throw error2;
+                }
+                res.status(201).json({ status: 'success', message: `Ride requested from  ${results2.origin} to ${results2.destination}` });
+            });
+        } else {
+            res.status(201).json({ status: 'failed', message: `Ride is full` });
+        }
+        res.status(201).json({ status: 'failed', message: `Could not find existing ride` });}
+    });
+
 });
 
 
@@ -162,34 +98,42 @@ router.post('/requestRide/:userInfo', (req, res) => {
     let body = '';
 
     let user = JSON.parse(req.params.userInfo);
-    console.log("heres user" + user )
+    console.log("heres user" + user)
     req.on('data', data => body += data);
     req.on('end', () => {
         const data = JSON.parse(body);
-        createReqRide(user,data);
-        res.json({status:"success"});
-   
-    });
- 
+        // createReqRide(user, data);
+        // res.json({ status: "success" });
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($2, $3, $4, $5, $6, $7, $8, $9)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(201).json({ status: 'success', message: `Ride requested from  ${results.origin} to ${results.destination}` });
 
-    
+        });
+
+    });
 });
 
 router.post('/createRide/:userInfo', (req, res) => {
     let body = '';
 
     let user = JSON.parse(req.params.userInfo);
-    console.log("heres user" + user )
     req.on('data', data => body += data);
     req.on('end', () => {
         const data = JSON.parse(body);
-        createOffRide(user,data);
-        res.json({status:"success"});
-   
-    });
-  
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(201).json({ status: 'success', message: `Ride created from  ${results.origin} to ${results.destination}` });
 
-    
+        });
+
+    });
+
+
+
 });
 
 

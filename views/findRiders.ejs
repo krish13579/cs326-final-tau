@@ -139,7 +139,7 @@
                 temp.classList.add("rider");
                 let entry = rideData[i];
               
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
+                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numofseats;
                 rider.append(temp);
             }
         }
@@ -157,9 +157,6 @@
             }
 
             let newRideObject = {
-                // Constant Integer
-                "rideID" : Math.random(),
-                // Constant String
                 "creator" : username,
                 // Boolean = Request or Offered
                 "type" : "offered",

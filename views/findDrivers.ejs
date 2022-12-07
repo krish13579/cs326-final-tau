@@ -237,8 +237,6 @@
             }
 
             let newRideObject = {
-                // Constant Integer
-                "rideID" : Math.random(),
                 // Constant String
                 "creator" : username,
                 // Boolean = Request or Offered
@@ -261,7 +259,7 @@
 
         }
         async function sendServer(nReq) {
-            let url = '/rides/requestRide/'+JSON.stringify(username);
+            let url = '/rides/requestRide/'+ JSON.stringify(username);
             let response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(nReq),
