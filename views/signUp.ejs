@@ -79,14 +79,17 @@
         });
 
         async function createUser(userObj){
-            const request = await fetch('/users/0', {
-                method: 'POST',
-                json: true,
-                body: JSON.stringify(userObj),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
+            const request = await fetch('/users/register/'+ JSON.stringify(userObj));
+            if(request.ok){
+                const response = await request.json();
+                if(response.validity){
+                    const url = '/findDrivers/'+ JSON.stringify({email: userObj.email});
+                    window.location.href = url;
                 }
-            });
+                else{
+                    alert(request.status);
+                }
+            }
         }
 
         document.getElementById("toLogin").addEventListener("click", async () => {
