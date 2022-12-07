@@ -78,10 +78,10 @@
             window.location.href = "/views/pages/Messages Page/messages";
         });
         document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = "/views/pages/Your Profile Page/profile";
+            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
         });
         document.getElementById("lo").addEventListener("click", () => {
-            window.location.href = "/views/pages/logIn Page/login";
+            window.location.href = "/";
         });
 
 
