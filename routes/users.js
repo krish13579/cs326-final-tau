@@ -34,10 +34,12 @@ async function encryptAndSaveToDB(newData) {
         console.log("Unable to encrypt and save data");
     }
 }
-
+// compareHashedPassword(foundObj.password, userObj.password)
 async function compareHashedPassword(passInDb, passSent) {
     try {
-        return await bcrypt.compare(passSent, passInDb);
+
+        console.log("TEST"+ bcrypt.compareSync(passSent, passInDb))
+        return bcrypt.compareSync(hashedPassWord, passInDb);
     }
     catch {
 
@@ -72,18 +74,20 @@ router.get("/verify/:userObj", async (req, res) => {
     const arr = passdata.rows;
     if (arr.length != 0) {
         foundObj.status = true;
-        foundObj.password = JSON.stringify(arr[0].password);
+        foundObj.password = arr[0].password;
+    }
+    else{
+        res.status(401).send('User does not exist. Please sign up.');
     }
     console.log("found: " + foundObj.password)
     console.log("usrer: " + userObj.password)
-    console.log(await compareHashedPassword(foundObj.password, userObj.password))
-
+    // console.log(await compareHashedPassword(foundObj.password, hashed.password))
+    // const flag = await bcrypt.compareSync('$2b$10$0tos1esjYs4GilGsxqPZcOzn3ve7ILME6HrNnUrnd/MPw.0UlsfGS', foundObj.password)
     const response = {
         "validity": await compareHashedPassword(foundObj.password, userObj.password),
         "comments": foundObj.status === false ? "No Account In Database" : await compareHashedPassword(foundObj.password, userObj.password) ? "Account Exists" : "Incorrect Password"
     };
     console.log(response)
-
     res.status(200).json(response);
 });
 
