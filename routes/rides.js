@@ -64,7 +64,30 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
 });
 
 router.get("/messageData/:userInfo", (req, res) => {
-    res.status(200);
+    const user = req.params.userInfo;
+    console.log(''+user+'')
+    // AND $1=ANY(bookedusers) , [''+user]
+    pool.query(`SELECT creator, origin from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
+        if (error) {
+            throw error
+        }
+        const data = results.rows;
+        console.log(results.rows)
+        if(data.length != 0){
+            pool.query(`SELECT * from users where email=$1`, [results.rows[0].creator], (error, results2) => {
+                if (error) {
+                    throw error
+                }
+                console.log(results2.rows)
+
+                res.status(200).json(results2.rows)
+            });
+        }
+        else{
+            res.status(400).json('No messages found.')
+
+        }
+    })
 });
 
 
@@ -75,27 +98,27 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
     let rid = req.params.rideid;
     pool.query('SELECT * from rides where rides.rideid =$1;', [rid], (error, results) => {
         if (error) {
-          throw error;
+            throw error;
         }
         console.log(results.rows)
-        if(results.rows.numofseats > 0){
-          const nSeats = results.rows.numofseats - 1;
-          const nBooked = user
-        console.log(nSeats)
-        console.log(nBooked)
-          pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = @3;', [nSeats,nBooked,rid], (error2, results2) => {
-            if (error2) {
-              throw error2;
-            }
-            res.status(201).json({ status: 'success', message: `Ride requested from  ${results.rows.origin} to ${results.rows.destination}` });
-    
-          });
-    
-        }else{
-          res.status(201).json({ status: 'failed', message: `Ride is full` });
-        }    
-      });
-      
+        if (results.rows.numofseats > 0) {
+            const nSeats = results.rows.numofseats - 1;
+            const nBooked = user+""
+            console.log(nSeats)
+            console.log(nBooked)
+            pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [nSeats, nBooked, rid], (error2, results2) => {
+                if (error2) {
+                    throw error2;
+                }
+                res.status(201).json({ status: 'success', message: `Ride requested from  ${results.rows.origin} to ${results.rows.destination}` });
+
+            });
+
+        } else {
+            res.status(201).json({ status: 'failed', message: `Ride is full` });
+        }
+    });
+
 
 });
 
