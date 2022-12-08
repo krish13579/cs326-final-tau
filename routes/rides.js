@@ -63,6 +63,10 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
     })
 });
 
+router.get("/messageData/:userInfo", (req, res) => {
+    res.status(200);
+});
+
 
 
 router.post('/reserveSeat/:id/:rid', (req, res) => {

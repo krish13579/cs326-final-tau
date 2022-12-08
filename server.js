@@ -31,6 +31,11 @@ app.get("/yourRides/:userInfo",(req, res) => {
     res.render("yourRides", JSON.parse(req.params.userInfo));
 });
 
+app.get("/messages/:userInfo",(req, res) => {
+    
+    res.render("messages", JSON.parse(req.params.userInfo));
+});
+
 
 
 

@@ -92,7 +92,8 @@
                     window.location.href = url;
         });
         document.getElementById("mess").addEventListener("click", () => {
-            window.location.href = "/views/pages/Messages Page/messages";
+            const url = '/messages/'+ JSON.stringify({email:username});
+                    window.location.href = url;
         });
         document.getElementById("yp").addEventListener("click", () => {
             window.location.href = '/yourProfile/'+ JSON.stringify({email:username});

@@ -2,23 +2,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Your Rides Page</title>
-    <link href="/public/assets/yourRides.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
-
+    <title>Messages Page</title>
+    <link href="/public/assets/messages.css" rel="stylesheet" type="text/css" />
+   
 </head>
 
 <body>
     <div class="container">
         <div class="content">
-            <header><u>Your Rides</u></header>
-            <div id="yourRidesDiv" class="yourRidesDiv"></div>
+            <header><u>Messages</u></header>
+            <div class="containerTwo">
+                <div class="Name" id="first">
+                    <header>First Name</header>
+                </div>
+                <div class="Email" id="last">
+                    <header>Last Name </header>
+                </div>
+                <div class="Last-Contacted-On" id="email">
+                    <header>Email</header>
+                </div>
+            </div>
         </div>
         <div class="article">
             <table>
                 <tbody>
                     <tr>
                         <td>
+                            <header>Ride Buddy.</header>
                         </td>
                     </tr>
                     <tr>
@@ -63,14 +73,12 @@
     </div>
     <script>
         const username = "<%= email%>";
-        window.onload = init
         document.getElementById("fd").addEventListener("click", () => {
             const url = '/findDrivers/'+ JSON.stringify({email:username});
                     window.location.href = url;
         });
         document.getElementById("fr").addEventListener("click", () => {
-            const url = '/findRiders/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            window.location.href = '/findRiders/'+ JSON.stringify({email:username});
         });
         document.getElementById("yr").addEventListener("click", () => {
             window.location.href = '/yourRides/'+ JSON.stringify({email:username});
@@ -86,84 +94,49 @@
             window.location.href = "/";
         });
 
-
-
+       
+        window.onload = init;
 
         function init() {
-            getData();
+            getMessageData(username);
+        }
+
+        function populate(info) {
+            let f = document.getElementById("first");
+            let l = document.getElementById("last")
+            let e = document.getElementById("email");
+
+            for (let i = 0; i < info.length; ++i) {
+                let first = document.createElement("div");
+                let last = document.createElement("div");
+                let ema = document.createElement("div");
+                first.textContent = info[i].firstName;
+                last.textContent = info[i].lastName;
+                ema.textContent = info[i].email;
+                first.classList.add("thisIsAGoodBox");
+                last.classList.add("thisIsAGoodBox");
+                ema.classList.add("thisIsABetterBox");
+                f.append(first);
+                l.append(last);
+                e.append(ema);
+            }
+
 
         }
 
-        async function getData() {
-            let bookedURL = '/rides/getBookedRides/'+JSON.stringify(username);
-            let offeredURL = '/rides/getOfferedRides/'+JSON.stringify(username);
-            let responseR = await fetch(bookedURL);
-            let responseD = await fetch(offeredURL);
-            if (responseR.ok && responseD.ok) {
-                let response1 = await responseD.json();
-                let response2 = await responseR.json();
-                let riderData = response2;
-                let driverData = response1;
-                console.log(response1);
-                console.log(response2);
-                populate(driverData, riderData);
+        async function getMessageData(username) {
+            let url = '/rides/messageData/' + JSON.stringify(username);
+            let response = await fetch(url);
 
+            if (response.ok) {
+                let response2 = await response.json();
+                let messageData = response2;
+                
+                populate(messageData);
             } else {
-                alert("error getting data from server")
+                alert("error receiving data from server")
             }
-
-
         }
-
-        function populate(dd, rd) {
-            let mainDiv = document.getElementById("yourRidesDiv");
-            let driver = document.createElement("div");
-            driver.classList.add("driverHeading");
-            let rider = document.createElement("div");
-            rider.classList.add("riderHeading");
-            driver.textContent = "Your Offered Drives";
-            rider.textContent = "Your Booked Rides";
-            driver.id = "driver";
-            rider.id = "rider";
-            mainDiv.append(driver);
-            mainDiv.append(rider);
-
-
-
-            let driveData = dd;
-            let rideData = rd;
-
-
-            for (let i = 0; i < driveData.length; ++i) {
-                let temp = document.createElement("div");
-                temp.classList.add("driver");
-                let entry = driveData[i];
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
-                driver.append(temp);
-            }
-
-            for (let i = 0; i < rideData.length; ++i) {
-                let temp = document.createElement("div");
-                temp.classList.add("rider");
-                let entry = rideData[i];
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price + " Seats: " + entry.numOfSeats;
-                rider.append(temp);
-            }
-
-
-
-
-
-
-        }
-
-
-
-
-
-
-
-
 
     </script>
 </body>
