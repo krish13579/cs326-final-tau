@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Find Drivers Page</title>
     <link href="/public/assets/findDrivers.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
 
 </head>
 
@@ -79,24 +81,24 @@
     <script>
         const username = "<%= email%>";
         document.getElementById("fd").addEventListener("click", () => {
-            const url = '/findDrivers/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/findDrivers/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("fr").addEventListener("click", () => {
-            const url = '/findRiders/'+ JSON.stringify({email:username});
-                    window.location.href = url;
-        
+            const url = '/findRiders/' + JSON.stringify({ email: username });
+            window.location.href = url;
+
         });
         document.getElementById("yr").addEventListener("click", () => {
-            const url = '/yourRides/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/yourRides/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("mess").addEventListener("click", () => {
-            const url = '/messages/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/messages/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
+            window.location.href = '/yourProfile/' + JSON.stringify({ email: username });
         });
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/";
@@ -105,100 +107,38 @@
             validateInfo();
         });
 
-       
-        // let userInformation = {};
-        //  async function getUserServerCall(nReq) {
-        //      let response = await fetch('/getUserInformation', {
-        //          method: 'POST',
-        //          body: JSON.stringify(nReq),
-        //          headers: {
-        //              'Content-type': 'application/json; charset=UTF-8',
-        //          }
-        //      });
-            
-        //      if (response.ok) {
-        //          let response2 = await response.json();
-           
-        //          userInformation = JSON.parse(JSON.stringify(response2));
-        //         setter(userInformation);
-        //     } 
-        //    else {
-        //         alert("Request failed");
-        //     }
-        //  }
-        //  getUserServerCall({email: userName});
-
         window.onload = init
         function init() {
             getData();
         }
-
         let obj = [];
         async function getData() {
-
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
-               
                 let response2 = await responseR.json();
-              
-                populate(response2);
-
+                await populate(response2);
             } else {
                 alert("error getting data from server")
             }
-
-
         }
 
-        function reserveSeat(entry){
-         
-            
-                let rideObject = {
-    
-                // Constant Integer
-                
-                "rideID" : entry.rid,
-                
-                // Constant String
-                
-                "creator" : entry.userId,
-                
-                // Boolean = Request or Offered
-                
-                "type" : "Offered",
-                
-                // Constant String
-                
+        async function reserveSeat(entry) {
+            let rideObject = {
+                "rideID": entry.rideid,
+                "creator": entry.userId,
+                "type": "Offered",
                 "origin": entry.origin,
-                
-                // Constant String
-                
                 "destination": entry.destination,
-                
-                // Constant Date Object
-                
                 "date": entry.date,
-                
-                // Constant Integer
-                
                 "price": entry.price,
-                
-                // Dynamic Integer
-                
-                "numOfSeats" : entry.numOfSeats,
-                
-                // Dynamic Array
-                
-                "bookedUsers" : entry.bookedUsers
-                
-                };
-             
-                reserveSeatServerRequest(rideObject);
-
+                "numOfSeats": entry.numOfSeats,
+                "bookedUsers": entry.bookedUsers
+            };
+            console.log("TESTttt"+rideObject)
+            await reserveSeatServerRequest(rideObject);
         }
 
-        function populate(rd) {
-       
+        async function populate(rd) {
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
             rider.classList.add("riderHeading");
@@ -211,13 +151,12 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-                console.log("test" + entry.fdate)
                 temp.textContent = "Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
                 btn.addEventListener("click", (event) => {
-                    reserveSeat(entry);
+                     reserveSeat(entry);
                 });
                 temp.appendChild(btn);
                 rider.append(temp);
@@ -239,28 +178,28 @@
 
             let newRideObject = {
                 // Constant String
-                "creator" : username,
+                "creator": username,
                 // Boolean = Request or Offered
-                "type" : "Request",
+                "type": "Request",
                 // Constant String
-                "origin": from, 
+                "origin": from,
                 // Constant String
-                "destination": to, 
+                "destination": to,
                 // Constant Date Object
-                "date": date, 
+                "date": date,
                 // Constant Integer
                 "price": price,
                 // Dynamic Integer
-                "numOfSeats" : 0,
+                "numOfSeats": 0,
                 // Dynamic Array
-                "bookedUsers" : []
+                "bookedUsers": []
             };
-    
+
             sendServer(newRideObject);
 
         }
         async function sendServer(nReq) {
-            let url = '/rides/requestRide/'+ JSON.stringify(username);
+            let url = '/rides/requestRide/' + JSON.stringify(username);
             let response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(nReq),
@@ -277,14 +216,14 @@
                 alert("Request failed");
             }
         }
-        
+
         async function reserveSeatServerRequest(nReq) {
-          
-            let url = "/rides/reserveSeat/" + JSON.stringify(username)+"/"+JSON.stringify(nReq.rideID);
+
+            let url = "/rides/reserveSeat/" + JSON.stringify(username) + "/" + JSON.stringify(nReq.rideID);
             let anotherresponse = await fetch(url, {
                 method: 'POST',
-                json:true,
-                body: JSON.stringify({email: username, rideID: nReq.rideID }),
+                json: true,
+                body: JSON.stringify({ email: username, rideID: nReq.rideID }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
@@ -298,7 +237,7 @@
                 alert("Request failed");
             }
         }
-        
+
     </script>
 </body>
 

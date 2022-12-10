@@ -19,13 +19,6 @@ const pool = new Pool({
 app.set("view engine", "ejs");
 
 router.get("/getAllOfferedRides", (req, res) => {
-    // let results = [];
-    // for (elem of ridesDB) {
-    //     if (elem.type === "offered") {
-    //         results.push(elem);
-    //     }
-    // }
-    // res.json(results);
     pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, numOfSeats from rides where type='offered'`, (error, results) => {
         if (error) {
             throw error
@@ -45,7 +38,7 @@ router.get("/getAllRequestedRides", (req, res) => {
 
 router.get("/getBookedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    pool.query(`SELECT * from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
+    pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
         if (error) {
             throw error
         }
@@ -55,17 +48,18 @@ router.get("/getBookedRides/:userInfo", (req, res) => {
 
 router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    pool.query(`SELECT * from rides WHERE creator = $1 AND type = 'offered' `, [user], (error, results) => {
+    console.log(user)
+    pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides WHERE creator=$1 AND type='offered'`, [user], (error, results) => {
         if (error) {
             throw error
         }
+        console.log("TES" + results.rows)
         res.status(200).json(results.rows)
     })
 });
 
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    console.log(''+user+'')
     // AND $1=ANY(bookedusers) , [''+user]
     pool.query(`SELECT creator, origin from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
         if (error) {
@@ -96,16 +90,17 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
 
     let user = req.params.id;
     let rid = req.params.rideid;
+    console.log("rid"+rid)
     pool.query('SELECT * from rides where rides.rideid =$1;', [rid], (error, results) => {
         if (error) {
             throw error;
         }
         console.log(results.rows)
         if (results.rows.numofseats > 0) {
-            const nSeats = results.rows.numofseats - 1;
+            const nSeats =  results.rows.numofseats - 1;
             const nBooked = user+""
-            console.log(nSeats)
-            console.log(nBooked)
+            console.log("nseats" + nSeats)
+            console.log("nbooked" + nBooked)
             pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [nSeats, nBooked, rid], (error2, results2) => {
                 if (error2) {
                     throw error2;
@@ -128,13 +123,14 @@ router.post('/requestRide/:userInfo', (req, res) => {
     let body = '';
 
     let user = JSON.parse(req.params.userInfo);
-    console.log("heres user" + user)
     req.on('data', data => body += data);
     req.on('end', () => {
         const data = JSON.parse(body);
+        const creator = data.creator+""
         // createReqRide(user, data);
         // res.json({ status: "success" });
-        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+             console.log("creator" + results.rows) 
             if (error) {
                 throw error;
             }
