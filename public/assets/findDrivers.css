@@ -17,13 +17,6 @@ header {
     align-items: center;
 }
 
-.leftAligned{
-    font-family: 'Trebuchet MS', sans-serif;
-    display: flex;
-    justify-content: left;
-    align-items: left;
-}
-
 .myButton {
   width: 200px;
 	box-shadow:inset 0px 1px 3px 0px #219485;
@@ -157,6 +150,10 @@ grid-template-areas:
     /* Add the following styles to match the navy blue and white color palette */
     color: navy;
     border: 1px solid navy;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
   }
   
   .form-box input,
