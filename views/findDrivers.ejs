@@ -230,6 +230,13 @@
                     'Content-type': 'application/json; charset=UTF-8',
                 }
             });
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Your ride has been created!");
+
+            } else {
+                alert("Request failed");
+            }
 
         }
         async function reserveSeatServerRequest(nReq) {
