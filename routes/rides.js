@@ -60,36 +60,20 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
 
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    let contacts = [];
-    pool.query(`SELECT creator from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
+    pool.query(`SELECT users.fname, users.lname, users.email from rides, users where rides.creator = users.email and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
         if (error) {
             throw error
         }
-        const data = results.rows;
-        let temp = results.rows;
-        console.log(results.rows[0]['creator'])
-        console.log(results.rows)
-        if(data.length != 0){
-            for(let i = 0; i < data.length; i++){
-                pool.query(`SELECT * from users where email=$1`, [results.rows[i]['creator']], (error, results2) => {
-                    if (error) {
-                        throw error
-                    }
-                    temp = results2.rows;
-                    console.log("results2: "+ (results2.rows[0]))
-                });
-                contacts.push(temp)
-            }
-            console.log("contacts: "+ JSON.stringify(contacts))
-
-            res.status(200).json(JSON.stringify(contacts))
+        if(results.rows.length === 0){
+            res.status(201).json({ status: 'Success', message: 'No messages yet.' });
         }
-        else if(data.length === 0){
-            res.status(201).json({ status: 'Success', message: 'No messages yet.' })
+        else if(results.rows.length > 0){
+         res.status(200).json(results.rows);
         }
-        else{res.status(400).json('No messages found.')}
-
-    })
+        else{
+            res.status(400).json('No messages found.')
+        }
+    });
 });
 
 
@@ -105,9 +89,9 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
         }
         const nSeats = results.rows[0]['numofseats']
         if (nSeats > 0) {
-            const book =  nSeats - 1;
-            const userbook = user+""
-        
+            const book = nSeats - 1;
+            const userbook = user + ""
+
             pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [book, userbook, rideID], (error2, results2) => {
                 if (error2) {
                     throw error2;
@@ -133,7 +117,7 @@ router.post('/requestRide/:userInfo', (req, res) => {
     req.on('data', data => body += data);
     req.on('end', () => {
         const data = JSON.parse(body);
-        const creator = data.creator+""
+        const creator = data.creator + ""
         // createReqRide(user, data);
         // res.json({ status: "success" });
         pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
