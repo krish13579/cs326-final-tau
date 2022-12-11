@@ -132,7 +132,6 @@ grid-template-areas:
 	  "riderHeading"; 
     }
   .riderHeading { grid-area: riderHeading; }
-
   
   /* CSS for the button */
   .buttonForFilter {
