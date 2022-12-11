@@ -129,12 +129,21 @@
             let url = '/rides/messageData/' + JSON.stringify(username);
             let response = await fetch(url);
 
-            if (response.ok) {
+            if (response.status === 200) {
                 let response2 = await response.json();
                 let messageData = response2;
                 
                 populate(messageData);
-            } else {
+            } else if(response.status === 201){
+                let f = document.getElementById("first");
+                let message = document.createElement("div");
+                message.textContent = "No Message Information. Please book a ride to see contact information."
+                message.classList.add("thisIsAGoodBox");
+                f.append(message);
+
+            }
+
+            else{
                 alert("error receiving data from server")
             }
         }
