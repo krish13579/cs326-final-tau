@@ -256,6 +256,7 @@
         }
 
         function removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate){
+            console.log("in function listener");
             if(desiredOrigin !== ''){
                 console.log(desiredOrigin);
             }
@@ -278,6 +279,7 @@
             const desiredDestination = document.getElementById("Destination").value;
             const desiredPrice = document.getElementById("Price").value;
             const desiredDate = document.getElementById("Date").value;
+            console.log("in event listener");
             removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
         });
 
