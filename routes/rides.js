@@ -38,7 +38,7 @@ router.get("/getAllRequestedRides", (req, res) => {
 
 router.get("/getBookedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
         if (error) {
             throw error
         }
@@ -60,26 +60,35 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
 
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    pool.query(`SELECT creator, origin from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
+    let contacts = [];
+    pool.query(`SELECT creator from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
         if (error) {
             throw error
         }
         const data = results.rows;
+        let temp = results.rows;
+        console.log(results.rows[0]['creator'])
         console.log(results.rows)
         if(data.length != 0){
-            pool.query(`SELECT * from users where email=$1`, [results.rows[0].creator], (error, results2) => {
-                if (error) {
-                    throw error
-                }
-                console.log(results2.rows)
+            for(let i = 0; i < data.length; i++){
+                pool.query(`SELECT * from users where email=$1`, [results.rows[i]['creator']], (error, results2) => {
+                    if (error) {
+                        throw error
+                    }
+                    temp = results2.rows;
+                    console.log("results2: "+ (results2.rows[0]))
+                });
+                contacts.push(temp)
+            }
+            console.log("contacts: "+ JSON.stringify(contacts))
 
-                res.status(200).json(results2.rows)
-            });
+            res.status(200).json(JSON.stringify(contacts))
         }
-        else{
-            res.status(400).json('No messages found.')
+        else if(data.length === 0){
+            res.status(201).json({ status: 'Success', message: 'No messages yet.' })
+        }
+        else{res.status(400).json('No messages found.')}
 
-        }
     })
 });
 
