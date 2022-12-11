@@ -14,6 +14,16 @@
     <div class="container">
         <div class="content">
             <header><u>Find Drivers</u></header>
+            <div class="dropdown">
+                <button class="dropdown-button">Filter</button>
+                <div class="dropdown-content">
+                  <label for="Origin">Origin: </label> <input type="text" id="Origin" /><br>
+                  <label for="Destination">Destination: </label> <input type="text" id="Destination" /><br>
+                  <label for="Price">Price: </label> <input type="number" id="Price" /><br>
+                  <label for="Date">Date: </label> <input type="Date" id="Date" /><br><br>
+                  <button class="buttonForFilter" id="addFilter">+</button>
+                </div>
+              </div>
             <div class="owcontainer">
                 <div class="Availble-rides">
                     <header>Available Rides</header>
@@ -242,6 +252,17 @@
                 alert("error.")
             }
         }
+
+        document.getElementById("addFilter").addEventListener("click", () => {
+            const desiredOrigin = document.getElementById("Origin").value;
+            const desiredDestination = document.getElementById("Destination").value;
+            const desiredPrice = document.getElementById("Price").value;
+            const desiredDate = document.getElementById("Date").value;
+            console.log(desiredOrigin);
+            console.log(desiredDestination);
+            console.log(desiredPrice);
+            console.log(desiredDate);
+        });
 
     </script>
 </body>
