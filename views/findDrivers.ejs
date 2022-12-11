@@ -89,6 +89,7 @@
         </div>
     </div>
     <script>
+        let savedData = {};
         const username = "<%= email%>";
         document.getElementById("fd").addEventListener("click", () => {
             const url = '/findDrivers/' + JSON.stringify({ email: username });
@@ -126,6 +127,7 @@
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
+                data
                  populate(response2);
             } else {
                 alert("error getting data from server")
@@ -155,7 +157,7 @@
             rider.id = "rider";
             mainDiv.append(rider);
             let rideData = rd;
-            console.log("RD: "+ rd)
+            savedData = JSON.parse(JSON.stringify(rd));
             for (let i = 0; i < rideData.length; ++i) {
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
@@ -266,6 +268,7 @@
             if(desiredDate !== ''){
                 console.log(desiredDate);
             }
+            console.log(savedData);
         }
 
         document.getElementById("addFilter").addEventListener("click", () => {
