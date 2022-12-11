@@ -272,30 +272,28 @@
             if(desiredDate !== ''){
                 const dateString = desiredDate.toString();
                 const myArray = dateString.split("-");
-                const months = {
-                    "Jan" : "1",
-                    "Feb" : "2",
-                    "Mar" : "3",
-                    "Apr" : "4",
-                    "May" : "5",
-                    "Jun" : "6",
-                    "Jul" : "7",
-                    "Aug" : "8",
-                    "Sep" : "9",
-                    "Oct" : "10",
-                    "Nov" : "11",
-                    "Dec" : "12"
-                };
-                console.log(myArray[1]);
-                console.log(months);
-                console.log(months[myArray[1]]);
-                const desiredDateArr = [months[myArray[1]], myArray[2], myArray[0]];
+                const desiredDateArr = [myArray[1], myArray[2], myArray[0]];
                 console.log(desiredDateArr);
                 console.log("Input Array");
                 console.log(myArray);
                 newData.forEach(x => {
+                    const months = {
+                        "Jan" : "1",
+                        "Feb" : "2",
+                        "Mar" : "3",
+                        "Apr" : "4",
+                        "May" : "5",
+                        "Jun" : "6",
+                        "Jul" : "7",
+                        "Aug" : "8",
+                        "Sep" : "9",
+                        "Oct" : "10",
+                        "Nov" : "11",
+                        "Dec" : "12"
+                    };
                     const rideDate = x.fdate.toString();
                     const rideDateArr = rideDate.split("/");
+                    rideDateArr[0] = months[rideDateArr[0]];
                     console.log("Data Array");
                     console.log(rideDateArr);
                 });
