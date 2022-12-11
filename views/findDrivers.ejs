@@ -127,7 +127,6 @@
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-                data
                  populate(response2);
             } else {
                 alert("error getting data from server")
