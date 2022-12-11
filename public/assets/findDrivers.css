@@ -149,11 +149,8 @@ grid-template-areas:
     border-radius: 5px;
     /* Add the following styles to match the navy blue and white color palette */
     color: navy;
-    border: 1px solid navy;
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
+    float: left;
+    margin-right: 20px;
   }
   
   .form-box input,
