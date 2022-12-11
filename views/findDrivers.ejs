@@ -275,10 +275,26 @@
                 console.log("Input Array");
                 console.log(myArray);
                 newData.forEach(x => {
-                    const rideDate = x.fdate.toString();
+                    const rideDate = x.fdate;
+                    console.log("Date");
+                    console.log(rideDate);
                     const rideDateArr = dateString.split("/");
                     console.log("Data Array");
                     console.log(rideDateArr);
+                    const months = {
+                        "Jan" : "1",
+                        "Feb" : "2",
+                        "Mar" : "3",
+                        "Apr" : "4",
+                        "May" : "5",
+                        "Jun" : "6",
+                        "Jul" : "7",
+                        "Aug" : "8",
+                        "Sep" : "9",
+                        "Oct" : "10",
+                        "Nov" : "11",
+                        "Dec" : "12"
+                    };
                 });
                 // newData = newData.filter(x => {
                 //     let rideDate = x.fdate.toString();
