@@ -264,7 +264,7 @@
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
             if(desiredPrice !== ''){
-                newData = newData.filter(x => x.origin.price === desiredPrice)
+                newData = newData.filter(x => x.price === desiredPrice)
             }
             if(desiredDate !== ''){
                 newData = newData.filter(x => x.fdate === desiredDate)
