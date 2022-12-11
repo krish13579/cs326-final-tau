@@ -255,8 +255,9 @@
         }
 
         function removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate){
-            console.log("in function listener");
+            let newData = JSON.parse(JSON.stringify(savedData));
             if(desiredOrigin !== ''){
+                newData = newData.filter(x => x.origin === desiredOrigin)
                 console.log(desiredOrigin);
             }
             if(desiredDestination !== ''){
@@ -270,10 +271,9 @@
             }
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
-                console.log("old rides found");
                 mainDiv.removeChild(document.getElementById('rider'));
-                console.log("old rides removed");
             }
+            populate();
             console.log(savedData);
         }
 
@@ -282,7 +282,6 @@
             const desiredDestination = document.getElementById("Destination").value;
             const desiredPrice = document.getElementById("Price").value;
             const desiredDate = document.getElementById("Date").value;
-            console.log("in event listener");
             removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
         });
 
