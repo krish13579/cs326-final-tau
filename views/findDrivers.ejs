@@ -273,10 +273,10 @@
                 let dateString = desiredDate.toString();
                 const myArray = dateString.split("-");
                 console.log(myArray);
-                newData.forEach(x => console.log(x.fdate));
                 newData = newData.filter(x => {
                     let rideDate = x.fdate.toString();
                     const rideDateArr = dateString.split("/");
+                    console.log(rideDateArr);
                     if(myArray[0] === rideDateArr[2]){
                         console.log("year matched");
                         if(myArray[2] === rideDateArr[1]){
