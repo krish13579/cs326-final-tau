@@ -21,7 +21,6 @@
                         <div class="modern-text">Filter By:</div>
                         <label for="Origin">Origin</label> <input type="text" id="Origin" /><br>
                         <label for="Destination">Destination</label> <input type="text" id="Destination" /><br>
-                        <label for="Price">Price</label> <input type="number" id="Price" /><br>
                         <label for="Date">Date</label> <input type="Date" id="Date" /><br>
                         <button class="buttonForFilter" id="addFilter">+</button>
                         <button class="buttonForFilter" id="removeFilter">-</button>
@@ -262,7 +261,7 @@
             }
         }
 
-        function removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate){
+        function removeEntries(desiredOrigin, desiredDestination, desiredDate){
             let newData = JSON.parse(JSON.stringify(savedData));
             if(desiredOrigin !== ''){
                 newData = newData.filter(x => x.origin.toLowerCase() === desiredOrigin.toLowerCase())
@@ -270,13 +269,10 @@
             if(desiredDestination !== ''){
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
-            if(desiredPrice !== ''){
-                newData.forEach(x => console.log(x.price));
-                newData = newData.filter(x => x.price === desiredPrice)
-            }
             if(desiredDate !== ''){
                 newData = newData.filter(x => x.fdate === desiredDate)
             }
+            console.log(desiredDate);
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
                 mainDiv.removeChild(document.getElementById('rider'));
@@ -287,9 +283,8 @@
         document.getElementById("addFilter").addEventListener("click", () => {
             const desiredOrigin = document.getElementById("Origin").value;
             const desiredDestination = document.getElementById("Destination").value;
-            const desiredPrice = document.getElementById("Price").value;
             const desiredDate = document.getElementById("Date").value;
-            removeEntries(desiredOrigin, desiredDestination, desiredPrice.toString(), desiredDate);
+            removeEntries(desiredOrigin, desiredDestination, desiredDate);
         });
         document.getElementById("removeFilter").addEventListener("click", () => {
             console.log("clicked");
