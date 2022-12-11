@@ -17,6 +17,13 @@ header {
     align-items: center;
 }
 
+.leftAligned{
+    font-family: 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
 .myButton {
   width: 200px;
 	box-shadow:inset 0px 1px 3px 0px #219485;
