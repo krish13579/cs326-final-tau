@@ -138,7 +138,7 @@ grid-template-areas:
     font-weight: bold;
     color: navy;
     line-height: 1.5;
-    text-align: center;
+    text-align: left;
   }
   .form-box {
     width: 100px;
