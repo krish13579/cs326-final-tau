@@ -270,9 +270,10 @@
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
             if(desiredDate !== ''){
-                newData = newData.filter(x => x.fdate === desiredDate)
+                let dateString = desiredDate.toString();
+                console.log(dateString);
+                newData = newData.filter(x => x.fdate === desiredDate);
             }
-            console.log(desiredDate);
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
                 mainDiv.removeChild(document.getElementById('rider'));
