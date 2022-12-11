@@ -287,9 +287,12 @@
             console.log("clicked");
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
+                console.log("found old data");
                 mainDiv.removeChild(document.getElementById('rider'));
+                console.log("removed old data");
             }
-            populate(savedData);
+            console.log(savedData);
+            //populate(savedData);
         });
 
     </script>
