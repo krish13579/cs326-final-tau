@@ -87,30 +87,34 @@ router.get("/messageData/:userInfo", (req, res) => {
 
 
 router.post('/reserveSeat/:id/:rid', (req, res) => {
-
     let user = req.params.id;
-    let rid = req.params.rideid;
-    console.log("rid"+rid)
-    pool.query('SELECT * from rides where rides.rideid =$1;', [rid], (error, results) => {
+    let rides = JSON.parse(req.params.rid);
+    let rideID = rides.rideID;
+
+    console.log("temp"+ rideID)
+
+    pool.query('SELECT * from rides where rideid =$1;', [rideID], (error, results) => {
         if (error) {
             throw error;
         }
-        console.log(results.rows)
-        if (results.rows.numofseats > 0) {
-            const nSeats =  results.rows.numofseats - 1;
-            const nBooked = user+""
-            console.log("nseats" + nSeats)
-            console.log("nbooked" + nBooked)
-            pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [nSeats, nBooked, rid], (error2, results2) => {
+        // const data = JSON.parse(JSON.stringify(results.rows))
+        console.log(results.rows[0]['numofseats'])
+        const nSeats = results.rows[0]['numofseats']
+        if (nSeats > 0) {
+            const book =  nSeats - 1;
+            const userbook = user+""
+            console.log("nseats" + book)
+            console.log("nbooked" + userbook)
+            pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [book, userbook, rideID], (error2, results2) => {
                 if (error2) {
                     throw error2;
                 }
-                res.status(201).json({ status: 'success', message: `Ride requested from  ${results.rows.origin} to ${results.rows.destination}` });
+                res.status(201).json({ status: 'success', message: `Ride requested from  ${results.rows[0]['origin']} to ${results.rows[0]['destination']}` });
 
             });
 
         } else {
-            res.status(201).json({ status: 'failed', message: `Ride is full` });
+            res.status(401).json({ status: 'failed', message: `Ride is full` });
         }
     });
 

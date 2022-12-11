@@ -116,13 +116,13 @@
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-                await populate(response2);
+                 populate(response2);
             } else {
                 alert("error getting data from server")
             }
         }
 
-        async function reserveSeat(entry) {
+         function reserveSeat(entry) {
             let rideObject = {
                 "rideID": entry.rideid,
                 "creator": entry.userId,
@@ -134,11 +134,10 @@
                 "numOfSeats": entry.numOfSeats,
                 "bookedUsers": entry.bookedUsers
             };
-            console.log("TESTttt"+rideObject)
-            await reserveSeatServerRequest(rideObject);
+             reserveSeatServerRequest(rideObject);
         }
 
-        async function populate(rd) {
+         function populate(rd) {
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
             rider.classList.add("riderHeading");
@@ -146,17 +145,29 @@
             rider.id = "rider";
             mainDiv.append(rider);
             let rideData = rd;
-
+            console.log("RD: "+ rd)
             for (let i = 0; i < rideData.length; ++i) {
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
+                const obj = {
+                    "rideID": entry.rideid,
+                    "creator": entry.userId,
+                    "type": "Offered",
+                    "origin": entry.origin,
+                    "destination": entry.destination,
+                    "date": entry.date,
+                    "price": entry.price,
+                    "numOfSeats": entry.numOfSeats,
+                    "bookedUsers": entry.bookedUsers
+                }
                 temp.textContent = "Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
                 btn.addEventListener("click", (event) => {
-                     reserveSeat(entry);
+                     //reserveSeat(obj);
+                     reserveSeatServerRequest(obj)
                 });
                 temp.appendChild(btn);
                 rider.append(temp);
@@ -208,22 +219,13 @@
                 }
             });
 
-            if (response.ok) {
-                let response2 = await response.json();
-                alert("Your request has been created. Hang tight as we let the drivers know!");
-
-            } else {
-                alert("Request failed");
-            }
         }
-
         async function reserveSeatServerRequest(nReq) {
-
-            let url = "/rides/reserveSeat/" + JSON.stringify(username) + "/" + JSON.stringify(nReq.rideID);
+            let url = "/rides/reserveSeat/" + JSON.stringify(username) + "/" + JSON.stringify(nReq);
             let anotherresponse = await fetch(url, {
                 method: 'POST',
                 json: true,
-                body: JSON.stringify({ email: username, rideID: nReq.rideID }),
+                body: JSON.stringify({ email: username, rid: nReq }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
@@ -233,8 +235,11 @@
                 let response2 = await anotherresponse.json();
                 alert("Your seat has been reserved!");
 
-            } else {
-                alert("Request failed");
+            } else if(anotherresponse.status === 401){
+                alert("This ride is full. Please check back or create a request!");
+            }
+            else{
+                alert("error.")
             }
         }
 
