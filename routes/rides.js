@@ -60,7 +60,6 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
 
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    // AND $1=ANY(bookedusers) , [''+user]
     pool.query(`SELECT creator, origin from rides where type='offered' and $1=ANY(bookedusers);`,[user] ,(error, results) => {
         if (error) {
             throw error
@@ -91,20 +90,15 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
     let rides = JSON.parse(req.params.rid);
     let rideID = rides.rideID;
 
-    console.log("temp"+ rideID)
-
     pool.query('SELECT * from rides where rideid =$1;', [rideID], (error, results) => {
         if (error) {
             throw error;
         }
-        // const data = JSON.parse(JSON.stringify(results.rows))
-        console.log(results.rows[0]['numofseats'])
         const nSeats = results.rows[0]['numofseats']
         if (nSeats > 0) {
             const book =  nSeats - 1;
             const userbook = user+""
-            console.log("nseats" + book)
-            console.log("nbooked" + userbook)
+        
             pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [book, userbook, rideID], (error2, results2) => {
                 if (error2) {
                     throw error2;
@@ -134,7 +128,6 @@ router.post('/requestRide/:userInfo', (req, res) => {
         // createReqRide(user, data);
         // res.json({ status: "success" });
         pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
-             console.log("creator" + results.rows) 
             if (error) {
                 throw error;
             }

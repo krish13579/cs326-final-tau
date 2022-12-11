@@ -75,6 +75,12 @@
                     'Content-type': 'application/json; charset=UTF-8',
                 }
             });
+            if(request.status === 201){
+                alert("Password updated")
+            }
+            else{
+                alert("Error, please try again.")
+            }
             
         }
 

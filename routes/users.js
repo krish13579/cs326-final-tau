@@ -141,19 +141,36 @@ router.route("/:id")
         });
         res.sendStatus(200);
     })
-    .put((req, res) => {
+    .put( (req, res) => {
         // console.log(userObjArray);
         const userId = req.params.id;
-        //Removed Old User Data
-        userObjArray = JSON.parse(JSON.stringify(deleteUserFromDB(userId)));
         let body = '';
         req.on('data', data => body += data);
-        req.on('end', () => {
+        req.on('end', async () => {
             //Adds New User Data
             const data = JSON.parse(body);
-            encryptAndSaveToDB(data);
+            const pass = data;
+            console.log("pass" + pass)
+            const hashed = await encryptAndSaveToDB(pass);
+            console.log("hased"+hashed.password)
+            console.log("user"+userId)
+            pool.query('DELETE from users where email = $1', [data.email], (error, results1) => {
+                if(error){
+                    throw error;
+                }
+                pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.birthday, data.email, hashed.password], (error, results) => {
+                    if (error) {
+                        throw error;
+                    }
+                  
+                    res.status(201).json({ status: 'success', message: `Password Changed` });
+                    
+                    
+                })
+            })
+            
         });
-        res.sendStatus(200);
+
     })
 
 //Exporting Router
