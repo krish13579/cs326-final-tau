@@ -274,7 +274,38 @@
                 const myArray = dateString.split("-");
                 console.log(myArray);
                 newData.forEach(x => console.log(x.fdate));
-                newData = newData.filter(x => x.fdate === desiredDate);
+                newData = newData.filter(x => {
+                    let rideDate = x.fdate.toString();
+                    const rideDateArr = dateString.split("/");
+                    if(myArray[0] === rideDateArr[2]){
+                        console.log("year matched");
+                        if(myArray[2] === rideDateArr[1]){
+                            console.log("day matched");
+                            const months = {
+                                "Jan" : "1",
+                                "Feb" : "2",
+                                "Mar" : "3",
+                                "Apr" : "4",
+                                "May" : "5",
+                                "Jun" : "6",
+                                "Jul" : "7",
+                                "Aug" : "8",
+                                "Sep" : "9",
+                                "Oct" : "10",
+                                "Nov" : "11",
+                                "Dec" : "12"
+                            };
+                            console.log(myArray[1]);
+                            console.log(months.rideDateArr[0]);
+                            if(myArray[1] === months.rideDateArr[0]){
+                                console.log(myArray[1]);
+                                console.log(months.rideDateArr[0]);
+                                console.log("month matched");
+                                return true;
+                            }
+                        }
+                    }
+                });
             }
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
