@@ -264,9 +264,8 @@
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
             if(desiredPrice !== ''){
-                console.log(desiredPrice.toString());
                 newData.forEach(x => console.log(x.price));
-                newData = newData.filter(x => x.price === desiredPrice.toString())
+                newData = newData.filter(x => x.price === desiredPrice)
             }
             if(desiredDate !== ''){
                 newData = newData.filter(x => x.fdate === desiredDate)
@@ -283,7 +282,7 @@
             const desiredDestination = document.getElementById("Destination").value;
             const desiredPrice = document.getElementById("Price").value;
             const desiredDate = document.getElementById("Date").value;
-            removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
+            removeEntries(desiredOrigin, desiredDestination, desiredPrice.toString(), desiredDate);
         });
         document.getElementById("removeFilter").addEventListener("click", () => {
             console.log("clicked");
