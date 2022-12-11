@@ -138,6 +138,8 @@
                 let temp = document.createElement("div");
                 temp.classList.add("driver");
                 let entry = driveData[i];
+                console.log(entry);
+
                 temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
                 driver.append(temp);
             }
