@@ -253,15 +253,27 @@
             }
         }
 
+        function removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate){
+            if(desiredOrigin !== ''){
+                console.log(desiredOrigin);
+            }
+            if(desiredDestination !== ''){
+                console.log(desiredDestination);
+            }
+            if(desiredPrice !== ''){
+                console.log(desiredPrice);
+            }
+            if(desiredDate !== ''){
+                console.log(desiredDate);
+            }
+        }
+
         document.getElementById("addFilter").addEventListener("click", () => {
             const desiredOrigin = document.getElementById("Origin").value;
             const desiredDestination = document.getElementById("Destination").value;
             const desiredPrice = document.getElementById("Price").value;
             const desiredDate = document.getElementById("Date").value;
-            console.log(desiredOrigin);
-            console.log(desiredDestination);
-            console.log(desiredPrice);
-            console.log(desiredDate);
+            removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
         });
 
     </script>
