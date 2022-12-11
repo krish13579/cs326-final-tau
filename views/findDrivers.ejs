@@ -257,24 +257,22 @@
         function removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate){
             let newData = JSON.parse(JSON.stringify(savedData));
             if(desiredOrigin !== ''){
-                newData = newData.filter(x => x.origin === desiredOrigin)
-                console.log(desiredOrigin);
+                newData = newData.filter(x => x.origin.toLowerCase() === desiredOrigin.toLowerCase())
             }
             if(desiredDestination !== ''){
-                console.log(desiredDestination);
+                newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
             if(desiredPrice !== ''){
-                console.log(desiredPrice);
+                newData = newData.filter(x => x.origin.price === desiredPrice)
             }
             if(desiredDate !== ''){
-                console.log(desiredDate);
+                newData = newData.filter(x => x.fdate === desiredDate)
             }
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
                 mainDiv.removeChild(document.getElementById('rider'));
             }
             populate(newData);
-            console.log(savedData);
         }
 
         document.getElementById("addFilter").addEventListener("click", () => {
