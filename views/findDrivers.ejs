@@ -284,7 +284,12 @@
             removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
         });
         document.getElementById("removeFilter").addEventListener("click", () => {
-            removeEntries("", "", "", "");
+            console.log("clicked");
+            let mainDiv = document.getElementById("avalRides");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                mainDiv.removeChild(document.getElementById('rider'));
+            }
+            populate(savedData);
         });
 
     </script>
