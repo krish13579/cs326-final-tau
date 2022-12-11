@@ -264,6 +264,8 @@
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
             if(desiredPrice !== ''){
+                console.log(desiredPrice);
+                newData.forEach(x => console.log(x.price));
                 newData = newData.filter(x => x.price === desiredPrice)
             }
             if(desiredDate !== ''){
