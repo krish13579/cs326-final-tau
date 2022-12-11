@@ -275,10 +275,8 @@
                 console.log("Input Array");
                 console.log(myArray);
                 newData.forEach(x => {
-                    const rideDate = x.fdate;
-                    console.log("Date");
-                    console.log(rideDate);
-                    const rideDateArr = dateString.split("/");
+                    const rideDate = x.fdate.toString();
+                    const rideDateArr = rideDate.split("/");
                     console.log("Data Array");
                     console.log(rideDateArr);
                     const months = {
