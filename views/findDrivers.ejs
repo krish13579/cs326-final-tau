@@ -271,7 +271,8 @@
             }
             if(desiredDate !== ''){
                 let dateString = desiredDate.toString();
-                console.log(dateString);
+                const myArray = dateString.split("-");
+                console.log(myArray);
                 newData = newData.filter(x => x.fdate === desiredDate);
             }
             let mainDiv = document.getElementById("avalRides");
