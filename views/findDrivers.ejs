@@ -283,6 +283,9 @@
             const desiredDate = document.getElementById("Date").value;
             removeEntries(desiredOrigin, desiredDestination, desiredPrice, desiredDate);
         });
+        document.getElementById("removeFilter").addEventListener("click", () => {
+            removeEntries("", "", "", "");
+        });
 
     </script>
 </body>
