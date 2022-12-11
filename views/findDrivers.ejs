@@ -292,11 +292,9 @@
                     const rideDateArr = rideDate.split("/");
                     rideDateArr[0] = months[rideDateArr[0]];
                     if((rideDateArr[0] === desiredDateArr[0]) && (rideDateArr[1] === desiredDateArr[1]) && (rideDateArr[2] === desiredDateArr[2])){
-                        console.log("match found");
                         return true;
                     }
                     else{
-                        console.log("no match found");
                         return false;
                     }
                 });
@@ -318,9 +316,7 @@
             console.log("clicked");
             let mainDiv = document.getElementById("avalRides");
             if(mainDiv.contains(document.getElementById('rider'))){
-                console.log("found old data");
                 mainDiv.removeChild(document.getElementById('rider'));
-                console.log("removed old data");
             }
             getData();
         });
