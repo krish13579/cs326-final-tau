@@ -269,7 +269,11 @@
                 console.log(desiredDate);
             }
             let mainDiv = document.getElementById("avalRides");
-            mainDiv.removeChild("rider");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                console.log("old rides found");
+                mainDiv.removeChild(document.getElementById('rider'));
+                console.log("old rides removed");
+            }
             console.log(savedData);
         }
 
