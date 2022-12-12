@@ -18,6 +18,7 @@ const pool = new Pool({
 //Set Up View Engine
 app.set("view engine", "ejs");
 
+//Query db to get all rides with type 'offered' for Find Drivers page
 router.get("/getAllOfferedRides", (req, res) => {
     pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') fdate, price, numOfSeats from rides where type='offered' and date >= now()`, (error, results) => {
         if (error) {
@@ -27,6 +28,7 @@ router.get("/getAllOfferedRides", (req, res) => {
     })
 });
 
+//Query db to get all rides with type 'requested' for find riders page
 router.get("/getAllRequestedRides", (req, res) => {
     pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price, numOfSeats from rides where type='Request' and date >= now()`, (error, results) => {
         if (error) {
@@ -36,6 +38,7 @@ router.get("/getAllRequestedRides", (req, res) => {
     })
 });
 
+//Query db to get all reserved rides for a user
 router.get("/getBookedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
     pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
@@ -46,10 +49,10 @@ router.get("/getBookedRides/:userInfo", (req, res) => {
     })
 });
 
+//Query db to get all rides a user has created
 router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
     pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
-        //SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides WHERE creator=$1 AND type='offered'
         if (error) {
             throw error
         }
@@ -57,6 +60,7 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
     })
 });
 
+//Query db to get contact info relating to rides a user has created. The query retrieves user info and ride id for respective reserved rides.
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
     pool.query(`SELECT users.fname, users.lname, users.email, rides.rideid from rides, users where rides.creator = users.email and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
@@ -76,7 +80,7 @@ router.get("/messageData/:userInfo", (req, res) => {
 });
 
 
-
+//Update database to mark seat in ride as reserved and add user to list of booked users.
 router.post('/reserveSeat/:id/:rid', (req, res) => {
     let user = req.params.id;
     let rides = JSON.parse(req.params.rid);
@@ -108,7 +112,7 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
 });
 
 
-
+//Insert ride into database with criteria filled out in form with type requested
 router.post('/requestRide/:userInfo', (req, res) => {
     let body = '';
 
@@ -128,6 +132,7 @@ router.post('/requestRide/:userInfo', (req, res) => {
     });
 });
 
+//Insert ride into database with criteria filled out in form with type offered
 router.post('/createRide/:userInfo', (req, res) => {
     let body = '';
 
