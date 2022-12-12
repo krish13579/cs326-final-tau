@@ -111,12 +111,6 @@ router.get("/register/:userObj", async (req, res) => {
     }
 });
 
-//profileUpdate
-router.get("/profile/:userObj", async (req, res) => {
-    const userObj = JSON.parse(req.params.userObj);
-
-});
-
 //Individual User Routes
 router.route("/:id")
     .get(async (req, res) => {
