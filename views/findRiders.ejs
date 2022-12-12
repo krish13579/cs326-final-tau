@@ -2,30 +2,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Find Riders Page</title>
-    <link href="/public/assets/findRiders.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
+    <title>Find Drivers Page</title>
+    <link href="/public/assets/findDrivers.css" rel="stylesheet" type="text/css" />
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
 
 </head>
 
 <body>
     <div class="container">
         <div class="content">
-            <header><u>Find Riders</u></header>
+            <header><u>Find Drivers</u></header>
             <div class="owcontainer">
                 <div class="Availble-rides">
-                    <header>Requested Rides</header>
-                    <div id="reqRides"></div>
+                    <header class="centered">Available Rides</header>
+                    <div class="form-box">
+                        <div class="modern-text">Filter By:</div>
+                        <label for="Origin">Origin</label> <input type="text" id="Origin" /><br>
+                        <label for="Destination">Destination</label> <input type="text" id="Destination" /><br>
+                        <label for="Date">Date</label> <input type="Date" id="Date" /><br>
+                        <button class="buttonForFilter" id="addFilter">+</button>
+                        <button class="buttonForFilter" id="removeFilter">-</button>
+                    </div>
+                    <div id="avalRides" class="avalRides">
+                    </div>
                 </div>
                 <div class="Request">
-                    <header>Create a Ride!</header>
-                    <input placeholder="From Location" id="from" />
-                    <input placeholder="To Location" id="to" />
-                    <input placeholder="Date" id="date" type="date" />
-                    <input placeholder="Number of Seats" id="numSeats" type="number" />
-                    <input placeholder="Price per Seat ($)" id="ppseats" type="number" />
+                    <header>Request a Ride!</header>
+                    <input placeholder="From Location*" id="from" />
+                    <input placeholder="To Location*" id="to" />
+                    <input placeholder="Date*" id="date" type="date" />
+                    <input placeholder="Ideal Price*" id="idealPrice" />
+                    <input placeholder="Additional Information" id="adInfo" />
+                    <br>
+                    <button class="buttonForFilter" id="sub">Submit</button>
                     <br><br>
-                    <button class="myButton2" id="sub">Submit</button>
                 </div>
             </div>
         </div>
@@ -77,22 +89,31 @@
         </div>
     </div>
     <script>
-          const username = "<%= email%>";
+        let savedData = {};
+        //Gets the email from the render function when switching between pages
+        const username = "<%= email%>";
+
+        //Internal linking to allow users to navigate
+        //Routing URL is the specific page to go to + the email of the currently signed in user
         document.getElementById("fd").addEventListener("click", () => {
-            window.location.href = '/findDrivers/'+ JSON.stringify({email:username});
+            const url = '/findDrivers/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("fr").addEventListener("click", () => {
-            window.location.href = '/findRiders/'+ JSON.stringify({email:username});
+            const url = '/findRiders/' + JSON.stringify({ email: username });
+            window.location.href = url;
+
         });
         document.getElementById("yr").addEventListener("click", () => {
-            window.location.href = '/yourRides/'+ JSON.stringify({email:username});
+            const url = '/yourRides/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("mess").addEventListener("click", () => {
-            const url = '/messages/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/messages/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
+            window.location.href = '/yourProfile/' + JSON.stringify({ email: username });
         });
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/";
@@ -100,87 +121,128 @@
         document.getElementById("sub").addEventListener("click", () => {
             validateInfo();
         });
-  
-        window.onload = init;
+
+        //Initial  call to get relevant data
+        window.onload = init
         function init() {
-
             getData();
-
         }
 
+        
+        //Gets all offered rides and then sends information to populate page
         async function getData() {
-
-            let responseR = await fetch('/rides/getAllRequestedRides');
+            let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-       
-                let riderData = response2;
-        
-                populate(riderData);
-
+                 populate(response2);
             } else {
                 alert("error getting data from server")
             }
-
-
+        }
+        //When a ride is reserved, this gets the ride details, updates the UI, and sends to a method
+        //which will make the appropriate server call
+         function reserveSeat(entry) {
+            let rideObject = {
+                "rideID": entry.rideid,
+                "creator": entry.userId,
+                "type": "Offered",
+                "origin": entry.origin,
+                "destination": entry.destination,
+                "date": entry.date,
+                "price": entry.price,
+                "numOfSeats": entry.numOfSeats,
+                "bookedUsers": entry.bookedUsers
+            };
+             reserveSeatServerRequest(rideObject);
+             let mainDiv = document.getElementById("avalRides");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                mainDiv.removeChild(document.getElementById('rider'));
+            }
+            getData();
         }
 
-        function populate(rd) {
-
-            let mainDiv = document.getElementById("reqRides");
+        //Appends new elements to the HTML with the relevant data
+         function populate(rd) {
+            let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
             rider.classList.add("riderHeading");
             rider.textContent = "";
             rider.id = "rider";
             mainDiv.append(rider);
             let rideData = rd;
-
+            savedData = JSON.parse(JSON.stringify(rd));
             for (let i = 0; i < rideData.length; ++i) {
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-              
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
+                const obj = {
+                    "rideID": entry.rideid,
+                    "creator": entry.userId,
+                    "type": "Offered",
+                    "origin": entry.origin,
+                    "destination": entry.destination,
+                    "date": entry.date,
+                    "price": entry.price,
+                    "numOfSeats": entry.numOfSeats,
+                    "bookedUsers": entry.bookedUsers
+                }
+                //If there are no seats available, we don't display them
+                if(entry.numofseats > 0){
+                temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
+                let btn = document.createElement("button");
+                btn.innerHTML = "Reserve";
+                btn.classList.add("myButton2");
+                btn.addEventListener("click", (event) => {
+                     
+                     reserveSeatServerRequest(obj)
+                });
+                temp.appendChild(btn);
                 rider.append(temp);
             }
+            }
         }
+
+        //When a user is requesting a new ride, this function will take the input from the HTML fields
+        //then create a new ride object and call the send server method
         function validateInfo() {
 
             let from = document.getElementById("from").value;
             let to = document.getElementById("to").value;
             let date = document.getElementById("date").value;
-            let seats = document.getElementById("numSeats").value;
-            let price = document.getElementById("ppseats").value;
+            let price = document.getElementById("idealPrice").value;
+            let addInfo = document.getElementById("adInfo").value;
 
-            if (from.length === 0 || to.length === 0 || date.length === 0 || price === null || seats === null) {
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price.length === 0) {
                 alert("All required fields are not filled out");
                 return;
             }
 
             let newRideObject = {
-                "creator" : username,
+                // Constant String
+                "creator": username,
                 // Boolean = Request or Offered
-                "type" : "offered",
+                "type": "Request",
                 // Constant String
-                "origin": from, 
+                "origin": from,
                 // Constant String
-                "destination": to, 
+                "destination": to,
                 // Constant Date Object
-                "date": date, 
+                "date": date,
                 // Constant Integer
                 "price": price,
                 // Dynamic Integer
-                "numOfSeats" : seats,
+                "numOfSeats": 0,
                 // Dynamic Array
-                "bookedUsers" : []
+                "bookedUsers": []
             };
 
-            
             sendServer(newRideObject);
 
         }
+
+        //This API call will create a new ride where type is "requested"
         async function sendServer(nReq) {
-            let url = '/rides/createRide/'+ JSON.stringify(username);
+            let url = '/rides/requestRide/' + JSON.stringify(username);
             let response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(nReq),
@@ -188,7 +250,6 @@
                     'Content-type': 'application/json; charset=UTF-8',
                 }
             });
-
             if (response.ok) {
                 let response2 = await response.json();
                 alert("Your ride has been created!");
@@ -196,7 +257,97 @@
             } else {
                 alert("Request failed");
             }
+
         }
+
+        //This API call will take in the ride that is being reserved and send the information to the server
+        //about who is reserving the ride
+        async function reserveSeatServerRequest(nReq) {
+            let url = "/rides/reserveSeat/" + JSON.stringify(username) + "/" + JSON.stringify(nReq);
+            let anotherresponse = await fetch(url, {
+                method: 'POST',
+                json: true,
+                body: JSON.stringify({ email: username, rid: nReq }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (anotherresponse.ok) {
+                let response2 = await anotherresponse.json();
+                alert("Your seat has been reserved!");
+
+            } else if(anotherresponse.status === 401){
+                alert("This ride is full. Please check back or create a request!");
+            }
+            else{
+                alert("error.")
+            }
+        }
+        //This method is used for filtering rides by criteria
+        function removeEntries(desiredOrigin, desiredDestination, desiredDate){
+            let newData = JSON.parse(JSON.stringify(savedData));
+            if(desiredOrigin !== ''){
+                newData = newData.filter(x => x.origin.toLowerCase() === desiredOrigin.toLowerCase())
+            }
+            if(desiredDestination !== ''){
+                newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
+            }
+            if(desiredDate !== ''){
+                const dateString = desiredDate.toString();
+                const myArray = dateString.split("-");
+                const desiredDateArr = [myArray[1], myArray[2], myArray[0]];
+                newData = newData.filter(x => {
+                    const months = {
+                        "Jan" : "1",
+                        "Feb" : "2",
+                        "Mar" : "3",
+                        "Apr" : "4",
+                        "May" : "5",
+                        "Jun" : "6",
+                        "Jul" : "7",
+                        "Aug" : "8",
+                        "Sep" : "9",
+                        "Oct" : "10",
+                        "Nov" : "11",
+                        "Dec" : "12"
+                    };
+                    const rideDate = x.fdate.toString();
+                    const rideDateArr = rideDate.split("/");
+                    rideDateArr[0] = months[rideDateArr[0]];
+                    if((rideDateArr[0] === desiredDateArr[0]) && (rideDateArr[1] === desiredDateArr[1]) && (rideDateArr[2] === desiredDateArr[2])){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                });
+            }
+            let mainDiv = document.getElementById("avalRides");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                mainDiv.removeChild(document.getElementById('rider'));
+            }
+            populate(newData);
+        }
+
+        //The + sign is used to add a filter
+        document.getElementById("addFilter").addEventListener("click", () => {
+            const desiredOrigin = document.getElementById("Origin").value;
+            const desiredDestination = document.getElementById("Destination").value;
+            const desiredDate = document.getElementById("Date").value;
+            removeEntries(desiredOrigin, desiredDestination, desiredDate);
+        });
+
+        //The - sign is used to remove a filter
+        document.getElementById("removeFilter").addEventListener("click", () => {
+            console.log("clicked");
+            let mainDiv = document.getElementById("avalRides");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                mainDiv.removeChild(document.getElementById('rider'));
+            }
+            getData();
+        });
+
     </script>
 </body>
 
