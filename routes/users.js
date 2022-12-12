@@ -126,15 +126,6 @@ router.route("/:id")
         }
         res.status(200).json(result);
     })
-    .post((req, res) => {
-        let body = '';
-        req.on('data', data => body += data);
-        req.on('end', () => {
-            const data = JSON.parse(body);
-            encryptAndSaveToDB(data);
-        });
-        res.sendStatus(200);
-    })
     .put( (req, res) => {
         // console.log(userObjArray);
         const userId = req.params.id;
