@@ -34,7 +34,7 @@
     <br><br>
     <div class="centered">
         <input placeholder="Confirm Password" id="confirmPassword" />
-    </div> 
+    </div>
     <br><br>
     <div class="centered">
         <button class="myButton" id="submit">Submit</button>
@@ -44,7 +44,7 @@
         <p>Already a user? <u id="toLogin">Log In</u></p>
     </div>
     <script>
-
+        //functionality for sign up button
         document.getElementById("submit").addEventListener("click", () => {
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
@@ -55,7 +55,7 @@
                 "firstName": firstName,
                 "lastName": lastName,
                 "birthday": birthday,
-                "email" : email, 
+                "email": email,
                 "password": password
             }
             if (password !== document.getElementById("confirmPassword").value) {
@@ -70,32 +70,32 @@
                 alert("Not a valid email address");
                 return;
             }
-            else{
-               createUser(userObj);
-               alert("Redirecting to Login Page!");
-               window.location.href = '/';
+            else {
+                createUser(userObj);
+                alert("Redirecting to Login Page!");
+                window.location.href = '/';
 
             }
         });
-
-        async function createUser(userObj){
-            const request = await fetch('/users/register/'+ JSON.stringify(userObj), {
+        //server call to add user to database if not already existing.
+        async function createUser(userObj) {
+            const request = await fetch('/users/register/' + JSON.stringify(userObj), {
                 method: 'POST',
                 body: JSON.stringify(userObj),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
             });
-            if(request.ok){
+            if (request.ok) {
                 const response = await request.json();
-                if(response.validity){
-                    const url = '/findDrivers/'+ JSON.stringify({email: userObj.email});
+                if (response.validity) {
+                    const url = '/findDrivers/' + JSON.stringify({ email: userObj.email });
                     window.location.href = url;
                 }
-            
+
             }
         }
-
+        //redirect user to login page after sign up.
         document.getElementById("toLogin").addEventListener("click", async () => {
             window.location.href = '/';
         });

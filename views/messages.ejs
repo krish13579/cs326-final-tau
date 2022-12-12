@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Messages Page</title>
     <link href="/public/assets/messages.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
 
-   
+
 </head>
 
 <body>
@@ -22,9 +24,9 @@
                 </div>
                 <div class="Last-Contacted-On" id="email">
                     <header>Email <span class="tab"></span> Ride ID</header>
-                    
+
                 </div>
-               
+
             </div>
         </div>
         <div class="article">
@@ -77,69 +79,63 @@
     <script>
         const username = "<%= email%>";
         document.getElementById("fd").addEventListener("click", () => {
-            const url = '/findDrivers/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/findDrivers/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("fr").addEventListener("click", () => {
-            window.location.href = '/findRiders/'+ JSON.stringify({email:username});
+            window.location.href = '/findRiders/' + JSON.stringify({ email: username });
         });
         document.getElementById("yr").addEventListener("click", () => {
-            window.location.href = '/yourRides/'+ JSON.stringify({email:username});
+            window.location.href = '/yourRides/' + JSON.stringify({ email: username });
         });
         document.getElementById("mess").addEventListener("click", () => {
-            const url = '/messages/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/messages/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
+            window.location.href = '/yourProfile/' + JSON.stringify({ email: username });
         });
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/";
         });
 
-       
+
         window.onload = init;
 
         function init() {
             getMessageData(username);
         }
 
+        //Display function to show user their contacts.
         function populate(info) {
             let f = document.getElementById("first");
             let l = document.getElementById("last")
             let e = document.getElementById("email");
-            // let i = document.getElementById("id");
 
             for (let i = 0; i < info.length; ++i) {
                 let first = document.createElement("div");
                 let last = document.createElement("div");
                 let ema = document.createElement("div");
                 let t = document.createElement("span");
-                // let id = document.createElement("div");
 
                 first.textContent = info[i].fname;
                 last.textContent = info[i].lname;
-                ema.textContent = info[i].email ;
+                ema.textContent = info[i].email;
                 t.textContent = info[i].rideid;
-                // id.textContent = info[i].rideid;
 
                 first.classList.add("thisIsAGoodBox");
                 last.classList.add("thisIsAGoodBox");
                 ema.classList.add("thisIsABetterBox");
                 t.classList.add("thisIsABetterBox")
-                // id.classList.add("thisIsAOk Box");
 
                 f.append(first);
                 l.append(last);
                 e.append(ema);
                 e.append(t)
-                // i.append(id);
 
             }
-
-
         }
-
+        //Server call to get user related message data. 
         async function getMessageData(username) {
             let url = '/rides/messageData/' + JSON.stringify(username);
             let response = await fetch(url);
@@ -148,7 +144,7 @@
                 let response2 = await response.json();
                 let messageData = response2;
                 populate(messageData);
-            } else if(response.status === 201){
+            } else if (response.status === 201) {
                 let f = document.getElementById("first");
                 let message = document.createElement("div");
                 message.textContent = "No Message Information. Please book a ride to see contact information."
@@ -157,7 +153,7 @@
 
             }
 
-            else{
+            else {
                 alert("error receiving data from server")
             }
         }
