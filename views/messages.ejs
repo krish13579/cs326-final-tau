@@ -118,14 +118,15 @@
         //Display function to show user their contacts.
         function populate(info) {
             let f = document.getElementById("first");
-            let l = document.getElementById("last")
+            let l = document.getElementById("last");
             let e = document.getElementById("email");
+            let r = document.getElementById("rideId");
 
             for (let i = 0; i < info.length; ++i) {
                 let first = document.createElement("div");
                 let last = document.createElement("div");
                 let ema = document.createElement("div");
-                let t = document.createElement("span");
+                let ride = document.createElement("div");
 
                 first.textContent = info[i].fname;
                 last.textContent = info[i].lname;
@@ -135,12 +136,12 @@
                 first.classList.add("thisIsAGoodBox");
                 last.classList.add("thisIsAGoodBox");
                 ema.classList.add("thisIsABetterBox");
-                t.classList.add("thisIsABetterBox")
+                ride.classList.add("thisIsABetterBox")
 
                 f.append(first);
                 l.append(last);
                 e.append(ema);
-                e.append(t)
+                r.append(ride)
 
             }
         }
