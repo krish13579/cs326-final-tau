@@ -1,203 +1,217 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Find Riders Page</title>
-    <link href="/public/assets/findRiders.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
+    <meta charset="UTF-8">
+    <title>Find Riders Page</title>
+    <link href="/public/assets/findRiders.css" rel="stylesheet" type="text/css" />
+    <div class="centered"><header>Ride Buddy.</header></div>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="content">
-            <header><u>Find Riders</u></header>
-            <div class="owcontainer">
-                <div class="Availble-rides">
-                    <header>Requested Rides</header>
-                    <div id="reqRides"></div>
-                </div>
-                <div class="Request">
-                    <header>Create a Ride!</header>
-                    <input placeholder="From Location" id="from" />
-                    <input placeholder="To Location" id="to" />
-                    <input placeholder="Date" id="date" type="date" />
-                    <input placeholder="Number of Seats" id="numSeats" type="number" />
-                    <input placeholder="Price per Seat ($)" id="ppseats" type="number" />
-                    <br><br>
-                    <button class="myButton2" id="sub">Submit</button>
-                </div>
-            </div>
-        </div>
-        <div class="article">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="fd">Find Drivers</button></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="fr">Find Riders</button></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="yr">Your Rides</button></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="mess">Messages</button></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="yp">Your Profile</button></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button class="myButton" id="lo">Log Out</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <script>
-          const username = "<%= email%>";
-        document.getElementById("fd").addEventListener("click", () => {
-            window.location.href = '/findDrivers/'+ JSON.stringify({email:username});
-        });
-        document.getElementById("fr").addEventListener("click", () => {
-            window.location.href = '/findRiders/'+ JSON.stringify({email:username});
-        });
-        document.getElementById("yr").addEventListener("click", () => {
-            window.location.href = '/yourRides/'+ JSON.stringify({email:username});
-        });
-        document.getElementById("mess").addEventListener("click", () => {
-            const url = '/messages/'+ JSON.stringify({email:username});
-                    window.location.href = url;
-        });
-        document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
-        });
-        document.getElementById("lo").addEventListener("click", () => {
-            window.location.href = "/";
-        });
-        document.getElementById("sub").addEventListener("click", () => {
-            validateInfo();
-        });
-  
-        window.onload = init;
-        function init() {
+    <div class="container">
+        <div class="content">
+            <header><u>Find Riders</u></header>
+            <div class="owcontainer">
+                <div class="Availble-rides">
+                    <header>Requested Rides</header>
+                    <div id="reqRides"></div>
+                </div>
+                <div class="Request">
+                    <header>Create a Ride!</header>
+                    <input placeholder="From Location" id="from" />
+                    <input placeholder="To Location" id="to" />
+                    <input placeholder="Date" id="date" type="date" />
+                    <input placeholder="Number of Seats" id="numSeats" type="number" />
+                    <input placeholder="Price per Seat ($)" id="ppseats" type="number" />
+                    <br><br>
+                    <button class="myButton2" id="sub">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="article">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="fd">Find Drivers</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="fr">Find Riders</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="yr">Your Rides</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="mess">Messages</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="yp">Your Profile</button></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><button class="myButton" id="lo">Log Out</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        //Gets the signed in user's email from the render function
+          const username = "<%= email%>";
 
-            getData();
+        //The following code is used to internally link the pages
+        //When a user navigates to a new page, the URL is set as the intended page path and the email of the user currently signed in 
+        document.getElementById("fd").addEventListener("click", () => {
+            window.location.href = '/findDrivers/'+ JSON.stringify({email:username});
+        });
+        document.getElementById("fr").addEventListener("click", () => {
+            window.location.href = '/findRiders/'+ JSON.stringify({email:username});
+        });
+        document.getElementById("yr").addEventListener("click", () => {
+            window.location.href = '/yourRides/'+ JSON.stringify({email:username});
+        });
+        document.getElementById("mess").addEventListener("click", () => {
+            const url = '/messages/'+ JSON.stringify({email:username});
+                    window.location.href = url;
+        });
+        document.getElementById("yp").addEventListener("click", () => {
+            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
+        });
+        document.getElementById("lo").addEventListener("click", () => {
+            window.location.href = "/";
+        });
+        document.getElementById("sub").addEventListener("click", () => {
+            validateInfo();
+        });
+  
+         //Initial call to get data from DB 
+        window.onload = init;
+        function init() {
 
-        }
+            getData();
 
-        async function getData() {
+        }
 
-            let responseR = await fetch('/rides/getAllRequestedRides');
-            if (responseR.ok) {
-                let response2 = await responseR.json();
-       
-                let riderData = response2;
-        
-                populate(riderData);
+         //Makes a get request and then calls method to populate page with info
+        async function getData() {
 
-            } else {
-                alert("error getting data from server")
-            }
+            let responseR = await fetch('/rides/getAllRequestedRides');
+            if (responseR.ok) {
+                let response2 = await responseR.json();
+       
+                let riderData = response2;
+        
+                populate(riderData);
+
+            } else {
+                alert("error getting data from server")
+            }
 
 
-        }
+        }
 
-        function populate(rd) {
+         //Takes in the ride data given from the server request
+         // appends the information to the page
+        function populate(rd) {
 
-            let mainDiv = document.getElementById("reqRides");
-            let rider = document.createElement("div");
-            rider.classList.add("riderHeading");
-            rider.textContent = "";
-            rider.id = "rider";
-            mainDiv.append(rider);
-            let rideData = rd;
+            let mainDiv = document.getElementById("reqRides");
+            let rider = document.createElement("div");
+            rider.classList.add("riderHeading");
+            rider.textContent = "";
+            rider.id = "rider";
+            mainDiv.append(rider);
+            let rideData = rd;
 
-            for (let i = 0; i < rideData.length; ++i) {
-                let temp = document.createElement("div");
-                temp.classList.add("rider");
-                let entry = rideData[i];
-              
-                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
-                rider.append(temp);
-            }
-        }
-        function validateInfo() {
+            for (let i = 0; i < rideData.length; ++i) {
+                let temp = document.createElement("div");
+                temp.classList.add("rider");
+                let entry = rideData[i];
+              
+                temp.textContent = "Origin: " + entry.origin + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
+                rider.append(temp);
+            }
+        }
 
-            let from = document.getElementById("from").value;
-            let to = document.getElementById("to").value;
-            let date = document.getElementById("date").value;
-            let seats = document.getElementById("numSeats").value;
-            let price = document.getElementById("ppseats").value;
+        //Used when someone creates a new ride
+        //Takes input from HTML fields and creates a ride object
+        //Sends new ride object to server to get added in database
+        function validateInfo() {
 
-            if (from.length === 0 || to.length === 0 || date.length === 0 || price === null || seats === null) {
-                alert("All required fields are not filled out");
-                return;
-            }
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let date = document.getElementById("date").value;
+            let seats = document.getElementById("numSeats").value;
+            let price = document.getElementById("ppseats").value;
 
-            let newRideObject = {
-                "creator" : username,
-                // Boolean = Request or Offered
-                "type" : "offered",
-                // Constant String
-                "origin": from, 
-                // Constant String
-                "destination": to, 
-                // Constant Date Object
-                "date": date, 
-                // Constant Integer
-                "price": price,
-                // Dynamic Integer
-                "numOfSeats" : seats,
-                // Dynamic Array
-                "bookedUsers" : []
-            };
+            if (from.length === 0 || to.length === 0 || date.length === 0 || price === null || seats === null) {
+                alert("All required fields are not filled out");
+                return;
+            }
 
-            
-            sendServer(newRideObject);
+            let newRideObject = {
+                "creator" : username,
+                // Boolean = Request or Offered
+                "type" : "offered",
+                // Constant String
+                "origin": from, 
+                // Constant String
+                "destination": to, 
+                // Constant Date Object
+                "date": date, 
+                // Constant Integer
+                "price": price,
+                // Dynamic Integer
+                "numOfSeats" : seats,
+                // Dynamic Array
+                "bookedUsers" : []
+            };
 
-        }
-        async function sendServer(nReq) {
-            let url = '/rides/createRide/'+ JSON.stringify(username);
-            let response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(nReq),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                }
-            });
+            
+            sendServer(newRideObject);
 
-            if (response.ok) {
-                let response2 = await response.json();
-                alert("Your ride has been created!");
+        }
 
-            } else {
-                alert("Request failed");
-            }
-        }
-    </script>
+        //Sends information to the server for creating a new ride
+        async function sendServer(nReq) {
+            let url = '/rides/createRide/'+ JSON.stringify(username);
+            let response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(nReq),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+
+            if (response.ok) {
+                let response2 = await response.json();
+                alert("Your ride has been created!");
+
+            } else {
+                alert("Request failed");
+            }
+        }
+    </script>
 </body>
 
 </html>
