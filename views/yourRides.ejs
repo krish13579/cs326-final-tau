@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Your Rides Page</title>
     <link href="/public/assets/yourRides.css" rel="stylesheet" type="text/css" />
-    <div class="centered"><header>Ride Buddy.</header></div>
+    <div class="centered">
+        <header>Ride Buddy.</header>
+    </div>
 
 </head>
 
@@ -65,37 +67,36 @@
         const username = "<%= email%>";
         window.onload = init
         document.getElementById("fd").addEventListener("click", () => {
-            const url = '/findDrivers/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/findDrivers/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("fr").addEventListener("click", () => {
-            const url = '/findRiders/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/findRiders/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("yr").addEventListener("click", () => {
-            window.location.href = '/yourRides/'+ JSON.stringify({email:username});
+            window.location.href = '/yourRides/' + JSON.stringify({ email: username });
         });
         document.getElementById("mess").addEventListener("click", () => {
-            const url = '/messages/'+ JSON.stringify({email:username});
-                    window.location.href = url;
+            const url = '/messages/' + JSON.stringify({ email: username });
+            window.location.href = url;
         });
         document.getElementById("yp").addEventListener("click", () => {
-            window.location.href = '/yourProfile/'+ JSON.stringify({email:username});
+            window.location.href = '/yourProfile/' + JSON.stringify({ email: username });
         });
         document.getElementById("lo").addEventListener("click", () => {
             window.location.href = "/";
         });
 
 
-
-
         function init() {
             getData();
         }
 
+        //Server call to recieve all rides relating to user with type offered and requested.
         async function getData() {
-            let bookedURL = '/rides/getBookedRides/'+JSON.stringify(username);
-            let offeredURL = '/rides/getOfferedRides/'+JSON.stringify(username);
+            let bookedURL = '/rides/getBookedRides/' + JSON.stringify(username);
+            let offeredURL = '/rides/getOfferedRides/' + JSON.stringify(username);
             let responseR = await fetch(bookedURL);
             let responseD = await fetch(offeredURL);
             if (responseR.ok && responseD.ok) {
@@ -112,6 +113,7 @@
 
         }
 
+        //display function to populate page with rides information.
         function populate(dd, rd) {
             let mainDiv = document.getElementById("yourRidesDiv");
             let driver = document.createElement("div");
@@ -125,11 +127,8 @@
             mainDiv.append(driver);
             mainDiv.append(rider);
 
-
-
             let driveData = dd;
             let rideData = rd;
-
 
             for (let i = 0; i < rideData.length; ++i) {
                 let temp = document.createElement("div");
@@ -147,21 +146,7 @@
                 driver.append(temp);
             }
 
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
 
     </script>
 </body>
