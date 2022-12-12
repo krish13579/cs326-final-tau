@@ -90,7 +90,11 @@
     </div>
     <script>
         let savedData = {};
+        //Gets the email from the render function when switching between pages
         const username = "<%= email%>";
+
+        //Internal linking to allow users to navigate
+        //Routing URL is the specific page to go to + the email of the currently signed in user
         document.getElementById("fd").addEventListener("click", () => {
             const url = '/findDrivers/' + JSON.stringify({ email: username });
             window.location.href = url;
@@ -118,11 +122,14 @@
             validateInfo();
         });
 
+        //Initial  call to get relevant data
         window.onload = init
         function init() {
             getData();
         }
-        let obj = [];
+
+        
+        //Gets all offered rides and then sends information to populate page
         async function getData() {
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
@@ -132,7 +139,8 @@
                 alert("error getting data from server")
             }
         }
-
+        //When a ride is reserved, this gets the ride details, updates the UI, and sends to a method
+        //which will make the appropriate server call
          function reserveSeat(entry) {
             let rideObject = {
                 "rideID": entry.rideid,
@@ -153,6 +161,7 @@
             getData();
         }
 
+        //Appends new elements to the HTML with the relevant data
          function populate(rd) {
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
@@ -177,14 +186,14 @@
                     "numOfSeats": entry.numOfSeats,
                     "bookedUsers": entry.bookedUsers
                 }
-                
+                //If there are no seats available, we don't display them
                 if(entry.numofseats > 0){
                 temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
                 btn.addEventListener("click", (event) => {
-                     //reserveSeat(obj);
+                     
                      reserveSeatServerRequest(obj)
                 });
                 temp.appendChild(btn);
@@ -193,6 +202,8 @@
             }
         }
 
+        //When a user is requesting a new ride, this function will take the input from the HTML fields
+        //then create a new ride object and call the send server method
         function validateInfo() {
 
             let from = document.getElementById("from").value;
@@ -228,6 +239,8 @@
             sendServer(newRideObject);
 
         }
+
+        //This API call will create a new ride where type is "requested"
         async function sendServer(nReq) {
             let url = '/rides/requestRide/' + JSON.stringify(username);
             let response = await fetch(url, {
@@ -246,6 +259,9 @@
             }
 
         }
+
+        //This API call will take in the ride that is being reserved and send the information to the server
+        //about who is reserving the ride
         async function reserveSeatServerRequest(nReq) {
             let url = "/rides/reserveSeat/" + JSON.stringify(username) + "/" + JSON.stringify(nReq);
             let anotherresponse = await fetch(url, {
@@ -268,7 +284,7 @@
                 alert("error.")
             }
         }
-
+        //This method is used for filtering rides by criteria
         function removeEntries(desiredOrigin, desiredDestination, desiredDate){
             let newData = JSON.parse(JSON.stringify(savedData));
             if(desiredOrigin !== ''){
@@ -314,12 +330,15 @@
             populate(newData);
         }
 
+        //The + sign is used to add a filter
         document.getElementById("addFilter").addEventListener("click", () => {
             const desiredOrigin = document.getElementById("Origin").value;
             const desiredDestination = document.getElementById("Destination").value;
             const desiredDate = document.getElementById("Date").value;
             removeEntries(desiredOrigin, desiredDestination, desiredDate);
         });
+
+        //The - sign is used to remove a filter
         document.getElementById("removeFilter").addEventListener("click", () => {
             console.log("clicked");
             let mainDiv = document.getElementById("avalRides");
