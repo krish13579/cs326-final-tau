@@ -79,7 +79,13 @@
         });
 
         async function createUser(userObj){
-            const request = await fetch('/users/register/'+ JSON.stringify(userObj));
+            const request = await fetch('/users/register/'+ JSON.stringify(userObj), {
+                method: 'POST',
+                body: JSON.stringify(userObj),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
             if(request.ok){
                 const response = await request.json();
                 if(response.validity){

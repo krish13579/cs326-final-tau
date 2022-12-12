@@ -90,7 +90,7 @@ router.get("/verify/:userObj", async (req, res) => {
 });
 
 //register new user
-router.get("/register/:userObj", async (req, res) => {
+router.post("/register/:userObj", async (req, res) => {
     const userObj = JSON.parse(req.params.userObj);
     const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [userObj.email]); //Checking if user already exists
     const arr = data.rows;
