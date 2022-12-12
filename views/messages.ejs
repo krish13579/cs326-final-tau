@@ -21,8 +21,10 @@
                     <header>Last Name </header>
                 </div>
                 <div class="Last-Contacted-On" id="email">
-                    <header>Email</header>
+                    <header>Email <span class="tab"></span> Ride ID</header>
+                    
                 </div>
+               
             </div>
         </div>
         <div class="article">
@@ -106,20 +108,33 @@
             let f = document.getElementById("first");
             let l = document.getElementById("last")
             let e = document.getElementById("email");
+            // let i = document.getElementById("id");
 
             for (let i = 0; i < info.length; ++i) {
                 let first = document.createElement("div");
                 let last = document.createElement("div");
                 let ema = document.createElement("div");
+                let t = document.createElement("span");
+                // let id = document.createElement("div");
+
                 first.textContent = info[i].fname;
                 last.textContent = info[i].lname;
-                ema.textContent = info[i].email;
+                ema.textContent = info[i].email ;
+                t.textContent = info[i].rideid;
+                // id.textContent = info[i].rideid;
+
                 first.classList.add("thisIsAGoodBox");
                 last.classList.add("thisIsAGoodBox");
                 ema.classList.add("thisIsABetterBox");
+                t.classList.add("thisIsABetterBox")
+                // id.classList.add("thisIsAOk Box");
+
                 f.append(first);
                 l.append(last);
                 e.append(ema);
+                e.append(t)
+                // i.append(id);
+
             }
 
 

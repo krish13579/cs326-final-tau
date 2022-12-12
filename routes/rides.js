@@ -48,19 +48,18 @@ router.get("/getBookedRides/:userInfo", (req, res) => {
 
 router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    console.log(user)
-    pool.query(`SELECT origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides WHERE creator=$1 AND type='offered'`, [user], (error, results) => {
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
+        //SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides WHERE creator=$1 AND type='offered'
         if (error) {
             throw error
         }
-        console.log("TES" + results.rows)
         res.status(200).json(results.rows)
     })
 });
 
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    pool.query(`SELECT users.fname, users.lname, users.email from rides, users where rides.creator = users.email and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
+    pool.query(`SELECT users.fname, users.lname, users.email, rides.rideid from rides, users where rides.creator = users.email and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
         if (error) {
             throw error
         }

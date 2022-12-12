@@ -103,8 +103,6 @@
                 let response2 = await responseR.json();
                 let riderData = response2;
                 let driverData = response1;
-                console.log(response1);
-                console.log(response2);
                 populate(driverData, riderData);
 
             } else {
@@ -133,6 +131,14 @@
             let rideData = rd;
 
 
+            for (let i = 0; i < rideData.length; ++i) {
+                let temp = document.createElement("div");
+                temp.classList.add("rider");
+                let entry = rideData[i];
+                temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
+                rider.append(temp);
+            }
+
             for (let i = 0; i < driveData.length; ++i) {
                 let temp = document.createElement("div");
                 temp.classList.add("driver");
@@ -141,13 +147,6 @@
                 driver.append(temp);
             }
 
-            for (let i = 0; i < rideData.length; ++i) {
-                let temp = document.createElement("div");
-                temp.classList.add("rider");
-                let entry = rideData[i];
-                temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + " To: " + entry.destination + " Date: " + entry.date + " Price: " + entry.price;
-                rider.append(temp);
-            }
 
 
 
