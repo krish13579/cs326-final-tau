@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const bcrypt = require("bcrypt");
-// const db = require("../queries.js")
+
+//Connect to Heroku Postgres Database for RideBuddy. 
 const Pool = require('pg').Pool
 require('dotenv').config()
 const pool = new Pool({
@@ -16,11 +17,11 @@ const pool = new Pool({
         rejectUnauthorized: false,
     }
 });
-pool.connect(() => console.log("connected"))
 
 //Set Up View Engine
 app.set("view engine", "ejs");
 
+//Encypt password for user object using bcrypt library. Returns user object with encrypted password.
 async function encryptAndSaveToDB(newData) {
     try {
         let result = JSON.parse(JSON.stringify(newData));
@@ -34,28 +35,17 @@ async function encryptAndSaveToDB(newData) {
         console.log("Unable to encrypt and save data");
     }
 }
-// compareHashedPassword(foundObj.password, userObj.password)
+
+
+// Compare user input with hashed password in database. Uses bcrypt library's compareSync function. Returns boolean value of if passwords match. 
 async function compareHashedPassword(passInDb, passSent) {
     try {
-
-        console.log("TEST" + bcrypt.compareSync(passSent, passInDb))
         return bcrypt.compareSync(passSent, passInDb);
     }
     catch {
-
+        console.log("Unable to match passwords");
     }
 }
-
-
-
-async function deleteUserFromDB(userID) {
-    const id = userID
-
-    pool.query('DELETE FROM users WHERE email = $1', [id]);
-    results.status(200).json({ status: 'success', message: 'done' })
-
-}
-
 
 //Sign Up Routes
 router.get("/new", (req, res) => {
@@ -63,6 +53,7 @@ router.get("/new", (req, res) => {
 });
 
 // Verify Users Route
+//Query database to find user and compare password using helper function compareHashedPassword. 
 router.get("/verify/:userObj", async (req, res) => {
     const userObj = JSON.parse(req.params.userObj);
     let foundObj = { "status": false, "password": "null" };
@@ -89,7 +80,7 @@ router.get("/verify/:userObj", async (req, res) => {
 
 });
 
-//register new user
+//register new user by inserting user into database if user doesn't already exist.
 router.post("/register/:userObj", async (req, res) => {
     const userObj = JSON.parse(req.params.userObj);
     const data = await pool.query(`SELECT * FROM users WHERE users.email= $1;`, [userObj.email]); //Checking if user already exists
@@ -126,8 +117,8 @@ router.route("/:id")
         }
         res.status(200).json(result);
     })
-    .put( (req, res) => {
-        // console.log(userObjArray);
+    //Update user information relating to password change.
+    .put((req, res) => {
         const userId = req.params.id;
         let body = '';
         req.on('data', data => body += data);
@@ -135,25 +126,22 @@ router.route("/:id")
             //Adds New User Data
             const data = JSON.parse(body);
             const pass = data;
-            console.log("pass" + pass)
             const hashed = await encryptAndSaveToDB(pass);
-            console.log("hased"+hashed.password)
-            console.log("user"+userId)
             pool.query('DELETE from users where email = $1', [data.email], (error, results1) => {
-                if(error){
+                if (error) {
                     throw error;
                 }
                 pool.query('INSERT INTO users (fname, lname, bdate, email, password) VALUES ($1, $2, $3, $4, $5)', [data.firstName, data.lastName, data.birthday, data.email, hashed.password], (error, results) => {
                     if (error) {
                         throw error;
                     }
-                  
+
                     res.status(201).json({ status: 'success', message: `Password Changed` });
-                    
-                    
+
+
                 })
             })
-            
+
         });
 
     })

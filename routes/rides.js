@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const app = express();
-const bcrypt = require("bcrypt");
+
+//Connect to Heroku Postgres Database for RideBuddy. 
 const Pool = require('pg').Pool
 require('dotenv').config()
 const pool = new Pool({
@@ -67,13 +68,13 @@ router.get("/messageData/:userInfo", (req, res) => {
         if (error) {
             throw error
         }
-        if(results.rows.length === 0){
+        if (results.rows.length === 0) {
             res.status(201).json({ status: 'Success', message: 'No messages yet.' });
         }
-        else if(results.rows.length > 0){
-         res.status(200).json(results.rows);
+        else if (results.rows.length > 0) {
+            res.status(200).json(results.rows);
         }
-        else{
+        else {
             res.status(400).json('No messages found.')
         }
     });
