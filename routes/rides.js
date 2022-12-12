@@ -53,7 +53,7 @@ router.get("/getBookedRides/:userInfo", (req, res) => {
 //Query db to get all rides a user has created
 router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where rides.creator = $1 and rides.type = 'offered'`, [user], (error, results) => {
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where rides.type = 'offered' and rides.creator =$1`, [user], (error, results) => {
         if (error) {
             throw error
         }
