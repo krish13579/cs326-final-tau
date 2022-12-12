@@ -127,20 +127,17 @@
         function init() {
             getData();
         }
-
-        
-        //Gets all offered rides and then sends information to populate page
+        let obj = [];
         async function getData() {
             let responseR = await fetch('/rides/getAllOfferedRides');
             if (responseR.ok) {
                 let response2 = await responseR.json();
-                 populate(response2);
+                populate(response2);
             } else {
                 alert("error getting data from server")
             }
         }
-        //When a ride is reserved, this gets the ride details, updates the UI, and sends to a method
-        //which will make the appropriate server call
+
          function reserveSeat(entry) {
             let rideObject = {
                 "rideID": entry.rideid,
@@ -154,10 +151,13 @@
                 "bookedUsers": entry.bookedUsers
             };
              reserveSeatServerRequest(rideObject);
-             location.reload();
+             let mainDiv = document.getElementById("avalRides");
+            if(mainDiv.contains(document.getElementById('rider'))){
+                mainDiv.removeChild(document.getElementById('rider'));
+            }
+            getData();
         }
 
-        //Appends new elements to the HTML with the relevant data
          function populate(rd) {
             let mainDiv = document.getElementById("avalRides");
             let rider = document.createElement("div");
@@ -171,7 +171,7 @@
                 let temp = document.createElement("div");
                 temp.classList.add("rider");
                 let entry = rideData[i];
-                const obj = {
+                const userObj = {
                     "rideID": entry.rideid,
                     "creator": entry.userId,
                     "type": "Offered",
@@ -182,14 +182,14 @@
                     "numOfSeats": entry.numOfSeats,
                     "bookedUsers": entry.bookedUsers
                 }
-                //If there are no seats available, we don't display them
+                
                 if(entry.numofseats > 0){
                 temp.textContent = "Ride ID: " + entry.rideid + "\t Origin: " + entry.origin + "\t To: " + entry.destination + "\t Date: " + entry.fdate + "\t Price: " + entry.price + "\t Seats: " + entry.numofseats + "    ";
                 let btn = document.createElement("button");
                 btn.innerHTML = "Reserve";
                 btn.classList.add("myButton2");
                 btn.addEventListener("click", (event) => {
-                     
+                     //reserveSeat(obj);
                      reserveSeatServerRequest(obj)
                 });
                 temp.appendChild(btn);
@@ -273,54 +273,54 @@
                 let response2 = await anotherresponse.json();
                 alert("Your seat has been reserved!");
 
-            } else if(anotherresponse.status === 401){
+            } else if (anotherresponse.status === 401) {
                 alert("This ride is full. Please check back or create a request!");
             }
-            else{
+            else {
                 alert("error.")
             }
         }
-        //This method is used for filtering rides by criteria
+
         function removeEntries(desiredOrigin, desiredDestination, desiredDate){
             let newData = JSON.parse(JSON.stringify(savedData));
-            if(desiredOrigin !== ''){
+            if (desiredOrigin !== '') {
                 newData = newData.filter(x => x.origin.toLowerCase() === desiredOrigin.toLowerCase())
             }
-            if(desiredDestination !== ''){
+            if (desiredDestination !== '') {
                 newData = newData.filter(x => x.destination.toLowerCase() === desiredDestination.toLowerCase())
             }
-            if(desiredDate !== ''){
+            if (desiredDate !== '') {
                 const dateString = desiredDate.toString();
                 const myArray = dateString.split("-");
                 const desiredDateArr = [myArray[1], myArray[2], myArray[0]];
                 newData = newData.filter(x => {
                     const months = {
-                        "Jan" : "1",
-                        "Feb" : "2",
-                        "Mar" : "3",
-                        "Apr" : "4",
-                        "May" : "5",
-                        "Jun" : "6",
-                        "Jul" : "7",
-                        "Aug" : "8",
-                        "Sep" : "9",
-                        "Oct" : "10",
-                        "Nov" : "11",
-                        "Dec" : "12"
+                        "Jan": "1",
+                        "Feb": "2",
+                        "Mar": "3",
+                        "Apr": "4",
+                        "May": "5",
+                        "Jun": "6",
+                        "Jul": "7",
+                        "Aug": "8",
+                        "Sep": "9",
+                        "Oct": "10",
+                        "Nov": "11",
+                        "Dec": "12"
                     };
                     const rideDate = x.fdate.toString();
                     const rideDateArr = rideDate.split("/");
                     rideDateArr[0] = months[rideDateArr[0]];
-                    if((rideDateArr[0] === desiredDateArr[0]) && (rideDateArr[1] === desiredDateArr[1]) && (rideDateArr[2] === desiredDateArr[2])){
+                    if ((rideDateArr[0] === desiredDateArr[0]) && (rideDateArr[1] === desiredDateArr[1]) && (rideDateArr[2] === desiredDateArr[2])) {
                         return true;
                     }
-                    else{
+                    else {
                         return false;
                     }
                 });
             }
             let mainDiv = document.getElementById("avalRides");
-            if(mainDiv.contains(document.getElementById('rider'))){
+            if (mainDiv.contains(document.getElementById('rider'))) {
                 mainDiv.removeChild(document.getElementById('rider'));
             }
             populate(newData);
@@ -338,7 +338,7 @@
         document.getElementById("removeFilter").addEventListener("click", () => {
             console.log("clicked");
             let mainDiv = document.getElementById("avalRides");
-            if(mainDiv.contains(document.getElementById('rider'))){
+            if (mainDiv.contains(document.getElementById('rider'))) {
                 mainDiv.removeChild(document.getElementById('rider'));
             }
             getData();

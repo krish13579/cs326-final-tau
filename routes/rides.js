@@ -53,10 +53,12 @@ router.get("/getBookedRides/:userInfo", (req, res) => {
 //Query db to get all rides a user has created
 router.get("/getOfferedRides/:userInfo", (req, res) => {
     let user = req.params.userInfo;
-    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where $1=ANY(bookedusers)`, [user], (error, results) => {
+    //  user = '"'+user+'"'
+    pool.query(`SELECT rideid, origin, destination, to_char(date, 'Mon/DD/YYYY') date, price from rides where type='offered' and  $1=ANY(creator)`, [user], (error, results) => {
         if (error) {
             throw error
         }
+        console.log(res.rows)
         res.status(200).json(results.rows)
     })
 });
@@ -64,7 +66,7 @@ router.get("/getOfferedRides/:userInfo", (req, res) => {
 //Query db to get contact info relating to rides a user has created. The query retrieves user info and ride id for respective reserved rides.
 router.get("/messageData/:userInfo", (req, res) => {
     const user = req.params.userInfo;
-    pool.query(`SELECT users.fname, users.lname, users.email, rides.rideid from rides, users where rides.creator = users.email and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
+    pool.query(`SELECT users.fname, users.lname, users.email, rides.rideid from rides, users where users.email=ANY(rides.creator) and rides.type='offered' and $1=ANY(rides.bookedusers);`, [user], (error, results) => {
         if (error) {
             throw error
         }
@@ -95,7 +97,6 @@ router.post('/reserveSeat/:id/:rid', (req, res) => {
         if (nSeats > 0) {
             const book = nSeats - 1;
             const userbook = user + ""
-
             pool.query('UPDATE rides SET numofseats = $1, bookedusers = array_append(bookedusers, $2) where rides.rideid = $3;', [book, userbook, rideID], (error2, results2) => {
                 if (error2) {
                     throw error2;
@@ -121,8 +122,9 @@ router.post('/requestRide/:userInfo', (req, res) => {
     req.on('data', data => body += data);
     req.on('end', () => {
         const data = JSON.parse(body);
-        const creator = data.creator + ""
-        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+        const userbook = '"' + user + '"';
+        
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES (Array [$1], $2, $3, $4, $5, $6, $7, $8)', [userbook, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
             if (error) {
                 throw error;
             }
@@ -140,8 +142,11 @@ router.post('/createRide/:userInfo', (req, res) => {
     let user = JSON.parse(req.params.userInfo);
     req.on('data', data => body += data);
     req.on('end', () => {
+
         const data = JSON.parse(body);
-        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [data.creator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
+        const userCreator ='"'+user+'"'
+        console.log("test", userCreator)
+        pool.query('INSERT INTO rides (creator, type, origin, destination, date, price, numOfSeats, bookedUsers) VALUES (Array [$1], $2, $3, $4, $5, $6, $7, $8)', [userCreator, data.type, data.origin, data.destination, data.date, data.price, data.numOfSeats, data.bookedUsers], (error, results) => {
             if (error) {
                 throw error;
             }
