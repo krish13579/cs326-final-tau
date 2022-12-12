@@ -154,11 +154,7 @@
                 "bookedUsers": entry.bookedUsers
             };
              reserveSeatServerRequest(rideObject);
-             let mainDiv = document.getElementById("avalRides");
-            if(mainDiv.contains(document.getElementById('rider'))){
-                mainDiv.removeChild(document.getElementById('rider'));
-            }
-            getData();
+             location.reload();
         }
 
         //Appends new elements to the HTML with the relevant data
