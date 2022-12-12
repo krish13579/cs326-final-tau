@@ -14,7 +14,7 @@ const pool = new Pool({
     port: process.env.POSTGRES_PORT,
     ssl: {
         rejectUnauthorized: false,
-    }
+    }  
 });
 //Set Up View Engine
 app.set("view engine", "ejs");
